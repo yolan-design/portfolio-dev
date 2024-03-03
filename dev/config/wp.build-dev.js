@@ -6,7 +6,7 @@ const { merge } = require("webpack-merge");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const PATHS = require('./paths');
-const wpBASE = require('./wp.build-base');
+const wpBASE = require('./wp.base-build');
 
 // CONFIG
 module.exports = merge(wpBASE, {
