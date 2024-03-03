@@ -1,2 +1,2 @@
-# portfolio-dev
-Development workspace of https://yolan.design
+# yolan.design portfolio
+Development workspace of [yolan.design](https://yolan.design)
