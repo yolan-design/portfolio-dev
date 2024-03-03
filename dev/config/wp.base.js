@@ -1,11 +1,10 @@
 // WEBPACK 5 CONFIG
 // - BASE
-// general config
+// - general config
 
 const path = require("path");
 const fg = require("fast-glob");
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const PATHS = require('./paths');
@@ -58,12 +57,18 @@ module.exports = {
         // Print build progress
         new webpack.ProgressPlugin(),
 
-        // Generates HTML file from template
-        new HtmlWebpackPlugin({
-            favicon: PATHS.assets + '/favicons/favicon-y.svg',
-            template: PATHS.dev + '/other/template.html',
-            filename: 'index.html', // output file
-            minify: false
-        }),
+        // Generate HTML file for each page
+        ...fg.sync(["*/index.html"]).map(pagePath =>
+            new HtmlWebpackPlugin({
+                template: pagePath, // input file
+                filename: pagePath, // output file
+                minify: false,
+
+                // head
+                meta: {viewport: 'width=device-width, initial-scale=1.0'},
+                favicon: PATHS.assets + '/favicons/favicon-y.svg',
+                inject : "body",
+            })
+          ),
     ],
 }
