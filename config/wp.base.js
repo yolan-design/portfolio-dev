@@ -14,7 +14,7 @@ let PAGES = []; // [ page path, subdirectory depth, public path ]
 fg.sync(["*index.html", "*/index.html"]).forEach(file => {
     if(!file.includes("build/")) {
         const subDirDepth = (file.split("/")).length - 1;
-        PAGES.push([ file, subDirDepth, ((subDirDepth > 0 ) ? "../".repeat(subDirDepth) : "./") ]);
+        PAGES.push([ file, subDirDepth, ((subDirDepth > 0 ) ? "../".repeat(subDirDepth) : "") ]);
     }
 })
 console.info("-->", PAGES.length, "pages", PAGES, "\n");

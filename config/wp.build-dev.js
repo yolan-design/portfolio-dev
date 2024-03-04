@@ -27,7 +27,7 @@ module.exports = merge(wpBASE, {
                     from: PATHS.assets,
                     to: PATHS.buildDev + "/assets",
                     globOptions: {
-                        ignore: ['*.DS_Store', ".git/**"],
+                        ignore: ['*.DS_Store', "**/.git"],
                     },
                     //noErrorOnMissing: true,
                 },
