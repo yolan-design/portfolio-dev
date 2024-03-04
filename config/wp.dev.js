@@ -2,7 +2,6 @@
 // - DEV
 // - localhost with hot reloading
 
-
 const { merge } = require("webpack-merge");
 
 const PATHS = require('./paths');
@@ -15,6 +14,7 @@ module.exports = merge(wpBASE, {
 
     // Local server at http://localhost:8888 with hot reloading
     devServer: {
+        static: "./",
         historyApiFallback: true,
         open: true,
         compress: true,
