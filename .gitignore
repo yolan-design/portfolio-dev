@@ -31,3 +31,4 @@ _old
 assets
 build
 _build
+*.github.io

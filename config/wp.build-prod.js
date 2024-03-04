@@ -3,6 +3,7 @@
 // - final production build
 
 const { merge } = require("webpack-merge");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const PATHS = require('./paths');
 const wpBASE = require('./wp.base-build');
@@ -16,4 +17,21 @@ module.exports = merge(wpBASE, {
     output: {
         path: PATHS.build,
     },
+
+    // Customize build process
+    plugins: [
+        // Duplicate assets to build folder
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: PATHS.dev + "/public",
+                    to: PATHS.build + "/",
+                    globOptions: {
+                        ignore: ['*.DS_Store', "**/.git"],
+                    },
+                    //noErrorOnMissing: true,
+                },
+            ],
+        }),
+    ],
 })

@@ -43,9 +43,6 @@ module.exports = merge(wpBASE, {
 
     // Customize build process
     plugins: [
-        // Print build progress
-        new webpack.ProgressPlugin(),
-
         // Extract styles as CSS
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
@@ -53,7 +50,7 @@ module.exports = merge(wpBASE, {
 
         // Clean build folder
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ["**/*", "!.git/**", "!dev/**", "!old/**"], // exceptions
+            cleanOnceBeforeBuildPatterns: ["**/*", "!.git/**", "!dev/**", "!old/**", "!*.md"], // exceptions
             verbose: true, // prints what's cleaned
             dry: false // true to test (no deletion)
         }),

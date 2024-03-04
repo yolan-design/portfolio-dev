@@ -12,9 +12,9 @@ const PATHS = require('./paths');
 
 let PAGES = []; // [ page path, subdirectory depth, public path ]
 fg.sync(["*index.html", "*/index.html"]).forEach(file => {
-    if(!file.includes("build/")) {
+    if (!file.includes("build/") && !file.includes(".github.io")) {
         const subDirDepth = (file.split("/")).length - 1;
-        PAGES.push([ file, subDirDepth, ((subDirDepth > 0 ) ? "../".repeat(subDirDepth) : "") ]);
+        PAGES.push([file, subDirDepth, ((subDirDepth > 0) ? "../".repeat(subDirDepth) : "")]);
     }
 })
 console.info("-->", PAGES.length, "pages", PAGES, "\n");
@@ -52,16 +52,6 @@ module.exports = {
         ],
     },
 
-    // Will replace aliases with paths
-    resolve: {
-        modules: [PATHS.dev, 'node_modules'],
-        extensions: ['.js', '.jsx', '.json'],
-        alias: {
-            "@dev": PATHS.dev,
-            "@assets": PATHS.assets,
-        },
-    },
-
     // Customize build process
     plugins: [
         // Print build progress
@@ -74,11 +64,12 @@ module.exports = {
                 filename: pagePath[0], // output file
                 publicPath: pagePath[2],
 
-                inject : "body",
-                scriptLoading : "module",
+                inject: "body",
+                scriptLoading: "module",
                 minify: false,
 
-                head_settings : `
+                head_settings:
+`
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -86,12 +77,17 @@ module.exports = {
     <link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-64.png">
     <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-32.png">
     <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-16.png">
-                `,
+`,
             })
-          ),
-          new HtmlInlineScriptPlugin({
+        ),
+        new HtmlInlineScriptPlugin({
             scriptMatchPattern: [/app.+[.]css$/],
             //htmlMatchPattern: [/index.html$/],
-          }),
+        }),
+
+        new webpack.NormalModuleReplacementPlugin(
+            /(@m\/)/
+            , "assets/medias"
+        )
     ],
 }
