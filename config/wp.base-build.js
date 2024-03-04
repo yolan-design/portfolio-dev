@@ -17,7 +17,6 @@ module.exports = merge(wpBASE, {
     // Where everything goes at the end
     output: {
         publicPath: '/',
-        filename: 'js/[name].[contenthash].bundle.js',
     },
 
     // How modules are treated
@@ -56,7 +55,7 @@ module.exports = merge(wpBASE, {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ["**/*", "!.git/**", "!dev/**", "!old/**"], // exceptions
             verbose: true, // prints what's cleaned
-            dry: true // true to test (no deletion)
+            dry: false // true to test (no deletion)
         }),
     ],
 

@@ -6,13 +6,18 @@ const path = require("path");
 const fg = require("fast-glob");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 
 const PATHS = require('./paths');
 
-const PAGES = fg.sync(["*index.html", "*/index.html"]);
-console.info("-->", PAGES.length, "pages", "\n", PAGES);
-
-console.log(PATHS.dev);
+let PAGES = []; // [ page path, subdirectory depth, public path ]
+fg.sync(["*index.html", "*/index.html"]).forEach(file => {
+    if(!file.includes("build/")) {
+        const subDirDepth = (file.split("/")).length - 1;
+        PAGES.push([ file, subDirDepth, ((subDirDepth > 0 ) ? "../".repeat(subDirDepth) : "./") ]);
+    }
+})
+console.info("-->", PAGES.length, "pages", PAGES, "\n");
 
 // CONFIG
 module.exports = {
@@ -27,10 +32,10 @@ module.exports = {
         filename: "app.[contenthash].js",
 
         // asset type modules name
-        assetModuleFilename: (pathData) => {
+        /*assetModuleFilename: (pathData) => {
             const filepath = path.dirname(pathData.filename).split("/").slice(1).join("/");
             return filepath + "/[name][ext]";
-        }
+        }*/
     },
 
     // How modules are treated
@@ -65,18 +70,28 @@ module.exports = {
         // Generate HTML file for each page
         ...PAGES.map(pagePath =>
             new HtmlWebpackPlugin({
-                template: pagePath, // input file
-                filename: pagePath, // output file
+                template: pagePath[0], // input file
+                filename: pagePath[0], // output file
+                publicPath: pagePath[2],
+
+                inject : "body",
+                scriptLoading : "module",
                 minify: false,
 
-                // head
-                meta: {viewport: 'width=device-width, initial-scale=1.0'},
-                favicon: PATHS.assets + '/favicons/favicon-y-16.png',
-                favicon: PATHS.assets + '/favicons/favicon-y-32.png',
-                favicon: PATHS.assets + '/favicons/favicon-y-64.png',
-                favicon: PATHS.assets + '/favicons/favicon-y.svg',
-                inject : "body",
+                head_settings : `
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/svg+xml" href="${pagePath[2]}assets/favicons/favicon-y.svg">
+    <link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-64.png">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-32.png">
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-16.png">
+                `,
             })
           ),
+          new HtmlInlineScriptPlugin({
+            scriptMatchPattern: [/app.+[.]css$/],
+            //htmlMatchPattern: [/index.html$/],
+          }),
     ],
 }
