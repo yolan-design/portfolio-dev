@@ -16,7 +16,6 @@ module.exports = merge(wpBASE, {
     devServer: {
         static: "./",
         historyApiFallback: true,
-        open: true,
         compress: true,
         hot: true,
         port: 8888,

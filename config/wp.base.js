@@ -3,21 +3,11 @@
 // - general config
 
 const path = require("path");
-const fg = require("fast-glob");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 
 const PATHS = require('./paths');
 
-let PAGES = []; // [ page path, subdirectory depth, public path ]
-fg.sync(["*index.html", "*/index.html"]).forEach(file => {
-    if (!file.includes("build/") && !file.includes(".github.io")) {
-        const subDirDepth = (file.split("/")).length - 1;
-        PAGES.push([file, subDirDepth, ((subDirDepth > 0) ? "../".repeat(subDirDepth) : "")]);
-    }
-})
-console.info("-->", PAGES.length, "pages", PAGES, "\n");
 
 // CONFIG
 module.exports = {
@@ -58,7 +48,7 @@ module.exports = {
         new webpack.ProgressPlugin(),
 
         // Generate HTML file for each page
-        ...PAGES.map(pagePath =>
+        ...PATHS.PAGES.map(pagePath =>
             new HtmlWebpackPlugin({
                 template: pagePath[0], // input file
                 filename: pagePath[0], // output file
@@ -68,22 +58,22 @@ module.exports = {
                 scriptLoading: "module",
                 minify: false,
 
-                head_settings:
-`
+                noscript_error:`
+<noscript>
+    <div class="ERROR" translate="yes"><div><span class="t">Something feels wrong...</span><span>Please try,</span><a class="l" href="https://www.enablejavascript.io/" target="_blank"><span>Enabling JavaScript</span></a><a class="l" href="https://browsehappy.com/" target="_blank"><span>Using an up-to-date Internet browser</span></a><span>to continue browsing here.</span></div></div>
+</noscript>
+`,
+                head_settings:`
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/svg+xml" href="${pagePath[2]}assets/favicons/favicon-y.svg">
-    <link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-64.png">
-    <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-32.png">
-    <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-16.png">
+    <link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-y-64.png">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-y-32.png">
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-y-16.png">
 `,
             })
         ),
-        new HtmlInlineScriptPlugin({
-            scriptMatchPattern: [/app.+[.]css$/],
-            //htmlMatchPattern: [/index.html$/],
-        }),
 
         new webpack.NormalModuleReplacementPlugin(
             /(@m\/)/

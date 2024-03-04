@@ -4,10 +4,11 @@
 
 const { merge } = require("webpack-merge");
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 
 const PATHS = require('./paths');
 const wpBASE = require('./wp.base');
@@ -43,16 +44,21 @@ module.exports = merge(wpBASE, {
 
     // Customize build process
     plugins: [
-        // Extract styles as CSS
-        new MiniCssExtractPlugin({
-            filename: "[name].[contenthash].css"
-        }),
-
         // Clean build folder
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ["**/*", "!.git/**", "!dev/**", "!old/**", "!*.md"], // exceptions
             verbose: true, // prints what's cleaned
             dry: false // true to test (no deletion)
+        }),
+
+        // Extract styles as CSS
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css"
+        }),
+
+        new HtmlInlineScriptPlugin({
+            scriptMatchPattern: [/app.+[.]css$/],
+            //htmlMatchPattern: [/index.html$/],
         }),
     ],
 
