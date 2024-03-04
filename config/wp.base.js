@@ -9,6 +9,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const PATHS = require('./paths');
 
+const PAGES = fg.sync(["*index.html", "*/index.html"]);
+console.info("-->", PAGES.length, "pages", "\n", PAGES);
+
+console.log(PATHS.dev);
+
 // CONFIG
 module.exports = {
     // From where it all starts
@@ -58,7 +63,7 @@ module.exports = {
         new webpack.ProgressPlugin(),
 
         // Generate HTML file for each page
-        ...fg.sync(["*/index.html"]).map(pagePath =>
+        ...PAGES.map(pagePath =>
             new HtmlWebpackPlugin({
                 template: pagePath, // input file
                 filename: pagePath, // output file
@@ -66,6 +71,9 @@ module.exports = {
 
                 // head
                 meta: {viewport: 'width=device-width, initial-scale=1.0'},
+                favicon: PATHS.assets + '/favicons/favicon-y-16.png',
+                favicon: PATHS.assets + '/favicons/favicon-y-32.png',
+                favicon: PATHS.assets + '/favicons/favicon-y-64.png',
                 favicon: PATHS.assets + '/favicons/favicon-y.svg',
                 inject : "body",
             })

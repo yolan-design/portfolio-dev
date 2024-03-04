@@ -10,10 +10,10 @@
     "not dead"
   ],
   "scripts": {
-    "build": "webpack --config ./dev/config/wp.build-prod.js",
-    "build-dev": "webpack --config ./dev/config/wp.build-dev.js",
-    "dev": "webpack-dev-server --config ./dev/config/wp.dev.js",
-    "o": "webpack-dev-server --config ./dev/config/wp.dev.js --open"
+    "build": "webpack --config ./config/wp.build-prod.js",
+    "build-dev": "webpack --config ./config/wp.build-dev.js",
+    "dev": "webpack-dev-server --config ./config/wp.dev.js",
+    "o": "webpack-dev-server --config ./config/wp.dev.js --open"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
@@ -23,6 +23,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.10.0",
+    "css-minimizer-webpack-plugin": "^6.0.0",
     "cssnano": "^6.0.5",
     "fast-glob": "^3.3.2",
     "html-loader": "^5.0.0",
