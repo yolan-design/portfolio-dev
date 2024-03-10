@@ -10,38 +10,33 @@ const wpBASE = require('./wp.base');
 // CONFIG
 module.exports = merge(wpBASE, {
     mode: 'development',
-    devtool: 'inline-source-map', // source maps
+    devtool: 'eval-source-map',
 
     // Local server at http://localhost:8888 with hot reloading
     devServer: {
-        static: "./",
-        historyApiFallback: true,
-        compress: true,
-        hot: true,
-        port: 8888,
+        static: {
+          directory: PATHS.build,
+          publicPath: '/',
+          watch: true,
+        },
         client: {
-          overlay: {
-            errors: true,
-            warnings: true
-          },
-        }
+            overlay: {
+                errors: true,
+                warnings: true
+            },
+        },
+        // historyApiFallback: true, // redirect to home page instead of 404
+        // open: true,
+        compress: true,
+        hot: false,
+        host: 'localhost',
+        port: 8888,
     },
 
-    module: {
-        rules: [
-            // Inject CSS in head with source maps
-            {
-                test: /\.(sa|sc)ss$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: { sourceMap: true, importLoaders: 1, modules: false },
-                    },
-                    { loader: 'postcss-loader', options: { sourceMap: true } },
-                    { loader: 'sass-loader', options: { sourceMap: true } },
-                ],
-            },
-        ],
+    /* File watcher options */
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 300,
+      ignored: /node_modules/,
     },
 })

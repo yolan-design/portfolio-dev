@@ -27,7 +27,7 @@ module.exports = merge(wpBASE, {
                     from: PATHS.dev + "/public",
                     to: PATHS.build + "/",
                     globOptions: {
-                        ignore: ['*.DS_Store', "**/.git"],
+                        ignore: ['*.DS_Store', 'Thumbs.db', "**/.git"],
                     },
                     //noErrorOnMissing: true,
                 },

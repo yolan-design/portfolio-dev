@@ -4,6 +4,7 @@
 
 const path = require("path");
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const PATHS = require('./paths');
@@ -21,24 +22,43 @@ module.exports = {
         path: PATHS.build,
         filename: "app.[contenthash].js",
 
-        // asset type modules name
-        /*assetModuleFilename: (pathData) => {
-            const filepath = path.dirname(pathData.filename).split("/").slice(1).join("/");
-            return filepath + "/[name][ext]";
-        }*/
+        // asset type modules url
+        assetModuleFilename: (pathData) => { return pathData.filename; }
     },
 
     // How modules are treated
     module: {
         rules: [
+            {
+                test: /\.((c|sa|sc)ss)$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+            },
+
             // JS : use babel to transpile
-            { test: /\.js$/i, use: 'babel-loader' },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                      presets: [
+                        ['@babel/preset-env']
+                      ]
+                    }
+                  }
+            },
 
             // Images
             //{ test: /\.(ico|gif|png|jpe?g|svg)$/i, type: 'asset/resource' },
 
             // Fonts
-            //{ test: /\.(woff(2)?|eot|ttf|otf)$/i, type: 'asset/resource' },
+            {
+                test: /\.(woff(2)?|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    emit: false // no copy
+                }
+            },
         ],
     },
 
@@ -46,6 +66,11 @@ module.exports = {
     plugins: [
         // Print build progress
         new webpack.ProgressPlugin(),
+
+        // Extract styles as CSS
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css"
+        }),
 
         // Generate HTML file for each page
         ...PATHS.PAGES.map(pagePath =>
@@ -71,10 +96,5 @@ module.exports = {
 `,
             })
         ),
-
-        new webpack.NormalModuleReplacementPlugin(
-            /(@m\/)/
-            , "assets/medias"
-        )
     ],
 }

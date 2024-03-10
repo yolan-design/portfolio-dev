@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 const fg = require("fast-glob");
 
 let pagesArray = []; // [ page path, subdirectory depth, public path ]

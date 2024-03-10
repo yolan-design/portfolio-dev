@@ -11,7 +11,7 @@ const wpBASE = require('./wp.base-build');
 // CONFIG
 module.exports = merge(wpBASE, {
     mode: 'development',
-    devtool: 'inline-source-map', // source maps
+    devtool: 'eval-source-map',
 
     // Where everything goes at the end
     output: {
