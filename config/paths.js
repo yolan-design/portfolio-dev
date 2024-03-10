@@ -3,11 +3,11 @@ const fg = require("fast-glob");
 
 let pagesArray = []; // [ page path, subdirectory depth, public path, output path ]
 fg.sync(["dev/**/*index.html"]).forEach(file => {
-    const subDirDepth = (file.split("/")).length - 1;
+    const subDirDepth = (file.split("/")).length - 2;
     pagesArray.push([
         file,
         subDirDepth,
-        ((subDirDepth > 1) ? "../".repeat(subDirDepth) : ""),
+        ((subDirDepth > 0) ? "../".repeat(subDirDepth) : ""),
         file.replace("dev/", "")
     ]);
 })

@@ -31,12 +31,46 @@ module.exports = {
         rules: [
             {
                 test: /\.((c|sa|sc)ss)$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    require('postcss-inline-svg')({ // https://github.com/TrySound/postcss-inline-svg
+                                        removeFill: true,
+                                        removeStroke: true,
+                                    }),
+                                    require('postcss-svgo')({ // https://github.com/cssnano/cssnano/tree/master/packages/postcss-svgo
+                                        params: {
+                                            overrides: {
+                                                removeViewBox: false,
+                                                removeComments: true,
+                                                cleanupNumericValues: {
+                                                    floatPrecision: 3
+                                                }
+                                            }
+                                        }
+                                    }),
+                                    require('postcss-nested')({ // https://github.com/postcss/postcss-nested
+                                        preserveEmpty: false
+                                    }),
+                                    require('postcss-short'), // https://github.com/csstools/postcss-short
+                                    require('postcss-viewport-height-correction'), // https://github.com/Faisal-Manzer/postcss-viewport-height-correction
+                                    require('postcss-preset-env'), // https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
+                                    require('autoprefixer'), // https://github.com/postcss/autoprefixer
+                                ],
+                            },
+                        },
+                    },
+                    'sass-loader'],
             },
 
             // JS : use babel to transpile
             {
-                test: /\.js$/,
+                test: /\.js$/i,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
