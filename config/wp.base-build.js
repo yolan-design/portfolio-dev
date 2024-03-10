@@ -18,6 +18,20 @@ module.exports = merge(wpBASE, {
         publicPath: '/',
     },
 
+    // How modules are treated
+    module: {
+        rules: [
+            // Fonts
+            {
+                test: /\.(woff(2)?|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    emit: false // no copy
+                }
+            },
+        ],
+    },
+
     // Will minimize files
     optimization: {
         minimizer: [

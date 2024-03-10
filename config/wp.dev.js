@@ -14,12 +14,15 @@ module.exports = merge(wpBASE, {
 
     // Local server at http://localhost:8888 with hot reloading
     devServer: {
-        static: {
-          directory: PATHS.build,
-          publicPath: '/',
-          watch: true,
-        },
+        static: [
+            {
+                directory: PATHS.dev,
+                publicPath: '/',
+                watch: true,
+            },
+        ],
         client: {
+            progress: true,
             overlay: {
                 errors: true,
                 warnings: true
@@ -27,16 +30,19 @@ module.exports = merge(wpBASE, {
         },
         // historyApiFallback: true, // redirect to home page instead of 404
         // open: true,
+        liveReload: true,
         compress: true,
-        hot: false,
+        hot: true,
         host: 'localhost',
         port: 8888,
     },
 
     /* File watcher options */
     watchOptions: {
-      aggregateTimeout: 300,
+      aggregateTimeout: 175,
       poll: 300,
       ignored: /node_modules/,
     },
+
+
 })

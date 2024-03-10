@@ -50,15 +50,6 @@ module.exports = {
 
             // Images
             //{ test: /\.(ico|gif|png|jpe?g|svg)$/i, type: 'asset/resource' },
-
-            // Fonts
-            {
-                test: /\.(woff(2)?|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-                generator: {
-                    emit: false // no copy
-                }
-            },
         ],
     },
 
@@ -76,7 +67,7 @@ module.exports = {
         ...PATHS.PAGES.map(pagePath =>
             new HtmlWebpackPlugin({
                 template: pagePath[0], // input file
-                filename: pagePath[0], // output file
+                filename: pagePath[3], // output file
                 publicPath: pagePath[2],
 
                 inject: "body",
