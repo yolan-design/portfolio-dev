@@ -1,5 +1,5 @@
 
-import * as PROJECTS from "./other/projects.js";
+import * as PROJECTS from "./import/projects.js";
 
 import "./main.scss"
 
