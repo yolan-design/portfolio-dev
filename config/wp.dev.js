@@ -23,6 +23,7 @@ module.exports = merge(wpBASE, {
         ],
         client: {
             progress: true,
+            logging: 'verbose',
             overlay: {
                 errors: true,
                 warnings: true
