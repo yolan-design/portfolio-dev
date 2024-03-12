@@ -111,17 +111,16 @@ module.exports = {
                 scriptLoading: "module",
                 minify: false,
 
-                noscript_error: `<noscript><div class="ERROR" translate="yes"><div><span class="t">Something feels wrong...</span><span>Please try,</span><a class="l" href="https://www.enablejavascript.io/" target="_blank"><span>Enabling JavaScript</span></a><a class="l" href="https://browsehappy.com/" target="_blank"><span>Using an up-to-date Internet browser</span></a><span>to continue browsing here.</span></div></div></noscript>`,
-
                 head_settings:`
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/svg+xml" href="${pagePath[2]}assets/favicons/favicon-y.svg">
-    <link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-y-64.png">
-    <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-y-32.png">
-    <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-y-16.png">
+<link rel="icon" type="image/svg+xml" href="${pagePath[2]}assets/favicons/favicon-y.svg">
+<link rel="alternate icon" type="image/png" sizes="64x64" href="${pagePath[2]}assets/favicons/favicon-y-64.png">
+<link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-y-32.png">
+<link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-y-16.png">
 `,
+                noscript_error: PARTS.NOSCRIPT_ERROR,
                 part_footer: PARTS.FOOTER,
             })
         ),
