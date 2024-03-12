@@ -23,7 +23,7 @@ module.exports = {
         filename: "app.[contenthash].js",
 
         // asset type modules url
-        assetModuleFilename: (pathData) => { return pathData.filename; }
+        assetModuleFilename: (pathData) => { return (pathData.filename).replace("dev/", ""); }
     },
 
     // How modules are treated
