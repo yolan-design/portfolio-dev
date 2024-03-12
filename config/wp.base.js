@@ -57,7 +57,9 @@ module.exports = {
                                     require('postcss-nested')({ // https://github.com/postcss/postcss-nested
                                         preserveEmpty: false
                                     }),
-                                    require('postcss-short'), // https://github.com/csstools/postcss-short
+                                    require('postcss-short')({ // https://github.com/csstools/postcss-short
+                                        skip: '_'
+                                    }),
                                     require('postcss-viewport-height-correction'), // https://github.com/Faisal-Manzer/postcss-viewport-height-correction
                                     require('postcss-preset-env'), // https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
                                     require('autoprefixer'), // https://github.com/postcss/autoprefixer
