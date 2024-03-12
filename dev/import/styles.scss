@@ -113,7 +113,7 @@ span {
 p + p {
     margin-top: 0.75em;
 }
-span + span,
+.span-spacing > span + span,
 p + span,
 span + p {
     margin-top: 0.5rem;
