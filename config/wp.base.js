@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const PATHS = require('./paths');
+const PARTS = require('../dev/import/parts.js');
 
 
 // CONFIG
@@ -121,6 +122,7 @@ module.exports = {
     <link rel="alternate icon" type="image/png" sizes="32x32" href="${pagePath[2]}assets/favicons/favicon-y-32.png">
     <link rel="alternate icon" type="image/png" sizes="16x16" href="${pagePath[2]}assets/favicons/favicon-y-16.png">
 `,
+                part_footer: PARTS.FOOTER,
             })
         ),
     ],

@@ -64,7 +64,7 @@ details,
 embed,
 figure,
 figcaption,
-footer,
+footer, footer-contact, footer-cta,
 header,
 hgroup,
 menu,
@@ -82,6 +82,21 @@ video {
     margin: 0;
     padding: 0;
     vertical-align: baseline;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 ul {
@@ -120,7 +135,7 @@ aside,
 details,
 figcaption,
 figure,
-footer,
+footer, footer-contact, footer-cta,
 header,
 hgroup,
 main,

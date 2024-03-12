@@ -15,6 +15,7 @@
     --spacing-40: 4rem;
     --spacing-50: 5rem;
     --spacing-60: 6rem;
+    --spacing-80: 8rem;
 }
 
 // scale
@@ -22,12 +23,27 @@ html {
     font-size: 10px;
 }
 svg {
-    font-size: 3.2rem;
+    overflow: visible;
+    fill: var(--fill);
+    stroke: transparent;
+    font-size: 6.4rem;
     size: 1em;
-    stroke-width: 0.75em;
+    stroke-width: 0;
+
+    &.stroke, .stroke {
+        fill: none;
+        stroke: var(--fill);
+        stroke-width: 4px;
+    }
+    &.rounded, .rounded {
+        stroke-linecap: round;
+    }
 }
 
 // default text
+@mixin txt-w-425 {
+    font-weight: 425;
+}
 @mixin txt-w-450 {
     font-weight: 450;
 }
@@ -65,31 +81,43 @@ svg {
     font-size: 2.1rem;
     line-height: 130%;
     word-spacing: 0.025em;
+    letter-spacing: -0.02em;
+}
+@mixin font-base-WorkSans {
+    font-family: "Work Sans", sans-serif;
+
+    font-variant-ligatures: contextual;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "liga", "clig", "calt", "ss04";
+}
+@mixin font-base-BricolageGrotesque {
+    font-family: "Bricolage Grotesque", serif;
+    font-variant-ligatures: contextual;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "liga", "clig", "calt";
 }
 
 body,
 p, span, a,
 h4, h5, h6 {
-    font-family: "Work Sans", sans-serif;
-    letter-spacing: -0.035em;
-
-    font-variant-ligatures: contextual;
-    font-variant-numeric: ordinal;
-    font-feature-settings: "liga", "clig", "calt", "ss04";
+    @include font-base-WorkSans;
 
     text-decoration: none;
     text-underline-offset: 0.2em !important;
     text-decoration-thickness: var(--stroke-w) !important;
 }
-body, p {
+body {
     @include txt-normal;
     @include txt-w-450;
 }
-span {
+span, p, button {
+    font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
+    letter-spacing: inherit;
     word-spacing: inherit;
+    font-feature-settings: inherit;
 }
 
 .num-mono {
@@ -121,10 +149,7 @@ span + p {
 
 // TITLES
 h1, h2, h3 {
-    font-family: "Bricolage Grotesque", serif;
-    font-variant-ligatures: contextual;
-    font-variant-numeric: ordinal;
-    font-feature-settings: "liga", "clig", "calt";
+    @include font-base-BricolageGrotesque;
 }
 h1 {
     font-size: 7.5rem;
@@ -175,10 +200,14 @@ h6 {
 
 
 // ELEMENTS
-a, a:visited {
+a {
     @include txt-normal;
-    @include txt-w-semibold;
-    text-decoration: underline;
+
+    &.fat,
+    &.fat:visited {
+        @include txt-w-semibold;
+        text-decoration: underline;
+    }
 
     &.minimal {
         @include txt-w-450;
@@ -213,26 +242,6 @@ a, a:visited {
         margin-left: 2rem;
     }
 }
-
-@mixin low-fill-o {
-    opacity: var(--low-fill-o);
-}
-@mixin low-bg-o {
-    opacity: var(--low-bg-o);
-}
-@mixin txt-low {
-    color: var(--fill-low);
-}
-.low {
-    @include low-fill-o;
-}
-.low-bg {
-    @include low-bg-o;
-}
-.txt-low {
-    @include txt-low;
-}
-
 
 @mixin stroke-around($radius : 2.5rem) {
     border: var(--stroke);
@@ -271,6 +280,73 @@ a, a:visited {
     }
 }
 
+@mixin low-fill-o {
+    opacity: var(--low-fill-o);
+}
+@mixin low-bg-o {
+    opacity: var(--low-bg-o);
+}
+@mixin txt-low {
+    color: var(--fill-low);
+}
+.low {
+    @include low-fill-o;
+}
+.low-bg {
+    @include low-bg-o;
+}
+.txt-low {
+    @include txt-low;
+}
+
+.tip {
+    font-size: 0.75em;
+}
+.tip-hover-bottom {
+    position: relative;
+
+    .tip {
+        --anim-offset: 0em;
+        pointer-events: none;
+        position: absolute;
+        top: calc(100% + var(--anim-offset));
+        left: 0;
+    }
+    .tip:not(.no-hover) {
+        opacity: 0;
+        transform: translateY(-0.5em);
+        transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.5, 0.4, 0, 1);
+    }
+    &:hover .tip:not(.no-hover) {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.65, 0, 1);
+    }
+}
+p key {
+    @include txt-w-semibold;
+    line-height: 1;
+    letter-spacing: 0;
+    padding: 0.1em 0.3em;
+    border-radius: 0.4em;
+    border: rgba(var(--bg-rgb), 0.2) solid 1px;
+    background-color: rgba(var(--bg-rgb), 0.15);
+}
+
+.icon-arrow {
+    --stroke-width: 6px;
+    * {
+        fill: none;
+        stroke: var(--fill);
+    }
+    line {
+        stroke-width: calc(var(--stroke-width) / 2);
+    }
+    polyline {
+        stroke-width: var(--stroke-width);
+        stroke-linecap: round;
+    }
+}
 
 // LAYOUT
 .sep {
@@ -288,6 +364,10 @@ a, a:visited {
 @mixin flex-center-h {
     display: flex;
     align-items: center;
+}
+@mixin flex-v {
+    display: flex;
+    flex-direction: column;
 }
 @mixin flex-center-v {
     display: flex;
@@ -322,12 +402,35 @@ a, a:visited {
     @include flex-center-h;
     --ico-size: 1em;
     --ico-spacing: 1.2rem;
+    --ico-url: "";
 
     > *:first-child {
         margin-right: var(--ico-spacing);
-
-        &svg {
-            font-size: --ico-size;
-        }
     }
+    > svg:first-child {
+        font-size: var(--ico-size);
+    }
+    > div:first-child:not(:last-child) {
+        size: var(--ico-size);
+    }
+}
+a.ico-txt:hover svg {
+    --stroke-width: 8px;
+}
+
+// GLOBAL GRID
+.ggrid, *[class*="ggrid-"] {
+    display: grid;
+    grid-template-columns: repeat(12, var(--doc-col-width));
+    gap: var(--doc-gutter);
+    height: 100%;
+}
+*[class*="ggrid-"] + *[class*="ggrid-"] {
+    margin-left: var(--doc-gutter);
+}
+.ggrid-7 {
+    grid-template-columns: repeat(7, var(--doc-col-width));
+}
+.ggrid-5 {
+    grid-template-columns: repeat(5, var(--doc-col-width));
 }

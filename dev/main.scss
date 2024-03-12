@@ -18,8 +18,7 @@
     --doc-margin: 8rem;
     --doc-margin_small: 3rem;
     --doc-gutter: 6rem;
-    --doc-col-width: calc((100dvw / 12) - (var(--doc-gutter) * 12) - (var(--doc-margin) * 2));
-    --doc-col-gutter: calc((var(--doc-gutter) * 12) - (100dvw / 12) - (var(--doc-margin) * 2));
+    --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * 11)) / 12) );
 }
 html {
     --fill-dynamic: var(--rgb-main-fill);
@@ -29,3 +28,191 @@ html {
 body {
     background-color: var(--bg);
 }
+header, footer-contact {
+    --fill: rgb(var(--bg-rgb));
+    --bg: rgb(var(--fill-rgb));
+    color: var(--fill);
+    background-color: var(--bg);
+}
+
+main {
+    z-index: 100;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+
+    content-wrapper {
+        display: block;
+        position: relative;
+        min-height: 100vh;
+    }
+}
+
+
+// FOOTER
+footer {
+    @include flex-v;
+    max-height: 90vh;
+    height: 90vh;
+}
+
+// FOOTER-CTA
+footer-cta {
+    z-index: 10;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 0 var(--doc-margin);
+    // padding-bottom: 100px; // TODO animate reveal on scroll
+
+    > wrapper {
+        @include flex-between;
+        border-top: var(--stroke);
+        padding: var(--doc-margin) var(--doc-col-width);
+    }
+
+    background-color: var(--bg);
+    border-bottom-left-radius: var(--doc-margin);
+    border-bottom-right-radius: var(--doc-margin);
+
+    font-size: 6rem;
+    line-height: 100%;
+
+    > wrapper > *:first-child {
+        @include font-base-BricolageGrotesque;
+        letter-spacing: -0.04em;
+        font-variation-settings:
+            "wdth" 100,
+            "wght" 500,
+            "opsz" 12;
+
+    }
+
+    button {
+        cursor: pointer !important;
+        font-size: 0.94em;
+        @include txt-w-medium;
+        letter-spacing: -0.05em;
+
+        --ico-size: 1.6em !important;
+        --ico-spacing: 3rem !important;
+
+        > div {
+            position: relative;
+        }
+        #mail {
+            display: inline-block;
+            padding-bottom: 0.125em;
+            border-bottom: var(--stroke);
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.3, 0.6, 0, 1);
+        }
+
+        .tip {
+            @include txt-normal;
+            --anim-offset: 0.75em !important;
+            opacity: 0;
+        }
+
+        &.copied {
+            .tip:not(.no-hover) {
+                opacity: 0 !important;
+                transition: 0s !important;
+            }
+
+            .copied-notif {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+                transition: 0.6s;
+            }
+            &.copied-anim-bounce {
+                .copied-notif {
+                    opacity: 1;
+                    transform: scale(2) rotateZ(var(--random-rotate, 0deg));
+                    transition: opacity 0.05s ease, transform 0.1s cubic-bezier(0.3, 0.3, 0, 1);
+                }
+
+                #mail {
+                    transform: translateY(-0.3em);
+                    transition: transform 0.15s cubic-bezier(0.2, 0.1, 0, 1);
+                }
+            }
+        }
+    }
+}
+
+
+// FOOTER CONTACT
+footer-contact {
+    @include flex-v;
+    z-index: 0;
+    position: relative;
+    padding: _ var(--doc-margin);
+    @include txt-w-425;
+    height: 100%;
+
+    > div { // grids
+        width: 100%;
+        // grid-template-rows: auto auto;
+
+        &:first-child {
+            height: 100%;
+
+            .ggrid {
+                height: auto;
+                align-items: start;
+            }
+        }
+        &.ggrid:last-child {
+            height: auto;
+            padding-bottom: var(--doc-margin);
+            align-items: end;
+        }
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+        // height: 100%;
+
+        > * {
+            position: relative;
+        }
+        > span {
+            display: inline-block;
+            @include txt-w-semibold;
+            margin-bottom: 2.5rem;
+        }
+        a:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        .ico-txt {
+            width: fit-content;
+            --ico-size : 2rem;
+        }
+    }
+
+    .logo {
+        display: flex;
+        align-items: flex-end;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 99%;
+        left: 0;
+        width: 100%;
+        height: calc(var(--doc-margin) + 2%);
+        background-color: var(--bg);
+    }
+}
+
