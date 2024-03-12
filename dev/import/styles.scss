@@ -1,0 +1,333 @@
+:root {
+    --rgb-main-fill: 24, 12, 15;
+    --rgb-main-bg: 253, 245, 241;
+
+    --placeholder: #D9D9D9;
+
+    --stroke-w: 2px;
+    --stroke: var(--stroke-w) solid var(--fill);
+
+    --spacing-5: 0.5rem;
+    --spacing-15: 1.5rem;
+    --spacing-20: 2rem;
+    --spacing-25: 2.5rem;
+    --spacing-30: 3rem;
+    --spacing-40: 4rem;
+    --spacing-50: 5rem;
+    --spacing-60: 6rem;
+}
+
+// scale
+html {
+    font-size: 10px;
+}
+svg {
+    font-size: 3.2rem;
+    size: 1em;
+    stroke-width: 0.75em;
+}
+
+// default text
+@mixin txt-w-450 {
+    font-weight: 450;
+}
+@mixin txt-w-medium {
+    font-weight: 500;
+}
+@mixin txt-w-550 {
+    font-weight: 550;
+}
+@mixin txt-w-semibold {
+    font-weight: 600;
+}
+@mixin txt-w-semibold_italic {
+    @include txt-w-semibold;
+    font-style: italic;
+}
+.txt-w-450 {
+    @include txt-w-450;
+}
+.txt-w-medium {
+    @include txt-w-medium;
+}
+.txt-w-550 {
+    @include txt-w-550;
+}
+.txt-w-semibold {
+    @include txt-w-semibold;
+}
+.txt-w-semibold_italic {
+    @include txt-w-semibold_italic;
+}
+
+@mixin txt-normal {
+    color: var(--fill);
+    font-size: 2.1rem;
+    line-height: 130%;
+    word-spacing: 0.025em;
+}
+
+body,
+p, span, a,
+h4, h5, h6 {
+    font-family: "Work Sans", sans-serif;
+    letter-spacing: -0.035em;
+
+    font-variant-ligatures: contextual;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "liga", "clig", "calt", "ss04";
+
+    text-decoration: none;
+    text-underline-offset: 0.2em !important;
+    text-decoration-thickness: var(--stroke-w) !important;
+}
+body, p {
+    @include txt-normal;
+    @include txt-w-450;
+}
+span {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    word-spacing: inherit;
+}
+
+.num-mono {
+    font-variant-numeric: tabular-nums;
+}
+.num-super {
+    font-variant-position: super;
+}
+.num-sub {
+    font-variant-position: sub;
+}
+.num-fraction {
+    font-variant-numeric: diagonal-fractions;
+}
+
+.paragraph-balance {
+    text-wrap: balance;
+}
+
+// paragraph spacing
+p + p {
+    margin-top: 0.75em;
+}
+span + span,
+p + span,
+span + p {
+    margin-top: 0.5rem;
+}
+
+// TITLES
+h1, h2, h3 {
+    font-family: "Bricolage Grotesque", serif;
+    font-variant-ligatures: contextual;
+    font-variant-numeric: ordinal;
+    font-feature-settings: "liga", "clig", "calt";
+}
+h1 {
+    font-size: 7.5rem;
+    letter-spacing: -0.05em;
+    line-height: 100%;
+    font-variation-settings:
+        "wdth" 100,
+        "wght" 600,
+        "opsz" 12;
+}
+h2 {
+    font-size: 9rem;
+    letter-spacing: -0.065em;
+    line-height: 100%;
+    font-variation-settings:
+        "wdth" 100,
+        "wght" 500,
+        "opsz" 12;
+}
+h3 {
+    font-size: 6.5rem;
+    letter-spacing: -0.05em;
+    line-height: 95%;
+    font-variation-settings:
+        "wdth" 100,
+        "wght" 500,
+        "opsz" 12;
+}
+
+h4 {
+    font-size: 4.5rem;
+    font-weight: 550;
+    letter-spacing: -0.05em;
+    line-height: 110%;
+}
+h5 {
+    font-size: 3.2rem;
+    @include txt-w-semibold_italic;
+    letter-spacing: -0.035em;
+    line-height: 110%;
+}
+h6 {
+    font-size: 2.4rem;
+    font-weight: 550;
+    letter-spacing: -0.03em;
+    line-height: 125%;
+}
+
+
+// ELEMENTS
+a, a:visited {
+    @include txt-normal;
+    @include txt-w-semibold;
+    text-decoration: underline;
+
+    &.minimal {
+        @include txt-w-450;
+        text-decoration: none;
+    }
+
+    &:hover, &:focus {
+        outline: none;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+    }
+
+}
+
+.anchor-title {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    @include txt-w-semibold;
+    font-size: 2.4rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+
+    padding-bottom: 2.5rem;
+    border-bottom: var(--stroke);
+
+    &.mr {
+        margin-right: 2rem;
+    }
+    &.ml {
+        margin-left: 2rem;
+    }
+}
+
+@mixin low-fill-o {
+    opacity: var(--low-fill-o);
+}
+@mixin low-bg-o {
+    opacity: var(--low-bg-o);
+}
+@mixin txt-low {
+    color: var(--fill-low);
+}
+.low {
+    @include low-fill-o;
+}
+.low-bg {
+    @include low-bg-o;
+}
+.txt-low {
+    @include txt-low;
+}
+
+
+@mixin stroke-around($radius : 2.5rem) {
+    border: var(--stroke);
+    border-radius: $radius;
+}
+.high {
+    display: inline-block;
+    @include txt-normal;
+    @include txt-w-550;
+    padding: 1rem 1.5rem;
+    @include stroke-around;
+
+    &.full_width {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.keywords {
+    font-size: 1.5rem;
+    @include txt-w-semibold;
+    line-height: 115%;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+
+    > span {
+        &:not(:last-child) {
+            &::after {
+                content: "·";
+                display: inline-block;
+                margin: _ 0.5em;
+            }
+        }
+    }
+}
+
+
+// LAYOUT
+.sep {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-bottom: var(--stroke);
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin flex-center-h {
+    display: flex;
+    align-items: center;
+}
+@mixin flex-center-v {
+    display: flex;
+    justify-content: center;
+}
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.flex-center {
+    @include flex-center;
+}
+.flex-center-h {
+    @include flex-center-h;
+}
+.flex-center-v {
+    @include flex-center-v;
+}
+.flex-between {
+    @include flex-between;
+}
+.flex-fill {
+    display: flex;
+
+    & > * {
+        flex-grow: 1;
+    }
+}
+
+.ico-txt {
+    @include flex-center-h;
+    --ico-size: 1em;
+    --ico-spacing: 1.2rem;
+
+    > *:first-child {
+        margin-right: var(--ico-spacing);
+
+        &svg {
+            font-size: --ico-size;
+        }
+    }
+}

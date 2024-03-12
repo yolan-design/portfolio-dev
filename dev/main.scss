@@ -1,18 +1,25 @@
 @import './import/defaults.scss';
 @import './import/fonts.scss';
 @import './import/noscript-error.scss';
+@import './import/styles.scss';
 
 :root {
-    --rgb-main-fill: 24, 12, 15;
-    --rgb-main-bg: 253, 245, 241;
+    --low-fill-o: 0.65;
+    --low-bg-o: 0.5;
 
-    --fill: rgb(var(--fill-dynamic, var(--rgb-main-fill)));
-    --bg: rgb(var(--bg-dynamic, var(--rgb-main-bg)));
+    --fill-rgb : var(--fill-dynamic, var(--rgb-main-fill));
+    --bg-rgb : var(--bg-dynamic, var(--rgb-main-bg));
 
-    --fill-low: rgba(var(--fill), 0.6);
-    --bg-low: rgba(var(--bg), 0.5);
+    --fill: rgb(var(--fill-rgb));
+    --bg: rgb(var(--bg-rgb));
+    --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
+    --bg-low: rgba(var(--bg-rgb), var(--low-bg-o));
 
-    --placeholder: #D9D9D9;
+    --doc-margin: 8rem;
+    --doc-margin_small: 3rem;
+    --doc-gutter: 6rem;
+    --doc-col-width: calc((100dvw / 12) - (var(--doc-gutter) * 12) - (var(--doc-margin) * 2));
+    --doc-col-gutter: calc((var(--doc-gutter) * 12) - (100dvw / 12) - (var(--doc-margin) * 2));
 }
 html {
     --fill-dynamic: var(--rgb-main-fill);
@@ -20,7 +27,5 @@ html {
 }
 
 body {
-    font-family: "Work Sans";
-    color: var(--fill);
     background-color: var(--bg);
 }
