@@ -3,7 +3,14 @@ import "./import/vh-fix.js";
 
 import "./main.scss"
 
+
+// LIBRARIES
+import hotkeys from 'hotkeys-js';
+
+
+// GLOBAL VARIABLES
 const doc = document.documentElement;
+
 
 // HELPER FUNCTIONS
 
@@ -27,12 +34,9 @@ function eventAtTransitionEnd(elem, func, {property = false, once = true, debug 
 } var trEndAlready = [];
 
 // add/remove class to query selected elements
-function addClassAll(selector, c) {
-    document.querySelectorAll(selector).forEach((el) => { el.classList.add(c); });
-}
-function removeClassAll(selector, c) {
-    document.querySelectorAll(selector).forEach((el) => { el.classList.remove(c); });
-}
+function addClassAll(e, c)    { e.forEach((el) => { el.classList.add(c); }); }
+function removeClassAll(e, c) { e.forEach((el) => { el.classList.remove(c); }); }
+function toggleClassAll(e, c) { e.forEach((el) => { el.classList.toggle(c); }); }
 
 function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -41,7 +45,7 @@ function randomIntFromInterval(min, max) { // min and max included
 
 // RUN
 
-// footer button email copy*
+// footer button email copy
 const footerCTA = document.querySelector("footer-cta button");
 footerCTA.addEventListener("click", () => {
     navigator.clipboard.writeText("hello@yolan.design");
@@ -56,3 +60,12 @@ footerCTA.addEventListener("click", () => {
 footerCTA.addEventListener("mouseenter", () => {
     footerCTA.classList.remove("copied");
 })
+
+// GGRID display
+const ggridDisplay = document.querySelectorAll("ggrid");
+if (ggridDisplay) {
+    hotkeys('shift+g', {keyup: true}, function(event, handler){
+        event.preventDefault()
+        toggleClassAll(ggridDisplay, "hidden");
+    });
+}

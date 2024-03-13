@@ -15,18 +15,32 @@
     --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
     --bg-low: rgba(var(--bg-rgb), var(--low-bg-o));
 
+    --doc-scale: 0.55vw;
+    --doc-grid-nb: 12;
     --doc-margin: 8rem;
     --doc-margin_small: 3rem;
     --doc-gutter: 6rem;
+    --doc-gutter: 3.15vw;
     --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * 11)) / 12) );
 }
+@media (max-width: $doc-phone) {
+    :root {
+        --doc-scale: 2.2vw;
+        --doc-grid-nb: 6;
+        --doc-margin: 2rem;
+    }
+}
+
 html {
     --fill-dynamic: var(--rgb-main-fill);
     --bg-dynamic: var(--rgb-main-bg);
+
+    font-size: clamp(2px, 10px, var(--doc-scale));
 }
 
 body {
     background-color: var(--bg);
+    overflow-x: hidden;
 }
 header, footer-contact {
     --fill: rgb(var(--bg-rgb));
@@ -40,13 +54,8 @@ main {
     display: block;
     position: relative;
     width: 100%;
+    min-height: 100vh;
     height: auto;
-
-    content-wrapper {
-        display: block;
-        position: relative;
-        min-height: 100vh;
-    }
 }
 
 
@@ -146,12 +155,12 @@ footer-cta {
 
 // FOOTER CONTACT
 footer-contact {
-    @include flex-v;
     z-index: 0;
+    @include flex-v;
     position: relative;
+    height: 100%;
     padding: _ var(--doc-margin);
     @include txt-w-425;
-    height: 100%;
 
     > div { // grids
         width: 100%;
@@ -163,12 +172,17 @@ footer-contact {
             .ggrid {
                 height: auto;
                 align-items: start;
+                padding: var(--doc-margin) _;
             }
         }
         &.ggrid:last-child {
             height: auto;
             padding-bottom: var(--doc-margin);
             align-items: end;
+
+            span {
+                font-size: 0.9em;
+            }
         }
     }
 
