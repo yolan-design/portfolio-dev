@@ -34,7 +34,7 @@ module.exports = merge(wpBASE, {
         liveReload: true,
         compress: true,
         hot: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 8888,
     },
 
