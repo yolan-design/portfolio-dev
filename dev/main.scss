@@ -22,12 +22,15 @@
     --doc-gutter: 6rem;
     --doc-gutter: 3.15vw;
     --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * 11)) / 12) );
+    --doc-corner-big: var(--doc-margin);
+    --doc-corner-items: 3.2rem;
 }
 @media (max-width: $doc-phone) {
     :root {
         --doc-scale: 2.2vw;
         --doc-grid-nb: 6;
         --doc-margin: 2rem;
+        --doc-corner-big: 5.6rem;
     }
 }
 
@@ -36,6 +39,10 @@ html {
     --bg-dynamic: var(--rgb-main-bg);
 
     font-size: clamp(2px, 10px, var(--doc-scale));
+
+    @media (max-width: $doc-phone) {
+        font-size: 7.5px;
+    }
 }
 
 body {
@@ -79,15 +86,19 @@ footer-cta {
     > wrapper {
         @include flex-between;
         border-top: var(--stroke);
-        padding: var(--doc-margin) var(--doc-col-width);
+        padding: var(--doc-corner-big) var(--doc-col-width);
     }
 
     background-color: var(--bg);
-    border-bottom-left-radius: var(--doc-margin);
-    border-bottom-right-radius: var(--doc-margin);
+    border-bottom-left-radius: var(--doc-corner-big);
+    border-bottom-right-radius: var(--doc-corner-big);
 
     font-size: 6rem;
     line-height: 100%;
+
+    @media (max-width: $doc-phone) {
+        font-size: 4rem;
+    }
 
     > wrapper > *:first-child {
         @include font-base-BricolageGrotesque;
@@ -97,6 +108,9 @@ footer-cta {
             "wght" 500,
             "opsz" 12;
 
+        @media (max-width: $doc-phone) {
+            margin-bottom: 0.3em;
+        }
     }
 
     button {
@@ -105,8 +119,12 @@ footer-cta {
         @include txt-w-medium;
         letter-spacing: -0.05em;
 
+        @media (max-width: $doc-phone) {
+            @include txt-w-semibold;
+        }
+
         --ico-size: 1.6em !important;
-        --ico-spacing: 3rem !important;
+        --ico-spacing: 0.4em !important;
 
         > div {
             position: relative;
@@ -177,7 +195,7 @@ footer-contact {
         }
         &.ggrid:last-child {
             height: auto;
-            padding-bottom: var(--doc-margin);
+            padding-bottom: var(--spacing-80);
             align-items: end;
 
             span {
@@ -217,6 +235,11 @@ footer-contact {
             width: 100%;
             height: auto;
         }
+
+        @media (max-width: $doc-phone) {
+            padding-bottom: var(--spacing-80);
+            grid-column: 1 / -2 !important;
+        }
     }
 
     &::before {
@@ -225,7 +248,7 @@ footer-contact {
         bottom: 99%;
         left: 0;
         width: 100%;
-        height: calc(var(--doc-margin) + 2%);
+        height: calc(var(--doc-corner-big) + 2%);
         background-color: var(--bg);
     }
 }

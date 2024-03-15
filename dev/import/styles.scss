@@ -400,6 +400,14 @@ p key {
         flex-grow: 1;
     }
 }
+@media (max-width: $doc-phone) {
+    .m--flex-col {
+        flex-direction: column;
+    }
+    .m--flex-row {
+        flex-direction: row;
+    }
+}
 
 .ico-txt {
     @include flex-center-h;
@@ -429,6 +437,7 @@ ggrid {
     // grid-template-columns: repeat(12, var(--doc-col-width));
     grid-template-columns: repeat(var(--doc-grid-nb), minmax(0, 1fr));
     gap: var(--doc-gutter);
+    row-gap: calc(var(--doc-gutter) / 2);
     width: 100%;
     height: 100%;
 }
@@ -465,5 +474,11 @@ ggrid {
                 display: none;
             }
         }
+    }
+}
+
+@media (max-width: $doc-phone) {
+    .m--gg-fill > * {
+        grid-column: 1 / -1 !important;
     }
 }
