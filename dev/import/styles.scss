@@ -1,5 +1,8 @@
 $doc-phone: 700px;
+$doc-tablet: 1300px;
 
+$doc-phone-m: ($doc-phone + 1);
+$doc-tablet-m: ($doc-tablet + 1);
 
 :root {
     --rgb-main-fill: 24, 12, 15;
@@ -79,12 +82,19 @@ svg {
     @include txt-w-semibold_italic;
 }
 
-@mixin txt-normal {
+@mixin txt-normal($ts : var(--txt-size-morph)) {
     color: var(--fill);
-    font-size: 2.1rem;
+
     line-height: 130%;
     word-spacing: 0.025em;
     letter-spacing: -0.02em;
+
+    font-size: 2.1rem;
+    font-size: calc($ts * 2.1);
+
+    @media (max-width: $doc-phone) {
+        font-size: calc(var(--doc-txt-size-mobile) * 2.1);
+    }
 }
 @mixin font-base-WorkSans {
     font-family: "Work Sans", sans-serif;
@@ -456,12 +466,17 @@ ggrid {
     pointer-events: none;
     user-select: none;
 
-    opacity: 1;
-    transition: opacity 0.4s ease, padding 0.5s cubic-bezier(0.4, 0.7, 0, 1);
-    &.hidden {
+    > * {
+        opacity: 1;
+        transform: scaleX(1);
+        transform-origin: right;
+        transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.4, 0.8, 0, 1);
+    }
+    &.hidden > * {
         opacity: 0 !important;
-        padding: _ 0 !important;
-        transition: opacity 0.25s ease, padding 0.4s cubic-bezier(0.5, 0.8, 0, 1) !important;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.5, 0.8, 0, 1) !important;
     }
 
     > div {

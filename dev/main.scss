@@ -15,7 +15,9 @@
     --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
     --bg-low: rgba(var(--bg-rgb), var(--low-bg-o));
 
-    --doc-scale: 0.55vw;
+    --doc-scale-ggrid: 0.525vw;
+    --doc-scale-morph: 0.6vw;
+    --doc-txt-size-mobile: 7.5px;
     --doc-grid-nb: 12;
     --doc-margin: 8rem;
     --doc-margin_small: 3rem;
@@ -27,7 +29,6 @@
 }
 @media (max-width: $doc-phone) {
     :root {
-        --doc-scale: 2.2vw;
         --doc-grid-nb: 6;
         --doc-margin: 2rem;
         --doc-corner-big: 5.6rem;
@@ -38,11 +39,17 @@ html {
     --fill-dynamic: var(--rgb-main-fill);
     --bg-dynamic: var(--rgb-main-bg);
 
-    font-size: clamp(2px, 10px, var(--doc-scale));
+    --txt-size-ggrid: clamp(2px, 10px, var(--doc-scale-ggrid));
+    --txt-size-morph: clamp(6px, 10px, var(--doc-scale-morph));
+
+    font-size: var(--txt-size-morph);
 
     @media (max-width: $doc-phone) {
-        font-size: 7.5px;
+        font-size: var(--doc-txt-size-mobile);
     }
+}
+.txt-size-ggrid {
+    font-size: var(--txt-size-ggrid);
 }
 
 body {
@@ -69,8 +76,15 @@ main {
 // FOOTER
 footer {
     @include flex-v;
+    height: 100vh;
     max-height: 90vh;
-    height: 90vh;
+
+    /* @media (orientation: portrait) {
+        max-height: 60vh;
+    } */
+    @media (min-width: $doc-phone-m) {
+        max-height: clamp(70vh, 56vw, 90vh);
+    }
 }
 
 // FOOTER-CTA
@@ -94,6 +108,7 @@ footer-cta {
     border-bottom-right-radius: var(--doc-corner-big);
 
     font-size: 6rem;
+    font-size: calc(var(--txt-size-ggrid) * 6);
     line-height: 100%;
 
     @media (max-width: $doc-phone) {
@@ -119,10 +134,6 @@ footer-cta {
         @include txt-w-medium;
         letter-spacing: -0.05em;
 
-        @media (max-width: $doc-phone) {
-            @include txt-w-semibold;
-        }
-
         --ico-size: 1.6em !important;
         --ico-spacing: 0.4em !important;
 
@@ -135,6 +146,10 @@ footer-cta {
             border-bottom: var(--stroke);
             transform: translateY(0);
             transition: transform 0.4s cubic-bezier(0.3, 0.6, 0, 1);
+
+            @media (max-width: $doc-phone) {
+                @include txt-w-semibold;
+            }
         }
 
         .tip {
@@ -197,6 +212,8 @@ footer-contact {
             height: auto;
             padding-bottom: var(--spacing-80);
             align-items: end;
+
+            @include txt-normal(var(--txt-size-ggrid));
 
             span {
                 font-size: 0.9em;
