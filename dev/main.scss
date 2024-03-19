@@ -101,6 +101,10 @@ footer-cta {
         @include flex-between;
         border-top: var(--stroke);
         padding: var(--doc-corner-big) var(--doc-col-width);
+
+        @media (max-width: $doc-phone) {
+        padding: calc(var(--doc-corner-big) + 1em) _;
+        }
     }
 
     background-color: var(--bg);
@@ -124,7 +128,7 @@ footer-cta {
             "opsz" 12;
 
         @media (max-width: $doc-phone) {
-            margin-bottom: 0.3em;
+            margin-bottom: 0.4em;
         }
     }
 
@@ -143,6 +147,7 @@ footer-cta {
         #mail {
             display: inline-block;
             padding-bottom: 0.125em;
+            color: var(--fill);
             border-bottom: var(--stroke);
             transform: translateY(0);
             transition: transform 0.4s cubic-bezier(0.3, 0.6, 0, 1);
@@ -151,9 +156,13 @@ footer-cta {
                 @include txt-w-semibold;
             }
         }
+        &:not(.copied):active #mail {
+            transform: scale(0.95);
+            transition: transform 0.035s linear;
+        }
 
         .tip {
-            @include txt-normal;
+            @include txt-normal(var(--txt-size-ggrid));
             --anim-offset: 0.75em !important;
             opacity: 0;
         }
@@ -175,11 +184,13 @@ footer-cta {
                     transform: scale(2) rotateZ(var(--random-rotate, 0deg));
                     transition: opacity 0.05s ease, transform 0.1s cubic-bezier(0.3, 0.3, 0, 1);
                 }
+            }
+        }
 
-                #mail {
-                    transform: translateY(-0.3em);
-                    transition: transform 0.15s cubic-bezier(0.2, 0.1, 0, 1);
-                }
+        &.copied-anim-bounce {
+            #mail {
+                transform: translateY(-0.3em);
+                transition: transform 0.15s cubic-bezier(0.2, 0.1, 0, 1);
             }
         }
     }

@@ -48,10 +48,18 @@ function randomIntFromInterval(min, max) { // min and max included
 // footer button email copy
 const footerCTA = document.querySelector("footer-cta button");
 footerCTA.addEventListener("click", () => {
-    navigator.clipboard.writeText("hello@yolan.design");
-    footerCTA.classList.add("copied");
+    navigator.clipboard.writeText("hello@yolan.design").then(() => {
+        // success
+        footerCTA.classList.add("copied");
+        footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
+    },
+    () => {
+        // failed to copy
+        location.href = "mailto:hello@yolan.design";
+        //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
+    });
 
-    footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
+    // bounce
     footerCTA.classList.add("copied-anim-bounce");
     setTimeout(() => {
         footerCTA.classList.remove("copied-anim-bounce");
