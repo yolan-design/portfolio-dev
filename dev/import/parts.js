@@ -22,7 +22,7 @@ part_footer: `
 <footer>
 
     <footer-cta>
-        <wrapper>
+        <wrapper class="m--flex-col">
             <span>Travaillons ensemble</span>
             <button class="ico-txt tip-hover-bottom">
                 <svg id="icon-hello" class="stroke rounded" style="stroke-width: 3.5px;" viewBox="0 0 64 64">
@@ -79,7 +79,7 @@ part_footer: `
             </div>
         </div>
 
-        <div class="ggrid">
+        <div class="ggrid m--gg-fill">
 
             <div class="logo" style="grid-column: 1 / 6;">
                 <svg id="yolan_baseline" viewBox="0 0 291.957 77.96">
