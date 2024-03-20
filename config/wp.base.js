@@ -39,6 +39,7 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: [
+                                    require('postcss-easing-gradients'), // https://github.com/larsenwork/postcss-easing-gradients // https://larsenwork.com/easing-gradients/#editor
                                     require('postcss-inline-svg')({ // https://github.com/TrySound/postcss-inline-svg
                                         removeFill: true,
                                         removeStroke: true,
