@@ -72,8 +72,10 @@ footerCTA.addEventListener("mouseenter", () => {
 // GGRID display
 const ggridDisplay = document.querySelectorAll("ggrid");
 if (ggridDisplay) {
-    hotkeys('shift+g', {keyup: true}, function(event, handler){
-        event.preventDefault()
-        toggleClassAll(ggridDisplay, "hidden");
+    hotkeys('shift+g', {keydown: true}, function(event, handler){
+        if (event.type === 'keydown') {
+            event.preventDefault()
+            toggleClassAll(ggridDisplay, "hidden");
+        }
     });
 }
