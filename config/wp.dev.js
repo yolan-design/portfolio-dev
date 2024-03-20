@@ -18,7 +18,9 @@ module.exports = merge(wpBASE, {
             {
                 directory: PATHS.dev,
                 publicPath: '/',
-                watch: true,
+                watch: {
+                    ignored: ["**/node_modules", "**/.git"],
+                },
             },
         ],
         client: {
