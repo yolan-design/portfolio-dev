@@ -6,6 +6,7 @@ import "./main.scss"
 
 // LIBRARIES
 import hotkeys from 'hotkeys-js';
+import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll.min.js";
 
 
 // GLOBAL VARIABLES
@@ -44,6 +45,17 @@ function randomIntFromInterval(min, max) { // min and max included
 
 
 // RUN
+
+// SMOOTH SCROLL
+// https://github.com/quentinhocde/loconative-scroll
+const scrollDoc = new LoconativeScroll({
+    smooth: true,
+    duration: 0.85,
+    easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
+    scrollToEasing: (x) => (x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1),
+    offset: ["0%", "0%"],
+});
+const scrollToDuration = 1;
 
 // footer button email copy
 const footerCTA = document.querySelector("footer-cta button");
