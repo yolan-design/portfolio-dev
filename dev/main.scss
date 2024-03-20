@@ -101,10 +101,6 @@ footer-cta {
         @include flex-between;
         border-top: var(--stroke);
         padding: var(--doc-corner-big) var(--doc-col-width);
-
-        @media (max-width: $doc-phone) {
-        padding: calc(var(--doc-corner-big) + 1em) _;
-        }
     }
 
     background-color: var(--bg);
@@ -128,7 +124,8 @@ footer-cta {
             "opsz" 12;
 
         @media (max-width: $doc-phone) {
-            margin-bottom: 0.4em;
+            margin-bottom: 0.3em;
+            text-align: center;
         }
     }
 
@@ -216,7 +213,7 @@ footer-contact {
             .ggrid {
                 height: auto;
                 align-items: start;
-                padding: var(--doc-margin) _;
+                padding: var(--doc-corner-items) _;
             }
         }
         &.ggrid:last-child {
