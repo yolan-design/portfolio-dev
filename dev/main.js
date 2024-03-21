@@ -43,6 +43,22 @@ function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+// take a value, scale it from a range to another
+function mapRange(value, low1, high1, low2, high2) { // Processing's map function
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+}
+function mapRangeClamp(value, low1, high1, low2, high2) {
+    return Math.min(Math.max( low2 + (high2 - low2) * (value - low1) / (high1 - low1) , low2), high2); // clamped min/max to low2/high2
+}
+function mapRangeRound(value, low1, high1, low2, high2) {
+    return parseFloat( low2 + (high2 - low2) * (value - low1) / (high1 - low1) ).toFixed(2); // round to .01
+}
+
+// clamp to min/max
+function clamp(value, low, high) {
+    return Math.min(Math.max(value, low), high);
+}
+
 
 // RUN
 
@@ -53,9 +69,21 @@ const scrollDoc = new LoconativeScroll({
     duration: 0.85,
     easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
     scrollToEasing: (x) => (x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1),
-    offset: ["0%", "0%"],
+    offset: ["20%", 0],
+    repeat: true,
 });
 const scrollToDuration = 1;
+
+scrollDoc.on('scroll', (args) => {
+    if(typeof args.currentElements['footer-contact'] === 'object') {
+        // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
+        const elParentRect = args.currentElements['footer-contact'].el.parentElement.getBoundingClientRect(),
+              progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.0015), 0, elParentRect.height, 0, 1);
+
+        args.currentElements['footer-contact'].el.style.opacity = progressFactor;
+        args.currentElements['footer-contact'].el.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
+    }
+});
 
 // footer button email copy
 const footerCTA = document.querySelector("footer-cta button");

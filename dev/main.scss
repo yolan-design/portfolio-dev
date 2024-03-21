@@ -98,7 +98,6 @@ footer-cta {
     width: 100%;
     margin: 0;
     padding: 0 var(--doc-margin);
-    // padding-bottom: 100px; // TODO animate reveal on scroll
 
     > wrapper {
         @include flex-between;
@@ -200,37 +199,42 @@ footer-cta {
 // FOOTER CONTACT
 footer-contact {
     z-index: 0;
-    @include flex-v;
     position: relative;
     height: 100%;
     padding: _ var(--doc-margin);
     @include txt-w-425;
 
-    > div { // grids
-        width: 100%;
-        // grid-template-rows: auto auto;
+    > wrapper {
+        @include flex-v;
+        height: 100%;
 
-        &:first-child {
-            height: 100%;
+        > div { // grids
+            width: 100%;
+            // grid-template-rows: auto auto;
 
-            .ggrid {
-                height: auto;
-                align-items: start;
-                padding: var(--doc-corner-items) _;
+            &:first-child {
+                height: 100%;
+
+                .ggrid {
+                    height: auto;
+                    align-items: start;
+                    padding: var(--doc-corner-items) _;
+                }
             }
-        }
-        &.ggrid:last-child {
-            height: auto;
-            padding-bottom: var(--spacing-80);
-            align-items: end;
+            &.ggrid:last-child {
+                height: auto;
+                padding-bottom: var(--spacing-80);
+                align-items: end;
 
-            @include txt-normal(var(--txt-size-ggrid));
+                @include txt-normal(var(--txt-size-ggrid));
 
-            span {
-                font-size: 0.9em;
+                span {
+                    font-size: 0.9em;
+                }
             }
         }
     }
+
 
     .links {
         display: flex;
