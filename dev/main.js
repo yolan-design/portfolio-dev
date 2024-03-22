@@ -85,29 +85,44 @@ scrollDoc.on('scroll', (args) => {
     }
 });
 
-// footer button email copy
-const footerCTA = document.querySelector("footer-cta button");
-footerCTA.addEventListener("click", () => {
-    navigator.clipboard.writeText("hello@yolan.design").then(() => {
-        // success
-        footerCTA.classList.add("copied");
-        footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
-    },
-    () => {
-        // failed to copy
-        location.href = "mailto:hello@yolan.design";
-        //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
-    });
 
-    // bounce
-    footerCTA.classList.add("copied-anim-bounce");
-    setTimeout(() => {
-        footerCTA.classList.remove("copied-anim-bounce");
-    }, 180);
-})
-footerCTA.addEventListener("mouseenter", () => {
-    footerCTA.classList.remove("copied");
-})
+// NAV MENU TOGGLE
+const navMenuButton = document.querySelector("nav-bar #nav-btn-toggle-menu");
+if (navMenuButton) {
+    navMenuButton.addEventListener("click", () => {
+        doc.classList.toggle("nav-menu-open");
+        setTimeout(() => {
+
+        }, 200);
+    })
+}
+
+// FOOTER BUTTON EMAIL COPY
+const footerCTA = document.querySelector("footer-cta button");
+if (footerCTA) {
+    footerCTA.addEventListener("click", () => {
+        navigator.clipboard.writeText("hello@yolan.design").then(() => {
+            // success
+            footerCTA.classList.add("copied");
+            footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
+        },
+        () => {
+            // failed to copy
+            location.href = "mailto:hello@yolan.design";
+            //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
+        });
+
+        // bounce
+        footerCTA.classList.add("copied-anim-bounce");
+        setTimeout(() => {
+            footerCTA.classList.remove("copied-anim-bounce");
+        }, 180);
+    })
+    footerCTA.addEventListener("mouseenter", () => {
+        footerCTA.classList.remove("copied");
+    })
+}
+
 
 // GGRID display
 const ggridDisplay = document.querySelectorAll("ggrid");

@@ -13,6 +13,9 @@ $doc-tablet-m: ($doc-tablet + 1);
     --stroke-w: 2px;
     --stroke: var(--stroke-w) solid var(--fill);
 
+    --spacing-small: 1.5rem;
+    --spacing-medium: 2.5rem;
+
     --spacing-5: 0.5rem;
     --spacing-15: 1.5rem;
     --spacing-20: 2rem;
@@ -374,6 +377,10 @@ p key {
     align-items: center;
     justify-content: center;
 }
+@mixin flex-center-v {
+    display: flex;
+    justify-content: center;
+}
 @mixin flex-center-h {
     display: flex;
     align-items: center;
@@ -382,9 +389,13 @@ p key {
     display: flex;
     flex-direction: column;
 }
-@mixin flex-center-v {
+@mixin flex-h {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+}
+@mixin flex-hr {
+    display: flex;
+    flex-direction: row-reverse;
 }
 @mixin flex-between {
     display: flex;
@@ -454,6 +465,9 @@ ggrid {
 *[class*="ggrid-"] + *[class*="ggrid-"] {
     margin-left: var(--doc-gutter);
 }
+.ggrid > * {
+    grid-row: 1;
+}
 
 ggrid {
     z-index: 99999;
@@ -495,5 +509,39 @@ ggrid {
 @media (max-width: $doc-phone) {
     .m--gg-fill > * {
         grid-column: 1 / -1 !important;
+    }
+}
+
+// MARGIN
+@mixin doc-margin {
+    margin: _ var(--doc-margin);
+}
+.doc-margin {
+    @include doc-margin;
+}
+.doc-margin-p {
+    box-sizing: border-box;
+    padding: _ var(--doc-margin);
+}
+
+
+@mixin spacing-small-siblings {
+    &:not(:last-child) {
+        margin-right: var(--spacing-small);
+    }
+}
+@mixin spacing-small-children {
+    > *:not(:last-child) {
+        margin-right: var(--spacing-small);
+    }
+}
+@mixin spacing-medium-siblings {
+    &:not(:last-child) {
+        margin-right: var(--spacing-medium);
+    }
+}
+@mixin spacing-medium-children {
+    > *:not(:last-child) {
+        margin-right: var(--spacing-medium);
     }
 }

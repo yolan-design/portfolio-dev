@@ -64,7 +64,9 @@ details,
 embed,
 figure,
 figcaption,
-footer, footer-contact, footer-cta,
+footer,
+footer-contact,
+footer-cta,
 header,
 hgroup,
 menu,
@@ -129,6 +131,7 @@ video {
 }
 
 // Corrects block display not defined in IE6/7/8/9 & FF3
+div,
 img,
 article,
 aside,
@@ -141,8 +144,7 @@ hgroup,
 main,
 nav,
 section,
-summary,
-main {
+summary {
     display: block;
 }
 

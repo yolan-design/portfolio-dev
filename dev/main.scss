@@ -13,6 +13,8 @@
     --fill-rgb : var(--fill-dynamic, var(--rgb-main-fill));
     --bg-rgb : var(--bg-dynamic, var(--rgb-main-bg));
 
+    --fill-w: #ffffff;
+
     --fill: rgb(var(--fill-rgb));
     --bg: rgb(var(--bg-rgb));
     --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
@@ -26,9 +28,12 @@
     --doc-margin_small: 3rem;
     --doc-gutter: 6rem;
     --doc-gutter: 3.15vw;
-    --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * 11)) / 12) );
+    --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * (var(--doc-grid-nb) - 1))) / var(--doc-grid-nb)) );
     --doc-corner-big: var(--doc-margin);
     --doc-corner-items: 3.2rem;
+
+    --footer-height: 88vh;
+    --nav-height: 12vh;
 }
 @media (max-width: $doc-phone) {
     :root {
@@ -59,7 +64,7 @@ body {
     background-color: var(--bg);
     overflow-x: hidden;
 }
-header, footer-contact {
+nav-menu, footer-contact {
     --fill: rgb(var(--bg-rgb));
     --bg: rgb(var(--fill-rgb));
     color: var(--fill);
@@ -76,17 +81,219 @@ main {
 }
 
 
+// NAV
+.button-nav {
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: relative;
+    min-width: var(--doc-col-width);
+    min-height: 3.5rem;
+    padding: 0 2.5rem;
+    @include stroke-around;
+    user-select: none;
+    cursor: pointer;
+
+    @include spacing-small-siblings;
+
+    span {
+        @include txt-w-semibold;
+        font-size: 1.6rem;
+    }
+
+    &#nav-btn-language {
+        @include flex-center;
+        span {
+            display: block;
+
+            &:not(:last-child) {
+                margin-right: 0.2em;
+            }
+
+            &:not(.active) {
+                color: var(--bg-low);
+            }
+        }
+    }
+
+    &#nav-btn-toggle-menu {
+        @include flex-center;
+
+        > div {
+            position: absolute;
+            width: 35%;
+            height: var(--stroke-w);
+            background-color: var(--nav-fill);
+            transform-origin: center;
+
+            --spacing-bars: 0.8rem;
+            --rotate-bars: 0deg;
+            transition: margin 0.3s 0.1s ease, transform 0.3s ease;
+
+            &:first-child {
+                margin: 0 0 var(--spacing-bars) 0;
+                transform: rotateZ(var(--rotate-bars));
+            }
+            &:last-child {
+                margin: var(--spacing-bars) 0 0 0;
+                transform: rotateZ(calc(var(--rotate-bars) * -1));
+            }
+        }
+    }
+}
+
+nav-bar, nav-menu, nav-anchors {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height) !important;
+    align-items: center;
+
+    pointer-events: none;
+    *[class*="nav-btn"], .button-nav {
+        pointer-events: initial;
+        cursor: pointer;
+    }
+
+    .nav-buttons {
+        grid-column: -1 / -4;
+        @include flex-hr;
+    }
+}
+
+nav-bar {
+    --nav-fill: var(--fill-w);
+    mix-blend-mode: difference;
+
+    * {
+        border-color: var(--nav-fill) !important;
+        color: var(--nav-fill) !important;
+    }
+    svg {
+        fill: var(--nav-fill) !important;
+    }
+
+    .logo {
+        grid-column: 1 / 2;
+        opacity: 1;
+        height: 3.5rem;
+        transform: translateY(0);
+        transition: opacity 0.35s ease, transform 0.8s cubic-bezier(0.4, 0.8, 0, 1);
+        transition-delay: 0.3s;
+    }
+}
+
+nav-menu {
+    pointer-events: none;
+    transform: translateY(-101%);
+    transition: transform 1s cubic-bezier(0.4, 0.7, 0, 1);
+
+    background-color: var(--bg);
+    border-bottom-left-radius: var(--doc-corner-big);
+    border-bottom-right-radius: var(--doc-corner-big);
+    * {
+        border-color: var(--fill) !important;
+    }
+
+    > * {
+        opacity: 0;
+        transform: translateY(-1em);
+        transition: opacity 0.4s ease, transform 0s 0.4s;
+    }
+
+    .socials {
+        grid-column: 1 / 3;
+        @include flex-center-h;
+
+        .nav-btn {
+            size: 2.4rem;
+            svg {
+                size: 100%;
+            }
+
+            @include spacing-small-siblings;
+        }
+    }
+
+    .nav-pages {
+        grid-column: 1 / -1;
+        justify-content: center;
+        @include flex-center-h;
+        @include spacing-medium-children;
+
+        a {
+            text-underline-offset: 0.5em !important;
+
+            &.active {
+                text-decoration: underline;
+                text-decoration-style: solid;
+            }
+
+            span {
+                @include txt-w-450;
+                letter-spacing: 0;
+                line-height: 1;
+                text-transform: uppercase;
+                font-size: 2rem;
+            }
+        }
+    }
+
+    .nav-buttons {
+        margin-right: calc(var(--doc-col-width) + var(--spacing-small));
+    }
+
+}
+
+html.nav-menu-open {
+    nav-menu {
+        transform: translateY(0);
+        transition: transform 0.8s cubic-bezier(0.4, 0.75, 0, 1);
+
+        > * {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.3, 0.6, 0, 1);
+            transition-delay: 0.1s;
+        }
+    }
+    nav-bar {
+        --nav-fill: var(--bg);
+
+        .logo {
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(0.75em);
+            transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
+        }
+    }
+    .button-nav#nav-btn-toggle-menu > div {
+        --spacing-bars: 0rem;
+        --rotate-bars: 25deg;
+        transition: margin 0.3s ease, transform 0.3s 0.1s ease;
+    }
+}
+
+
+// NAV ANCHORS
+nav-anchors {
+
+}
+
+
+
 // FOOTER
 footer {
     @include flex-v;
     height: 100vh;
-    max-height: 90vh;
+    max-height: var(--footer-height);
 
     /* @media (orientation: portrait) {
         max-height: 60vh;
     } */
     @media (min-width: $doc-phone-m) {
-        max-height: clamp(70vh, 56vw, 90vh);
+        max-height: clamp(70vh, 56vw, var(--footer-height));
     }
 }
 
@@ -260,14 +467,6 @@ footer-contact {
     }
 
     .logo {
-        display: flex;
-        align-items: flex-end;
-
-        svg {
-            width: 100%;
-            height: auto;
-        }
-
         @media (max-width: $doc-phone) {
             padding-bottom: var(--spacing-80);
             grid-column: 1 / -2 !important;
@@ -285,3 +484,20 @@ footer-contact {
     }
 }
 
+
+// ASSETS
+.logo {
+    &.align-baseline, &.align-center {
+        display: flex;
+        align-items: flex-end;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &.align-center {
+        align-items: center;
+    }
+}
