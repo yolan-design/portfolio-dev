@@ -364,12 +364,50 @@ p key {
     }
 }
 
+.btn-interaction {
+    transform: scale(1);
+    transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.4, 0.8, 0, 1);
+
+    &:hover {
+        opacity: var(--hover-o);
+        transition-duration: 0.1s, 0.8s;
+        transition-delay: 0s;
+    }
+    &:active {
+        transform: scale(0.935);
+        transition: opacity 0.4s ease, transform 0.035s linear;
+        transition-delay: 0s;
+    }
+}
+
+
 // LAYOUT
 .sep {
     display: block;
     position: relative;
     width: 100%;
     border-bottom: var(--stroke);
+}
+
+@mixin spacing-small-siblings {
+    &:not(:last-child) {
+        margin-right: var(--spacing-small);
+    }
+}
+@mixin spacing-small-children {
+    > *:not(:last-child) {
+        margin-right: var(--spacing-small);
+    }
+}
+@mixin spacing-medium-siblings {
+    &:not(:last-child) {
+        margin-right: var(--spacing-medium);
+    }
+}
+@mixin spacing-medium-children {
+    > *:not(:last-child) {
+        margin-right: var(--spacing-medium);
+    }
 }
 
 @mixin flex-center {
@@ -446,9 +484,9 @@ p key {
         size: var(--ico-size);
     }
 }
-a.ico-txt:hover svg {
+/* a.ico-txt:hover svg {
     --stroke-width: 8px;
-}
+} */
 
 // GLOBAL GRID
 .ggrid,
@@ -522,26 +560,4 @@ ggrid {
 .doc-margin-p {
     box-sizing: border-box;
     padding: _ var(--doc-margin);
-}
-
-
-@mixin spacing-small-siblings {
-    &:not(:last-child) {
-        margin-right: var(--spacing-small);
-    }
-}
-@mixin spacing-small-children {
-    > *:not(:last-child) {
-        margin-right: var(--spacing-small);
-    }
-}
-@mixin spacing-medium-siblings {
-    &:not(:last-child) {
-        margin-right: var(--spacing-medium);
-    }
-}
-@mixin spacing-medium-children {
-    > *:not(:last-child) {
-        margin-right: var(--spacing-medium);
-    }
 }

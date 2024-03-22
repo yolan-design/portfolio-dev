@@ -9,6 +9,8 @@
 :root {
     --low-fill-o: 0.65;
     --low-bg-o: 0.5;
+    --hover-o: 0.7;
+    --hover-o-dark: 0.8;
 
     --fill-rgb : var(--fill-dynamic, var(--rgb-main-fill));
     --bg-rgb : var(--bg-dynamic, var(--rgb-main-bg));
@@ -69,6 +71,7 @@ nav-menu, footer-contact {
     --bg: rgb(var(--fill-rgb));
     color: var(--fill);
     background-color: var(--bg);
+    --hover-o: var(--hover-o-dark);
 }
 
 main {
@@ -82,7 +85,7 @@ main {
 
 
 // NAV
-.button-nav {
+.nav-btn-big {
     flex-shrink: 0;
     flex-grow: 0;
     position: relative;
@@ -151,7 +154,7 @@ nav-bar, nav-menu, nav-anchors {
     align-items: center;
 
     pointer-events: none;
-    *[class*="nav-btn"], .button-nav {
+    *[class*="nav-btn"] {
         pointer-events: initial;
         cursor: pointer;
     }
@@ -176,11 +179,14 @@ nav-bar {
 
     .logo {
         grid-column: 1 / 2;
-        opacity: 1;
         height: 3.5rem;
-        transform: translateY(0);
-        transition: opacity 0.35s ease, transform 0.8s cubic-bezier(0.4, 0.8, 0, 1);
-        transition-delay: 0.3s;
+
+        a {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.8s cubic-bezier(0.4, 0.8, 0, 1);
+            transition-delay: 0.3s;
+        }
     }
 }
 
@@ -254,21 +260,25 @@ html.nav-menu-open {
         > * {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.3, 0.6, 0, 1);
+            transition: opacity 0.4s ease, transform 0.9s cubic-bezier(0.4, 0.6, 0, 1);
             transition-delay: 0.1s;
         }
     }
     nav-bar {
         --nav-fill: var(--bg);
+        --hover-o: var(--hover-o-dark);
 
         .logo {
             pointer-events: none;
-            opacity: 0;
-            transform: translateY(0.75em);
-            transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
+
+            a {
+                opacity: 0;
+                transform: translateY(0.75em);
+                transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
+            }
         }
     }
-    .button-nav#nav-btn-toggle-menu > div {
+    .nav-btn-big#nav-btn-toggle-menu > div {
         --spacing-bars: 0rem;
         --rotate-bars: 25deg;
         transition: margin 0.3s ease, transform 0.3s 0.1s ease;
