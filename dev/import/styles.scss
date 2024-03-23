@@ -1,8 +1,8 @@
 $doc-phone: 700px;
 $doc-tablet: 1300px;
 
-$doc-phone-m: ($doc-phone + 1);
-$doc-tablet-m: ($doc-tablet + 1);
+$doc-phone-m: ($doc-phone + 0.1);
+$doc-tablet-m: ($doc-tablet + 0.1);
 
 :root {
     --rgb-main-fill: 24, 12, 15;
@@ -19,20 +19,11 @@ $doc-tablet-m: ($doc-tablet + 1);
     --spacing-large: 4rem;
     --spacing-super: 6rem;
     --spacing-mega: 8rem;
-
-    --spacing-5: 0.5rem;
-    --spacing-15: 1.5rem;
-    --spacing-20: 2rem;
-    --spacing-25: 2.5rem;
-    --spacing-30: 3rem;
-    --spacing-40: 4rem;
-    --spacing-50: 5rem;
-    --spacing-60: 6rem;
-    --spacing-80: 8rem;
 }
 @media (max-width: $doc-phone) {
     :root {
         --spacing-small: 1.25rem;
+        --spacing-super: 5rem;
     }
 }
 
@@ -57,6 +48,21 @@ svg {
         stroke-linecap: round;
     }
 }
+
+@media (min-width: $doc-phone-m) {
+    .display-phone { display: none !important; }
+}
+@media (min-width: $doc-tablet-m) {
+    .display-tablet { display: none !important; }
+}
+
+@media (max-width: $doc-phone) {
+    .display-pc--phone { display: none !important; }
+}
+@media (max-width: $doc-tablet) {
+    .display-pc--tablet { display: none !important; }
+}
+
 
 // default text
 @mixin txt-w-425 {
@@ -124,7 +130,7 @@ svg {
 
 body,
 p, span, a,
-h4, h5, h6 {
+h4, h5, h6, h-subtitle {
     @include font-base-WorkSans;
 
     text-decoration: none;
@@ -173,17 +179,32 @@ span + p {
 }
 
 // TITLES
+h1, h2, h3,
+h4, h5, h6, h-subtitle {
+    display: inline-block;
+}
 h1, h2, h3 {
     @include font-base-BricolageGrotesque;
 }
 h1 {
-    font-size: 7.5rem;
-    letter-spacing: -0.05em;
+    font-size: 7.35rem;
+    letter-spacing: -0.06em;
     line-height: 100%;
     font-variation-settings:
         "wdth" 100,
         "wght" 600,
         "opsz" 12;
+
+    &.size-ggrid {
+        font-size: calc(var(--txt-size-ggrid) * 7.35);
+    }
+
+    @media (max-width: $doc-phone) {
+        font-size: 6.6rem;
+        &.size-ggrid {
+            font-size: calc(var(--txt-size-ggrid) * 6.6);
+        }
+    }
 }
 h2 {
     font-size: 9rem;
@@ -193,6 +214,17 @@ h2 {
         "wdth" 100,
         "wght" 500,
         "opsz" 12;
+
+    &.size-ggrid {
+        font-size: calc(var(--txt-size-ggrid) * 9);
+    }
+
+    @media (max-width: $doc-phone) {
+        font-size: 7.75rem;
+        &.size-ggrid {
+            font-size: calc(var(--txt-size-ggrid) * 7.75);
+        }
+    }
 }
 h3 {
     font-size: 6.5rem;
@@ -202,6 +234,17 @@ h3 {
         "wdth" 100,
         "wght" 500,
         "opsz" 12;
+
+    &.size-ggrid {
+        font-size: calc(var(--txt-size-ggrid) * 6.5);
+    }
+
+    @media (max-width: $doc-phone) {
+        font-size: 6rem;
+        &.size-ggrid {
+            font-size: calc(var(--txt-size-ggrid) * 6);
+        }
+    }
 }
 
 h4 {
@@ -223,6 +266,16 @@ h6 {
     line-height: 125%;
 }
 
+h-subtitle {
+    font-size: 2.4rem;
+    font-weight: 450;
+    letter-spacing: -0.03em;
+    line-height: 125%;
+
+    @media (max-width: $doc-phone) {
+        font-size: 2.1rem;
+    }
+}
 
 // ELEMENTS
 a {
@@ -441,6 +494,10 @@ p key {
 
 
 // LAYOUT
+section[nav-anchor-section="landing"] {
+    min-height: 100vh;
+}
+
 .sep {
     display: block;
     position: relative;
@@ -448,6 +505,16 @@ p key {
     border-bottom: var(--stroke);
 }
 
+@mixin spacing-h-siblings($sp : 1em) {
+    &:not(:last-child) {
+        margin-right: $sp;
+    }
+}
+@mixin spacing-h-children($sp : 1em) {
+    > *:not(:last-child) {
+        margin-right: $sp;
+    }
+}
 @mixin spacing-h-small-siblings {
     &:not(:last-child) {
         margin-right: var(--spacing-small);
@@ -469,6 +536,16 @@ p key {
     }
 }
 
+@mixin spacing-v-siblings($sp : 1em) {
+    &:not(:last-child) {
+        margin-bottom: $sp;
+    }
+}
+@mixin spacing-v-children($sp : 1em) {
+    > *:not(:last-child) {
+        margin-bottom: $sp;
+    }
+}
 @mixin spacing-v-small-siblings {
     &:not(:last-child) {
         margin-bottom: var(--spacing-small);
@@ -537,7 +614,6 @@ p key {
 }
 @mixin flex-between {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 .flex-center {
@@ -606,6 +682,17 @@ ggrid {
 .ggrid > * { grid-row: 1; }
 .ggrid.auto-row > * { grid-row: auto; }
 
+.ggrid img {
+    object-fit: cover;
+}
+
+@media (max-width: $doc-phone) {
+    .m--gg-fill > * {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+
 ggrid {
     z-index: 99999;
     position: fixed;
@@ -643,15 +730,14 @@ ggrid {
     }
 }
 
-@media (max-width: $doc-phone) {
-    .m--gg-fill > * {
-        grid-column: 1 / -1 !important;
-    }
-}
 
 // MARGIN
 @mixin doc-margin {
     margin: _ var(--doc-margin);
+}
+@mixin doc-margin-p {
+    box-sizing: border-box;
+    padding: _ var(--doc-margin);
 }
 .doc-margin {
     @include doc-margin;

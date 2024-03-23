@@ -15,7 +15,7 @@
     --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
     --bg-low: rgba(var(--bg-rgb), var(--low-bg-o));
 
-    --doc-scale-ggrid: 0.525vw;
+    --doc-scale-ggrid: 0.52vw;
     --doc-scale-morph: 0.6vw;
     --doc-txt-size-mobile: 7.5px;
     --doc-grid-nb: 12;
@@ -34,6 +34,7 @@
     :root {
         --doc-grid-nb: 6;
         --doc-margin: 2rem;
+        --doc-margin_small: var(--doc-margin);
         --doc-corner-big: 5.6rem;
 
         --nav-height: auto;
@@ -44,7 +45,7 @@ html {
     --fill-dynamic: var(--rgb-main-fill);
     --bg-dynamic: var(--rgb-main-bg);
 
-    --txt-size-ggrid: clamp(2px, 10px, var(--doc-scale-ggrid));
+    --txt-size-ggrid: clamp(1px, 10px, var(--doc-scale-ggrid));
     --txt-size-morph: clamp(6px, 10px, var(--doc-scale-morph));
 
     font-size: var(--txt-size-morph);
@@ -52,7 +53,8 @@ html {
     @media (max-width: $doc-phone) {
         scroll-behavior: smooth;
 
-        font-size: var(--doc-txt-size-mobile);
+        --txt-size-ggrid: calc(var(--doc-txt-size-mobile) * 0.666 );
+        --txt-size-morph: var(--doc-txt-size-mobile);
     }
 }
 .txt-size-ggrid {
@@ -79,6 +81,10 @@ main {
     width: 100%;
     min-height: 100vh;
     height: auto;
+
+    /* @media (max-width: $doc-phone) {
+        padding-top: var(--doc-margin);
+    } */
 }
 
 
@@ -425,6 +431,7 @@ footer-cta {
 
     > wrapper {
         @include flex-between;
+        align-items: center;
         border-top: var(--stroke);
         padding: var(--doc-corner-big) var(--doc-col-width);
 
@@ -437,13 +444,12 @@ footer-cta {
     border-bottom-left-radius: var(--doc-corner-big);
     border-bottom-right-radius: var(--doc-corner-big);
 
-    font-size: 6rem;
     font-size: calc(var(--txt-size-ggrid) * 6);
     line-height: 100%;
 
-    @media (max-width: $doc-phone) {
+    /* @media (max-width: $doc-phone) {
         font-size: 4rem;
-    }
+    } */
 
     > wrapper > *:first-child {
         @include font-base-BricolageGrotesque;
@@ -550,7 +556,7 @@ footer-contact {
             }
             &.ggrid:last-child {
                 height: auto;
-                padding-bottom: var(--spacing-80);
+                padding-bottom: var(--spacing-mega);
                 align-items: end;
 
                 @include txt-normal(var(--txt-size-ggrid));
@@ -588,7 +594,7 @@ footer-contact {
 
     .logo {
         @media (max-width: $doc-phone) {
-            padding-bottom: var(--spacing-80);
+            padding-bottom: var(--spacing-mega);
             grid-column: 1 / -2 !important;
         }
     }

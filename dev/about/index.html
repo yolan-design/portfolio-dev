@@ -26,7 +26,57 @@
 
     <main>
         <section nav-anchor-section="landing">
-            <p>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br>ab<br></p>
+
+            <div class="ggrid display-pc--tablet">
+
+                <div class="card-yolan">
+                    <div class="title">
+                        <span>Yolan G.</span>
+                        <span class="yolan-age"></span>
+                    </div>
+                    <img src="assets/medias/placeholder.png">
+                </div>
+
+                <div class="landing-content">
+                    <div></div>
+
+                    <div class="content">
+                        <h1 class="size-ggrid">Un partenaire créatif<br>plein de ressources<br>en constante évolution</h1>
+                        <div class="sep"></div>
+                        <h-subtitle>J’apprends de chacune de mes expériences. Cela me permet de toujours grandir et de mettre au point des projets toujours plus aboutis.</h-subtitle>
+                    </div>
+
+                    <div class="scroll-down-notice">
+                        <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ggrid display-tablet">
+
+                <h1>Un partenaire créatif plein de ressources en constante évolution</h1>
+
+                <div class="card-yolan">
+                    <div class="title">
+                        <span>Yolan G.</span>
+                        <span class="yolan-age"></span>
+                    </div>
+                    <img src="assets/medias/placeholder.png">
+                </div>
+
+                <div class="landing-content">
+                    <div class="content">
+                        <div class="sep"></div>
+                        <h-subtitle>J’apprends de chacune de mes expériences. Cela me permet de toujours grandir et de mettre au point des projets toujours plus aboutis.</h-subtitle>
+                    </div>
+
+                    <div class="scroll-down-notice">
+                        <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+                    </div>
+                </div>
+            </div>
+
+
         </section>
 
         <section nav-anchor-section="formations" section-bg="220,235,255">
@@ -51,5 +101,18 @@
 
     <%= htmlWebpackPlugin.options.part_ggrid %>
 
+
+    <script>
+        // REAL AGE DISPLAY
+        function getAge(dateString) {
+            let today = new Date();
+            let birthDate = new Date(dateString);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { age--; }
+            return age;
+        }
+        document.documentElement.querySelectorAll('.yolan-age').forEach((el) => { el.innerText = getAge('2002/07/26') + " ans"; });
+    </script>
 </body>
 </html>

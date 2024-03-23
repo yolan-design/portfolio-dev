@@ -63,6 +63,10 @@ function clamp(value, low, high) {
 
 // RUN
 
+// CURRENT PAGE
+doc.setAttribute("page", window.location.href.split(window.location.host)[1].substring(1).replace("/", "--"));
+
+
 // SMOOTH SCROLL
 // https://github.com/quentinhocde/loconative-scroll
 const scrollDoc = new LoconativeScroll({

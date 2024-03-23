@@ -1,0 +1,156 @@
+html[page="about"] {
+    section[nav-anchor-section="landing"] {
+        @include doc-margin-p;
+
+        .card-yolan {
+            position: relative;
+
+            .title {
+                @include flex-between;
+                box-sizing: border-box;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: calc(100% - (var(--spacing-small) * 2));
+                margin: var(--spacing-small);
+                padding: var(--spacing-small) var(--spacing-medium-large);
+                @include stroke-around($radius : calc(var(--doc-corner-items) - var(--spacing-small)));
+
+                span {
+                    @include txt-w-550;
+                    font-size: 3.6rem;
+                }
+            }
+            img {
+                size: 100%;
+                border-radius: var(--doc-corner-items);
+            }
+        }
+
+        h-subtitle {
+            text-wrap: balance;
+        }
+
+        .scroll-down-notice {
+            svg {
+                size: var(--doc-gutter);
+                --stroke-width: 4px;
+                transform: rotateZ(90deg);
+            }
+        }
+
+        .landing-content {
+            @include flex-between;
+            flex-direction: column;
+            box-sizing: border-box;
+
+            .content {
+                @include spacing-v-children(var(--spacing-super));
+            }
+        }
+
+
+        // responsive
+        @media (min-width: $doc-phone-m) {
+            .card-yolan {
+                margin-right: var(--doc-col-width);
+            }
+
+            .landing-content {
+                margin-left: var(--doc-col-width);
+            }
+        }
+
+        .display-pc--tablet {
+            .card-yolan {
+                height: 100vh;
+                margin-top: calc(var(--nav-height) + var(--spacing-mega));
+                grid-column: 2 / 7;
+            }
+
+            h1 {
+                text-wrap: balance;
+            }
+
+            .scroll-down-notice {
+                margin-bottom: var(--spacing-mega);
+            }
+
+            .landing-content {
+                height: 100vh;
+                grid-column: 6 / -2;
+                padding-top: var(--nav-height);
+
+                h-subtitle {
+                    width: 75%;
+                }
+            }
+        }
+
+        .display-tablet {
+            margin-top: calc(var(--nav-height) + var(--spacing-mega));
+            row-gap: var(--spacing-super);
+
+            h1 {
+                grid-column: 1 / -1;
+                grid-row: 1;
+            }
+
+            .card-yolan,
+            .landing-content {
+                height: 60vh;
+            }
+
+            .card-yolan {
+                grid-column: 1 / 7;
+                grid-row: 2;
+            }
+
+            .landing-content {
+                padding-top: calc(var(--doc-corner-items) / 2);
+                grid-column: 6 / -1;
+                grid-row: 2;
+
+                h-subtitle {
+                    width: 100%;
+                }
+            }
+
+            @media (max-width: $doc-phone) {
+                padding-top: calc(var(--doc-margin) + var(--spacing-mega));
+                padding-bottom: var(--spacing-super);
+                align-items: end;
+
+                min-height: 100vh;
+
+                .card-yolan,
+                .landing-content {
+                    height: 100%;
+                }
+
+                .card-yolan {
+                    grid-column: 1 / 4;
+
+                    .title {
+                        padding: var(--spacing-small);
+
+                        span {
+                            font-size: 2.1rem;
+                        }
+                    }
+                }
+
+                .landing-content {
+                    grid-column: 4 / 7;
+
+                    .scroll-down-notice {
+                        svg {
+                            size: calc(var(--doc-col-width) / 2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
