@@ -15,6 +15,10 @@ $doc-tablet-m: ($doc-tablet + 1);
 
     --spacing-small: 1.5rem;
     --spacing-medium: 2.5rem;
+    --spacing-medium-large: 3rem;
+    --spacing-large: 4rem;
+    --spacing-super: 6rem;
+    --spacing-mega: 8rem;
 
     --spacing-5: 0.5rem;
     --spacing-15: 1.5rem;
@@ -25,6 +29,11 @@ $doc-tablet-m: ($doc-tablet + 1);
     --spacing-50: 5rem;
     --spacing-60: 6rem;
     --spacing-80: 8rem;
+}
+@media (max-width: $doc-phone) {
+    :root {
+        --spacing-small: 1.25rem;
+    }
 }
 
 // scale
@@ -423,24 +432,65 @@ p key {
     border-bottom: var(--stroke);
 }
 
-@mixin spacing-small-siblings {
+@mixin spacing-h-small-siblings {
     &:not(:last-child) {
         margin-right: var(--spacing-small);
     }
 }
-@mixin spacing-small-children {
+@mixin spacing-h-small-children {
     > *:not(:last-child) {
         margin-right: var(--spacing-small);
     }
 }
-@mixin spacing-medium-siblings {
+@mixin spacing-h-medium-siblings {
     &:not(:last-child) {
         margin-right: var(--spacing-medium);
     }
 }
-@mixin spacing-medium-children {
+@mixin spacing-h-medium-children {
     > *:not(:last-child) {
         margin-right: var(--spacing-medium);
+    }
+}
+
+@mixin spacing-v-small-siblings {
+    &:not(:last-child) {
+        margin-bottom: var(--spacing-small);
+    }
+}
+@mixin spacing-v-small-children {
+    > *:not(:last-child) {
+        margin-bottom: var(--spacing-small);
+    }
+}
+@mixin spacing-v-medium-siblings {
+    &:not(:last-child) {
+        margin-bottom: var(--spacing-medium);
+    }
+}
+@mixin spacing-v-medium-children {
+    > *:not(:last-child) {
+        margin-bottom: var(--spacing-medium);
+    }
+}
+@mixin spacing-v-medium-large-siblings {
+    &:not(:last-child) {
+        margin-bottom: var(--spacing-medium-large);
+    }
+}
+@mixin spacing-v-medium-large-children {
+    > *:not(:last-child) {
+        margin-bottom: var(--spacing-medium-large);
+    }
+}
+@mixin spacing-v-large-siblings {
+    &:not(:last-child) {
+        margin-bottom: var(--spacing-large);
+    }
+}
+@mixin spacing-v-large-children {
+    > *:not(:last-child) {
+        margin-bottom: var(--spacing-large);
     }
 }
 
@@ -537,9 +587,8 @@ ggrid {
 *[class*="ggrid-"] + *[class*="ggrid-"] {
     margin-left: var(--doc-gutter);
 }
-.ggrid > * {
-    grid-row: 1;
-}
+.ggrid > * { grid-row: 1; }
+.ggrid.auto-row > * { grid-row: auto; }
 
 ggrid {
     z-index: 99999;

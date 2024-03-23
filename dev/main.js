@@ -10,7 +10,8 @@ import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll
 
 
 // GLOBAL VARIABLES
-const doc = document.documentElement;
+const doc = document.documentElement,
+      docSizePhone = 700;
 
 
 // HELPER FUNCTIONS
@@ -94,7 +95,6 @@ const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
 
 if (pageAnchorsSections) {
     scrollDoc.on('scroll', (args) => {
-        console.log("---");
         pageAnchorsSections.forEach((anchorSection) => {
             const anchorSectionRect = anchorSection.getBoundingClientRect(),
                   anchorLink = document.querySelector("[nav-anchor-link='"+ anchorSection.getAttribute("nav-anchor-section") +"']"),
@@ -158,6 +158,11 @@ if (navAnchorLinks) {
                         document.querySelector("nav-anchors").classList.remove("active-pause");
                     }, scrollToDuration * 550);
                 }, scrollToDuration * 300);
+
+                // close menu if mobile
+                if (doc.clientWidth < docSizePhone) {
+                    doc.classList.remove("nav-menu-open");
+                }
             }
         })
     })
