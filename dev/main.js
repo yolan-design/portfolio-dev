@@ -76,6 +76,7 @@ const scrollDoc = new LoconativeScroll({
     scrollToEasing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
     offset: ["40%", 0],
     repeat: true,
+    reloadOnContextChange : false,
 });
 const scrollToDuration = 1.4;
 
