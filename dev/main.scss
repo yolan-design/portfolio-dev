@@ -16,6 +16,7 @@
     --bg-rgb : var(--bg-dynamic, var(--rgb-main-bg));
 
     --fill-w: #ffffff;
+    --nav-fill: var(--fill);
 
     --fill: rgb(var(--fill-rgb));
     --bg: rgb(var(--bg-rgb));
@@ -130,7 +131,7 @@ main {
 
             --spacing-bars: 0.8rem;
             --rotate-bars: 0deg;
-            transition: margin 0.3s 0.1s ease, transform 0.3s ease;
+            transition: margin 0.25s 0.15s ease, transform 0.3s ease;
 
             &:first-child {
                 margin: 0 0 var(--spacing-bars) 0;
@@ -147,14 +148,12 @@ main {
 nav-bar, nav-menu, nav-anchors {
     z-index: 9999;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    @include new-element_fill-top;
     height: var(--nav-height) !important;
     align-items: center;
 
     pointer-events: none;
-    *[class*="nav-btn"] {
+    *[class*="btn"] {
         pointer-events: initial;
         cursor: pointer;
     }
@@ -164,10 +163,9 @@ nav-bar, nav-menu, nav-anchors {
         @include flex-hr;
     }
 }
-
-nav-bar {
-    --nav-fill: var(--fill-w);
+nav-bar, nav-anchors {
     mix-blend-mode: difference;
+    --nav-fill: var(--fill-w);
 
     * {
         border-color: var(--nav-fill) !important;
@@ -176,22 +174,16 @@ nav-bar {
     svg {
         fill: var(--nav-fill) !important;
     }
+}
 
+nav-bar {
     .logo {
         grid-column: 1 / 2;
         height: 3.5rem;
-
-        a {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.35s ease, transform 0.8s cubic-bezier(0.4, 0.8, 0, 1);
-            transition-delay: 0.3s;
-        }
     }
 }
 
 nav-menu {
-    pointer-events: none;
     transform: translateY(-101%);
     transition: transform 1s cubic-bezier(0.4, 0.7, 0, 1);
 
@@ -212,7 +204,7 @@ nav-menu {
         grid-column: 1 / 3;
         @include flex-center-h;
 
-        .nav-btn {
+        a {
             size: 2.4rem;
             svg {
                 size: 100%;
@@ -252,6 +244,25 @@ nav-menu {
 
 }
 
+
+nav-anchors {
+    @include new-element_fill-top;
+    @include flex-center;
+    @include spacing-medium-children;
+
+    > * {
+        text-transform: uppercase;
+    }
+}
+
+
+// nav-menu open
+.nav-menu--hide {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.8s cubic-bezier(0.4, 0.8, 0, 1);
+    transition-delay: 0.3s;
+}
 html.nav-menu-open {
     nav-menu {
         transform: translateY(0);
@@ -270,27 +281,20 @@ html.nav-menu-open {
 
         .logo {
             pointer-events: none;
-
-            a {
-                opacity: 0;
-                transform: translateY(0.75em);
-                transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
-            }
         }
     }
     .nav-btn-big#nav-btn-toggle-menu > div {
         --spacing-bars: 0rem;
         --rotate-bars: 25deg;
-        transition: margin 0.3s ease, transform 0.3s 0.1s ease;
+        transition: margin 0.3s ease, transform 0.25s 0.15s ease;
+    }
+    .nav-menu--hide {
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(0.75em);
+        transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
     }
 }
-
-
-// NAV ANCHORS
-nav-anchors {
-
-}
-
 
 
 // FOOTER

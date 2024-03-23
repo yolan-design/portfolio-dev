@@ -192,3 +192,10 @@ textarea {
     user-select: none;
     pointer-events: none;
 }
+
+// MIXINS
+@mixin new-element_fill-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+}

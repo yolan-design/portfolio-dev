@@ -68,22 +68,11 @@ const scrollDoc = new LoconativeScroll({
     smooth: true,
     duration: 0.85,
     easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
-    scrollToEasing: (x) => (x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1),
-    offset: ["20%", 0],
+    scrollToEasing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
+    offset: ["40%", 0],
     repeat: true,
 });
-const scrollToDuration = 1;
-
-scrollDoc.on('scroll', (args) => {
-    if(typeof args.currentElements['footer-contact'] === 'object') {
-        // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
-        const elParentRect = args.currentElements['footer-contact'].el.parentElement.getBoundingClientRect(),
-              progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.0015), 0, elParentRect.height, 0, 1);
-
-        args.currentElements['footer-contact'].el.style.opacity = progressFactor;
-        args.currentElements['footer-contact'].el.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
-    }
-});
+const scrollToDuration = 1.4;
 
 
 // NAV MENU TOGGLE
@@ -96,6 +85,84 @@ if (navMenuButton) {
         }, 200);
     })
 }
+
+
+// NAV ANCHORS
+const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
+      // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]"),
+      navAnchorLinks = document.querySelectorAll("nav-anchors > [nav-anchor-link]");
+
+if (pageAnchorsSections) {
+    scrollDoc.on('scroll', (args) => {
+        console.log("---");
+        pageAnchorsSections.forEach((anchorSection) => {
+            const anchorSectionRect = anchorSection.getBoundingClientRect(),
+                  anchorLink = document.querySelector("[nav-anchor-link='"+ anchorSection.getAttribute("nav-anchor-section") +"']"),
+                  splitSection = doc.clientHeight / 2;
+
+            if (anchorSectionRect.y < splitSection && anchorSectionRect.bottom > splitSection) {
+                anchorLink.classList.add("active");
+            } else {
+                anchorLink.classList.remove("active");
+            }
+        })
+    });
+}
+
+// failed attempt at using IntersectionObserver
+/* let pageAnchorsIO = new IntersectionObserver((entries) => {
+    console.log("---");
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            console.log(entry.target.getAttribute("nav-anchor-section"));
+            const anchorLink = document.querySelector("[nav-anchor-link='"+ entry.target.getAttribute("nav-anchor-section") +"']")
+
+            if (anchorLink) {
+                anchorLink.classList.add("active");
+            }
+        } else {
+            document.querySelector("*:not([nav-anchor-link='"+ entry.target.getAttribute("nav-anchor-section") +"'])").classList.remove("active");
+        }
+    })
+}, {
+    rootMargin: "-50%",
+    threshold: [0, 0.05, 0.15, 0.85, 0.95, 1]
+})
+if (pageAnchorsSections) { pageAnchorsSections.forEach((anchorSection) => { pageAnchorsIO.observe(anchorSection); }) };
+ */
+
+
+if (navAnchorLinks) {
+    navAnchorLinks.forEach((anchorLink) => {
+        anchorLink.addEventListener("click", () => {
+            const anchorID = anchorLink.getAttribute("nav-anchor-link"),
+                  scrollToTarget = document.querySelector("[nav-anchor-scroll='"+ anchorID +"']");
+
+            if (scrollToTarget) {
+                if (anchorID == "contact") {
+                    scrollDoc.scrollTo("bottom", {
+                        duration : scrollToDuration,
+                        offset : 0
+                    })
+                } else {
+                    scrollDoc.scrollTo(scrollToTarget, {
+                        duration : scrollToDuration,
+                        offset : -150
+                    })
+                }
+
+                // hide active nav-anchor-link during the scrollTo
+                setTimeout(() => {
+                    document.querySelector("nav-anchors").classList.add("active-pause");
+                    setTimeout(() => {
+                        document.querySelector("nav-anchors").classList.remove("active-pause");
+                    }, scrollToDuration * 550);
+                }, scrollToDuration * 300);
+            }
+        })
+    })
+};
+
 
 // FOOTER BUTTON EMAIL COPY
 const footerCTA = document.querySelector("footer-cta button");
@@ -122,6 +189,19 @@ if (footerCTA) {
         footerCTA.classList.remove("copied");
     })
 }
+
+
+// FOOTER SCROLL REVEAL
+scrollDoc.on('scroll', (args) => {
+    if(typeof args.currentElements['footer-contact'] === 'object') {
+        // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
+        const elParentRect = args.currentElements['footer-contact'].el.parentElement.getBoundingClientRect(),
+              progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.0015), 0, elParentRect.height, 0, 1);
+
+        args.currentElements['footer-contact'].el.style.opacity = progressFactor;
+        args.currentElements['footer-contact'].el.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
+    }
+});
 
 
 // GGRID display
