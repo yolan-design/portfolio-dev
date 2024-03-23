@@ -7,7 +7,7 @@ import "./main.scss"
 // LIBRARIES
 import hotkeys from 'hotkeys-js';
 import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll.min.js";
-
+import anime from 'animejs/lib/anime.es.js';
 
 // GLOBAL VARIABLES
 const doc = document.documentElement,
@@ -88,12 +88,48 @@ if (navMenuButton) {
 }
 
 
+// TRANSITION BG-DYNAMIC
+const bgDynamic_Default = getComputedStyle(doc).getPropertyValue("--rgb-main-bg");
+let bgDynamic_Current = "",
+    bgDynamic_Applied = bgDynamic_Default;
+
+function bgDynamicChange(newValue) {
+    if (bgDynamic_Current != newValue) { // only run if new color
+        //if (newValue == null /*|| newValue.split(",").length != 3*/) { newValue = bgDynamic_Default; }
+
+        bgDynamic_Current = newValue;
+
+        const bgVar = { bgDynamic: bgDynamic_Applied, }
+        anime({
+            targets: bgVar,
+            easing: 'easeInOutCubic',
+            duration: 2500,
+            round: 100,
+
+            bgDynamic: [bgDynamic_Applied, newValue],
+            update: () => {
+                doc.style.setProperty('--bg-dynamic', bgVar.bgDynamic);
+                bgDynamic_Applied = bgVar.bgDynamic;
+            },
+        });
+    }
+}
+
+
 // NAV ANCHORS
 const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
       // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]"),
       navAnchorLinks = document.querySelectorAll("nav-anchors > [nav-anchor-link]");
 
 if (pageAnchorsSections) {
+    // default bg-dynamic color
+    pageAnchorsSections.forEach((anchorSection) => {
+        if (!anchorSection.getAttribute("section-bg")) {
+            anchorSection.setAttribute("section-bg", bgDynamic_Default)
+        }
+    })
+
+    // scroll updates
     scrollDoc.on('scroll', (args) => {
         pageAnchorsSections.forEach((anchorSection) => {
             const anchorSectionRect = anchorSection.getBoundingClientRect(),
@@ -101,13 +137,16 @@ if (pageAnchorsSections) {
                   splitSection = doc.clientHeight / 2;
 
             if (anchorSectionRect.y < splitSection && anchorSectionRect.bottom > splitSection) {
-                anchorLink.classList.add("active");
+                if (anchorLink) { anchorLink.classList.add("active"); }
+                //doc.style.setProperty('--bg-dynamic', anchorSection.getAttribute("section-bg"));
+                bgDynamicChange(anchorSection.getAttribute("section-bg"));
             } else {
-                anchorLink.classList.remove("active");
+                if (anchorLink) { anchorLink.classList.remove("active"); }
             }
         })
     });
 }
+
 
 // failed attempt at using IntersectionObserver
 /* let pageAnchorsIO = new IntersectionObserver((entries) => {
@@ -132,6 +171,7 @@ if (pageAnchorsSections) { pageAnchorsSections.forEach((anchorSection) => { page
  */
 
 
+// NAV ANCHORS SCROLL TO
 if (navAnchorLinks) {
     navAnchorLinks.forEach((anchorLink) => {
         anchorLink.addEventListener("click", () => {
