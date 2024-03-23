@@ -247,6 +247,22 @@ a {
 
 }
 
+.logo {
+    &.align-baseline, &.align-center {
+        display: flex;
+        align-items: flex-end;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &.align-center {
+        align-items: center;
+    }
+}
+
 .anchor-title {
     display: block;
     position: relative;
