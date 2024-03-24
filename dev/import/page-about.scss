@@ -32,6 +32,10 @@ html[page="about"] {
         }
 
         .scroll-down-notice {
+            > div {
+                display: inline-block;
+            }
+
             svg {
                 size: var(--doc-gutter);
                 --stroke-width: 4px;

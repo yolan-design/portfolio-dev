@@ -128,7 +128,7 @@ function bgDynamicChange(newValue) {
 // NAV ANCHORS
 const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
       // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]"),
-      navAnchorLinks = document.querySelectorAll("nav-anchors > [nav-anchor-link]");
+      anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
 if (pageAnchorsSections) {
     // default bg-dynamic color
@@ -181,8 +181,8 @@ if (pageAnchorsSections) { pageAnchorsSections.forEach((anchorSection) => { page
 
 
 // NAV ANCHORS SCROLL TO
-if (navAnchorLinks) {
-    navAnchorLinks.forEach((anchorLink) => {
+if (anchorLinks) {
+    anchorLinks.forEach((anchorLink) => {
         anchorLink.addEventListener("click", () => {
             const anchorID = anchorLink.getAttribute("nav-anchor-link"),
                   scrollToTarget = document.querySelector("[nav-anchor-scroll='"+ anchorID +"']");
