@@ -67,7 +67,7 @@ function clamp(value, low, high) {
 let pageID = window.location.pathname.split("/");
 if (pageID[pageID.length -1] == "") { pageID.pop(); }
 pageID = pageID[pageID.length -1];
-pageID = (pageID == "") ? "accueil" : pageID;
+pageID = (pageID == "") ? "home" : pageID;
 doc.setAttribute("page", pageID);
 
 
