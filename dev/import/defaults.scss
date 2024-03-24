@@ -93,6 +93,9 @@ button {
     padding: 0;
     margin: 0;
 }
+a, button {
+    -webkit-tap-highlight-color: transparent;
+}
 
 wrapper {
     position: relative;
