@@ -625,4 +625,10 @@ footer-contact {
         height: calc(var(--doc-corner-big) + 2%);
         background-color: var(--bg);
     }
+
+    @media (max-width: $doc-phone) {
+        .tip-hover-bottom {
+            user-select: none;
+        }
+    }
 }
