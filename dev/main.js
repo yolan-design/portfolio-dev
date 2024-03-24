@@ -229,7 +229,6 @@ let footerCTA_copiedRandom = 0,
 function footerCTA_copiedComboCooldown() {
     setTimeout(() => {
         footerCTA_copiedComboCooldownStatus -= 1;
-        console.log({footerCTA_copiedComboCooldownStatus});
 
         if (footerCTA_copiedComboCooldownStatus >= 1) {
             footerCTA_copiedComboCooldown();
