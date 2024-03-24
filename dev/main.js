@@ -196,7 +196,7 @@ if (anchorLinks) {
                 } else {
                     scrollDoc.scrollTo(scrollToTarget, {
                         duration : scrollToDuration,
-                        offset : -150
+                        offset : doc.clientHeight * -0.15 //-150
                     })
                 }
 
@@ -219,14 +219,16 @@ if (anchorLinks) {
 
 
 // FOOTER BUTTON EMAIL COPY
-const footerCTA = document.querySelector("footer-cta button"),
-      footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
-      footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Innarêtable"];
+const footerCTA = document.querySelector("footer-cta button");
+if (footerCTA) {
 
-let footerCTA_copiedRandom = 0,
+    const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
+        footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Innarêtable"];
+
+    let footerCTA_copiedRandom = 0,
     footerCTA_copiedComboCooldownStatus = 0;
 
-function footerCTA_copiedComboCooldown() {
+    function footerCTA_copiedComboCooldown() {
     setTimeout(() => {
         footerCTA_copiedComboCooldownStatus -= 1;
 
@@ -234,9 +236,8 @@ function footerCTA_copiedComboCooldown() {
             footerCTA_copiedComboCooldown();
         }
     }, 600);
-}
+    }
 
-if (footerCTA) {
     footerCTA.addEventListener("click", () => {
         navigator.clipboard.writeText("hello@yolan.design").then(() => { // success
             footerCTA.classList.add("copied");

@@ -81,6 +81,7 @@ main {
     width: 100%;
     min-height: 100vh;
     height: auto;
+    // overflow-x: hidden;
 
     /* @media (max-width: $doc-phone) {
         padding-top: var(--doc-margin);
@@ -96,7 +97,7 @@ main {
     min-width: var(--doc-col-width);
     min-height: 3.5rem;
     padding: 0 2.5rem;
-    @include stroke-around;
+    @include stroke-around(999em);
     user-select: none;
     cursor: pointer;
 
@@ -166,6 +167,10 @@ nav-bar, nav-menu, nav-anchors {
         @include flex-hr;
     }
 }
+/* nav-bar, nav-menu {
+    box-sizing: border-box;
+    padding: _ calc(var(--doc-margin) + (var(--stroke-w) / 2));
+} */
 nav-bar, nav-anchors {
     @supports (mix-blend-mode: difference) {
         mix-blend-mode: difference;
@@ -190,6 +195,11 @@ nav-bar {
             height: 100%;
         }
     }
+
+    // avoid ugly content edge overlap
+    --offset-lines: calc(var(--stroke-w) / 1.25);
+    .logo { padding-left: var(--offset-lines); }
+    .nav-buttons { padding-right: var(--offset-lines); }
 }
 
 nav-menu {
