@@ -219,16 +219,46 @@ if (anchorLinks) {
 
 
 // FOOTER BUTTON EMAIL COPY
-const footerCTA = document.querySelector("footer-cta button");
+const footerCTA = document.querySelector("footer-cta button"),
+      footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
+      footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Innarêtable"];
+
+let footerCTA_copiedRandom = 0,
+    footerCTA_copiedComboCooldownStatus = 0;
+
+function footerCTA_copiedComboCooldown() {
+    setTimeout(() => {
+        footerCTA_copiedComboCooldownStatus -= 1;
+        console.log({footerCTA_copiedComboCooldownStatus});
+
+        if (footerCTA_copiedComboCooldownStatus >= 1) {
+            footerCTA_copiedComboCooldown();
+        }
+    }, 600);
+}
+
 if (footerCTA) {
     footerCTA.addEventListener("click", () => {
-        navigator.clipboard.writeText("hello@yolan.design").then(() => {
-            // success
+        navigator.clipboard.writeText("hello@yolan.design").then(() => { // success
             footerCTA.classList.add("copied");
             footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
+
+            // funny copy combo
+            if (footerCTA_copiedComboCooldownStatus == 0) { console.log("run"); footerCTA_copiedComboCooldown(); }
+            footerCTA_copiedComboCooldownStatus += 1;
+
+            if (footerCTA_copiedComboCooldownStatus >= 6) {
+                footerCTA_copiedComboCooldownStatus = 6; // max
+
+                const rand = randomIntFromInterval(1, footerCTA_copiedNotif_alt.length - 1);
+                footerCTA_copiedRandom = (rand == footerCTA_copiedRandom) ? rand - 1 : rand; // always different, worst case it will select "0"
+
+                footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[footerCTA_copiedRandom];
+            } else {
+                footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
+            }
         },
-        () => {
-            // failed to copy
+        () => { // failed to copy
             location.href = "mailto:hello@yolan.design";
             //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
         });
@@ -241,6 +271,7 @@ if (footerCTA) {
     })
     footerCTA.addEventListener("mouseenter", () => {
         footerCTA.classList.remove("copied");
+        footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
     })
 }
 
