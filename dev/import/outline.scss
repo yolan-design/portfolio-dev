@@ -185,6 +185,10 @@ nav-bar {
     .logo {
         grid-column: 1 / 2;
         height: 3.5rem;
+
+        a {
+            height: 100%;
+        }
     }
 }
 
