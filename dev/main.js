@@ -64,7 +64,11 @@ function clamp(value, low, high) {
 // RUN
 
 // CURRENT PAGE
-doc.setAttribute("page", window.location.href.split(window.location.host)[1].substring(1).replace("/", "--"));
+let pageID = window.location.pathname.split("/");
+if (pageID[pageID.length -1] == "") { pageID.pop(); }
+pageID = pageID[pageID.length -1];
+pageID = (pageID == "") ? "accueil" : pageID;
+doc.setAttribute("page", pageID);
 
 
 // SMOOTH SCROLL
