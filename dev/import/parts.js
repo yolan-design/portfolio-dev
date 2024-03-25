@@ -112,7 +112,7 @@ part_footer: `
                 </div>
             </div>
 
-            <div class="ggrid auto-row m--gg-fill">
+            <div class="ggrid grid-row-auto m--gg-fill">
 
                 <div class="logo align-baseline" style="grid-column: 1 / 6;">
                     <svg id="yolan-baseline" viewBox="0 0 291.957 77.96">
