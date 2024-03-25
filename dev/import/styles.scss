@@ -638,6 +638,10 @@ a {
     &.expand-right > span::after {
         left: 99%;
     }
+
+    &.offset-h2-baseline { // align the line to the baseline
+        margin-top: 2.5rem;
+    }
 }
 nav-anchors {
     position: relative;
