@@ -15,6 +15,8 @@ $doc-half-m: ($doc-half + 0.1);
     --stroke-w: 2px;
     --stroke: var(--stroke-w) solid var(--fill);
 
+    --txt-body-size: 2.1rem;
+
     --spacing-mini: 1rem;
     --spacing-small: 1.5rem;
     --spacing-small-medium: 2rem;
@@ -29,10 +31,13 @@ $doc-half-m: ($doc-half + 0.1);
     --spacing-section-medium: 14rem;
     --spacing-section-medium-large: 18rem;
     --spacing-section-large: 25rem;
+
+    --anchor-side-margin: var(--spacing-small-medium);
 }
 @media (max-width: $doc-phone) {
     :root {
         --spacing-small: 1.25rem;
+        --spacing-medium-large: 2.35rem;
         --spacing-super: 5rem;
 
         --spacing-section-small: 7rem;
@@ -108,7 +113,7 @@ html {
     word-spacing: 0.025em;
     letter-spacing: -0.02em;
 
-    font-size: 2.1rem;
+    font-size: var(--txt-body-size);
     font-size: calc($ts * 2.1);
 
     @media (max-width: $doc-phone) {
@@ -190,7 +195,6 @@ h1, h2, h3 {
     @include font-base-BricolageGrotesque;
 }
 h1 {
-    font-size: 7.35rem;
     letter-spacing: -0.06em;
     line-height: 100%;
     font-variation-settings:
@@ -198,11 +202,16 @@ h1 {
         "wght" 600,
         "opsz" 12;
 
+    font-size: 7.35rem;
     &.size-ggrid {
         font-size: calc(var(--txt-size-ggrid) * 7.35);
     }
 
     @media (max-width: $doc-phone) {
+        font-variation-settings:
+            "wdth" 100,
+                "wght" 675,
+            "opsz" 12;
         font-size: 6.6rem;
         &.size-ggrid {
             font-size: calc(var(--txt-size-ggrid) * 6.6);
@@ -210,7 +219,6 @@ h1 {
     }
 }
 h2 {
-    font-size: 9rem;
     letter-spacing: -0.065em;
     line-height: 100%;
     font-variation-settings:
@@ -218,19 +226,23 @@ h2 {
         "wght" 500,
         "opsz" 12;
 
+    font-size: 9rem;
     &.size-ggrid {
         font-size: calc(var(--txt-size-ggrid) * 9);
     }
 
     @media (max-width: $doc-phone) {
-        font-size: 7.75rem;
+        font-variation-settings:
+            "wdth" 100,
+                "wght" 600,
+            "opsz" 12;
+        font-size: 6.35rem;
         &.size-ggrid {
-            font-size: calc(var(--txt-size-ggrid) * 7.75);
+            font-size: calc(var(--txt-size-ggrid) * 6.35);
         }
     }
 }
 h3 {
-    font-size: 6.5rem;
     letter-spacing: -0.05em;
     line-height: 95%;
     font-variation-settings:
@@ -238,29 +250,38 @@ h3 {
         "wght" 500,
         "opsz" 12;
 
+    font-size: 6.5rem;
     &.size-ggrid {
         font-size: calc(var(--txt-size-ggrid) * 6.5);
     }
 
     @media (max-width: $doc-phone) {
-        font-size: 6rem;
+        font-size: 5.8rem;
         &.size-ggrid {
-            font-size: calc(var(--txt-size-ggrid) * 6);
+            font-size: calc(var(--txt-size-ggrid) * 5.8);
         }
     }
 }
 
 h4 {
-    font-size: 4.5rem;
     font-weight: 550;
     letter-spacing: -0.05em;
     line-height: 110%;
+
+    font-size: 4.5rem;
+    @media (max-width: $doc-phone) {
+        font-size: 4rem;
+    }
 }
 h5 {
-    font-size: 3.2rem;
     @include txt-w-semibold;
     letter-spacing: -0.035em;
     line-height: 110%;
+
+    font-size: 3.2rem;
+    @media (max-width: $doc-phone) {
+        font-size: 2.9rem;
+    }
 }
 h6 {
     font-size: 2.4rem;
@@ -276,12 +297,15 @@ h-subtitle {
     line-height: 125%;
 
     @media (max-width: $doc-phone) {
-        font-size: 2.1rem;
+        font-size: var(--txt-body-size);
     }
 }
 
 
 // LAYOUT
+section[nav-anchor-section] {
+    width: 100%;
+}
 section[nav-anchor-section="landing"] {
     min-height: 100vh;
 }
@@ -290,7 +314,13 @@ section[nav-anchor-section="landing"] {
     display: block;
     position: relative;
     width: 100%;
-    border-bottom: var(--stroke);
+
+    &:not(.top) { border-bottom: var(--stroke); }
+    &.top { border-top: var(--stroke); }
+
+    --sep-side-margin: var(--anchor-side-margin);
+    &.mr { width: calc(100% - var(--sep-side-margin)); margin-right: var(--sep-side-margin); }
+    &.ml { margin-left: var(--sep-side-margin); }
 }
 
 @mixin spacing-h-siblings($sp : 1em) {
@@ -301,6 +331,16 @@ section[nav-anchor-section="landing"] {
 @mixin spacing-h-children($sp : 1em) {
     > *:not(:last-child) {
         margin-right: $sp;
+    }
+}
+@mixin spacing-h-siblings-reverse($sp : 1em) {
+    &:not(:first-child) {
+        margin-left: $sp;
+    }
+}
+@mixin spacing-h-children-reverse($sp : 1em) {
+    > *:not(:first-child) {
+        margin-left: $sp;
     }
 }
 @mixin spacing-h-small-siblings {
@@ -332,6 +372,16 @@ section[nav-anchor-section="landing"] {
 @mixin spacing-v-children($sp : 1em) {
     > *:not(:last-child) {
         margin-bottom: $sp;
+    }
+}
+@mixin spacing-v-siblings-reverse($sp : 1em) {
+    &:not(:first-child) {
+        margin-top: $sp;
+    }
+}
+@mixin spacing-v-children-reverse($sp : 1em) {
+    > *:not(:first-child) {
+        margin-top: $sp;
     }
 }
 @mixin spacing-v-small-siblings {
@@ -415,6 +465,9 @@ section[nav-anchor-section="landing"] {
 }
 .flex-between {
     @include flex-between;
+}
+.flew-wrap {
+    flex-wrap: wrap;
 }
 .flex-fill {
     display: flex;
@@ -638,44 +691,39 @@ a {
 .anchor-title {
     display: block;
     position: relative;
-    // width: 100%;
+    .fill_width { width: 100%; }
 
     @include txt-w-semibold;
     font-size: 2.4rem;
     letter-spacing: -0.03em;
     line-height: 1;
+    &.align-right { text-align: right; }
+    &.align-left { text-align: left;}
 
-    padding-bottom: 2.5rem;
-    border-bottom: var(--stroke);
+    &.mr > span { margin-right: var(--anchor-side-margin); }
+    &.ml > span { margin-left: var(--anchor-side-margin); }
 
-    &.align-right {
-        text-align: right;
-    }
-    &.align-left {
-        text-align: left;
-    }
-
-    &.mr {
-        margin-right: 2rem;
-    }
-    &.ml {
-        margin-left: 2rem;
+    > span {
+        display: inline-block;
+        position: relative;
+        padding-bottom: var(--spacing-medium);
+        border-bottom: var(--stroke);
     }
 
-    &.expand-left::before,
-    &.expand-right::after {
+    &.expand-left > span::before,
+    &.expand-right > span::after {
         content: "";
         position: absolute;
         top: 100%;
-        width: 100%;
+        width: 100vw;
         height: 0;
         border-bottom: var(--stroke);
         pointer-events: none;
     }
-    &.expand-left::before {
+    &.expand-left > span::before {
         right: 99%;
     }
-    &.expand-right::after {
+    &.expand-right > span::after {
         left: 99%;
     }
 }
@@ -691,7 +739,7 @@ nav-anchors {
             height: var(--stroke-w);
             background-color: var(--nav-fill);
 
-            transition: width 0.6s cubic-bezier(0.3, 0.4, 0, 1);
+            transition: opacity 0s ease, width 0.6s cubic-bezier(0.3, 0.4, 0, 1);
         }
 
     }
@@ -702,7 +750,7 @@ nav-anchors {
     &:not(.active-pause) [nav-anchor-link].active::after {
         width: 100%;
         left: 0;
-        transition: width 0.6s cubic-bezier(0.3, 0.7, 0, 1);
+        transition: opacity 0s ease, width 0.6s cubic-bezier(0.3, 0.7, 0, 1);
     }
 
     span {
@@ -724,7 +772,7 @@ nav-anchors {
     padding: 1rem 1.5rem;
     @include stroke-around(2.5rem);
 
-    &.full_width {
+    &.fill_width {
         display: flex;
         width: 100%;
         align-items: center;
@@ -811,15 +859,28 @@ p key {
     transform: scale(1);
     transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.65, 0, 1);
 
-    &:hover {
-        opacity: var(--hover-o);
-        transition-duration: 0.1s, 0.8s;
-        transition-delay: 0s;
+    // pc only
+    @media(hover: hover) and (pointer: fine) {
+        &:hover {
+            opacity: var(--hover-o);
+            transition-duration: 0.1s, 0.8s;
+            transition-delay: 0s;
+        }
     }
     &:active {
         transform: scale(0.935);
         transition: opacity 0.4s ease, transform 0.035s linear;
         transition-delay: 0s;
+    }
+
+    // touch screens only
+    @media(hover: none) and (pointer: coarse) {
+        &:active {
+            opacity: var(--hover-o);
+            transform: scale(0.9);
+            transition: opacity 0.1s ease, transform 0.025s linear;
+            transition-delay: 0s;
+        }
     }
 }
 
@@ -827,13 +888,29 @@ p key {
 // CONTENT CARDS
 .card-content {
     display: flex;
-    flex-direction: column;
+    width: 100%;
     height: auto;
     @include stroke-around;
     padding: var(--spacing-medium-large);
     box-sizing: border-box;
-    @include spacing-v-children(var(--spacing-medium));
     @include spacing-v-siblings(var(--spacing-medium-large));
+
+    flex-direction: column;
+    @include spacing-v-children(var(--spacing-medium));
+
+    @media (min-width: $doc-half-m) {
+        &.inline {
+            flex-direction: row;
+            @include spacing-h-children(var(--spacing-medium-large));
+
+            > * {
+                width: auto;
+                flex-grow: 1;
+                flex-shrink: 1;
+                margin-bottom: 0;
+            }
+        }
+    }
 
     > * {
         display: block;
@@ -846,27 +923,67 @@ p key {
         align-items: center;
 
         @include spacing-h-small-children;
-
-
     }
     .icon {
-        size: 1em;
+        flex-grow: 0;
+        flex-shrink: 0;
+        size: 1.5em;
 
         svg {
             size: 100%;
         }
     }
+    img.icon {
+        user-select: none;
+        pointer-events: all;
+        object-fit: contain;
+    }
 
+    .items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+
+        @include spacing-h-children-reverse(var(--spacing-small));
+
+        > * {
+            margin: calc(var(--spacing-small) / 3) _;
+        }
+    }
+
+    &.mini {
+        justify-content: space-between;
+    }
     &.small {
         .icon {
             size: 4.5rem;
         }
     }
     &.medium {
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        > * {
+            flex: 1;
+            flex-grow: 0;
+        }
 
+        .head {
+            @include spacing-h-children(var(--spacing-small-medium));
+        }
         .icon {
-            size: 8rem;
+            size: 6.8rem;
+
+            svg {
+                --stroke-width: 4px;
+            }
+        }
+    }
+    &.medium.head-right {
+        .head {
+            text-align: right;
+            justify-content: space-between;
         }
     }
     &.large {

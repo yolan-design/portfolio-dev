@@ -139,7 +139,7 @@ html[page="about"] {
                         padding: var(--spacing-small);
 
                         span {
-                            font-size: 2.1rem;
+                            font-size: var(--txt-body-size);
                         }
                     }
                 }
@@ -229,22 +229,20 @@ section[nav-anchor-section="formations"] {
     }
 
     @media (max-width: $doc-half) {
-        row-gap: var(--spacing-mega);
-
         .anchor-title {
             grid-column: 1 / 7;
             margin-right: var(--doc-col-width);
+        }
+        .cards-diploma {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            margin-left: 0;
+            margin-bottom: var(--spacing-small-medium);
         }
         .cards-other {
             grid-column: 1 / -1;
             grid-row: 3;
             margin-right: 0;
-        }
-
-        .cards-diploma {
-            grid-column: 1 / -1;
-            grid-row: 2;
-            margin-left: 0;
         }
     }
     @media (max-width: $doc-phone) {
@@ -267,6 +265,118 @@ section[nav-anchor-section="formations"] {
                 > *:last-child {
                     flex-grow: 1;
                     flex-shrink: 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+section[nav-anchor-section="mes_moyens"] {
+    margin-bottom: var(--spacing-section-large);
+
+    > .ggrid:first-child {
+        margin-bottom: var(--spacing-section-small);
+        row-gap: var(--spacing-super);
+
+        .anchor-title {
+            grid-column: -5 / -2;
+            margin-left: var(--doc-col-width);
+        }
+
+        h2 {
+            grid-column: 1 / -4;
+        }
+
+        @media (max-width: $doc-half) {
+            .anchor-title {
+                margin-left: 0;
+            }
+
+            h2 {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+        }
+    }
+
+    > .ggrid:not(:first-child):not(:last-child) {
+        margin-bottom: var(--spacing-section-medium);
+    }
+
+    > .ggrid:not(:first-child) {
+        row-gap: var(--spacing-large);
+
+        h4 {
+            grid-column: 1 / -1;
+        }
+
+        .sep {
+            grid-column: 1 / 3;
+            grid-row: 2;
+
+            --sep-side-margin: calc(var(--doc-col-width) + var(--anchor-side-margin));
+        }
+
+        .cards {
+            grid-column: 2 / -2;
+            grid-row: 2;
+
+            @media (max-width: $doc-phone) {
+                grid-column: 2 / -1;
+            }
+
+            display: grid;
+            gap: var(--doc-gutter);
+
+            row-gap: var(--spacing-medium-large);
+            > * { margin-bottom: 0; }
+        }
+
+        &#moyen_mat-perso {
+            /* // flex version
+            .cards {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                .card-content.medium {
+                    // width: calc(var(--doc-col-width) * 3 + var(--doc-gutter) * 3);
+                    width: calc((var(--doc-col-width) + var(--doc-gutter)) * 3);
+
+                    @media (max-width: $doc-half) {
+                        width: calc(50% - (var(--doc-gutter) / 2));
+                    }
+                    @media (max-width: $doc-phone) {
+                        width: 100%;
+                    }
+                }
+            } */
+
+            .cards {
+                //grid-template-columns: repeat(3, calc((var(--doc-col-width) + var(--doc-gutter)) * 3));
+                grid-auto-rows: 1fr;
+
+                grid-template-columns: repeat(3, 1fr);
+                @media (min-width: $doc-half-m) { gap: var(--spacing-medium-large); }
+
+                @media (max-width: $doc-half) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                @media (max-width: $doc-phone) {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+
+        &#moyen_mat-outils {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+
+                @media (max-width: $doc-phone) {
+                    grid-template-columns: 1fr;
                 }
             }
         }
