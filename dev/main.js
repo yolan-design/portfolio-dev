@@ -223,7 +223,7 @@ const footerCTA = document.querySelector("footer-cta button");
 if (footerCTA) {
 
     const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
-        footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Innarêtable"];
+          footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Inarrêtable"];
 
     let footerCTA_copiedRandom = 0,
     footerCTA_copiedComboCooldownStatus = 0;
