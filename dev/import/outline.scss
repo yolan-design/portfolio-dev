@@ -8,7 +8,7 @@
     --fill-rgb : var(--dynamic-fill, var(--rgb-main-fill));
     --bg-rgb : var(--dynamic-bg, var(--rgb-main-bg));
 
-    --fill-w: #ffffff;
+    --fill-invert: #ffffff;
     --nav-fill: var(--fill);
 
     --accent: rgb(var(--accent-rgb));
@@ -176,12 +176,15 @@ nav-bar, nav-menu, nav-anchors {
     box-sizing: border-box;
     padding: _ calc(var(--doc-margin) + (var(--stroke-w) / 2));
 } */
-nav-bar, nav-anchors {
+nav-bar.invert,
+nav-anchors {
     @supports (mix-blend-mode: difference) {
         mix-blend-mode: difference;
-        --nav-fill: var(--fill-w);
+        --nav-fill: var(--fill-invert);
     }
-
+}
+nav-bar,
+nav-anchors {
     * {
         border-color: var(--nav-fill) !important;
         color: var(--nav-fill) !important;
@@ -189,6 +192,47 @@ nav-bar, nav-anchors {
     svg {
         fill: var(--nav-fill) !important;
     }
+}
+
+// invert color hue fix
+html:not(.nav-menu-open) {
+    .invert, .invert-fix {
+        > * {
+            transition: opacity 0.3s 0.05s ease !important;
+
+            @media (max-width: $doc-phone) {
+                transition: opacity 0.2s 0.2s ease !important;
+            }
+        }
+    }
+    .invert {
+        > * { opacity: 1; }
+
+        + .invert-fix {
+            > * { opacity: 0; }
+            * { pointer-events: none !important; }
+        }
+    }
+}
+html.nav-menu-open {
+    .invert, .invert-fix {
+        > * {
+            transition: opacity 0.3s 0.1s ease !important;
+
+            @media (max-width: $doc-phone) {
+                transition: opacity 0.15s 0.05s ease !important;
+            }
+        }
+    }
+    .invert {
+        > * { opacity: 0; }
+        * { pointer-events: none !important; }
+
+        + .invert-fix > * { opacity: 1; }
+    }
+}
+.invert-fix {
+    --nav-fill: var(--bg);
 }
 
 nav-bar {
@@ -296,13 +340,13 @@ html.nav-menu-open {
         }
     }
     nav-bar {
-        --nav-fill: var(--bg);
+        // --nav-fill: var(--bg);
         --hover-o: var(--hover-o-dark);
 
-        .logo {
-            pointer-events: none;
-        }
+        // .logo { pointer-events: none; }
+
     }
+
     .nav-btn-big#nav-btn-toggle-menu > div {
         --spacing-bars: 0rem;
         --rotate-bars: 25deg;

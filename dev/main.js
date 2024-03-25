@@ -86,13 +86,15 @@ const scrollToDuration = 1.4;
 
 
 // NAV MENU TOGGLE
-const navMenuButton = document.querySelector("nav-bar #nav-btn-toggle-menu");
+const navMenuButton = document.querySelectorAll("nav-bar #nav-btn-toggle-menu");
 if (navMenuButton) {
-    navMenuButton.addEventListener("click", () => {
-        doc.classList.toggle("nav-menu-open");
-        setTimeout(() => {
+    navMenuButton.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            doc.classList.toggle("nav-menu-open");
+            setTimeout(() => {
 
-        }, 200);
+            }, 200);
+        })
     })
 }
 
