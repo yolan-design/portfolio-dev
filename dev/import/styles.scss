@@ -108,6 +108,12 @@ html {
 .txt-italic {
     font-style: italic;
 }
+.txt-accent, p aa {
+    color: var(--accent);
+}
+.bg-accent {
+   background-color: var(--accent);
+}
 
 @mixin txt-normal($ts : var(--txt-size-morph)) {
     color: var(--fill);
@@ -696,6 +702,13 @@ nav-anchors {
     border: var(--stroke);
     border-radius: $radius;
 }
+@mixin stroke-accent {
+    border-color: var(--accent) !important;
+}
+.stroke-accent {
+    @include stroke-accent;
+}
+
 .high {
     display: inline-block;
     @include txt-normal;
@@ -736,17 +749,30 @@ nav-anchors {
 @mixin low-bg-o {
     opacity: var(--low-bg-o);
 }
-@mixin txt-low {
-    color: var(--fill-low);
-}
 .low, p low {
     @include low-fill-o;
 }
 .low-bg {
     @include low-bg-o;
 }
+
+@mixin txt-low {
+    color: var(--fill-low);
+}
+@mixin txt-low-bg {
+    color: var(--bg-low);
+}
+@mixin txt-low-accent {
+    color: var(--accent-low);
+}
 .txt-low {
     @include txt-low;
+}
+.txt-low-bg {
+    @include txt-low-bg;
+}
+.txt-low-accent {
+    @include txt-low-accent;
 }
 
 .tip {
