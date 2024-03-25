@@ -4,8 +4,9 @@
     --hover-o: 0.7;
     --hover-o-dark: 0.8;
 
-    --fill-rgb : var(--fill-dynamic, var(--rgb-main-fill));
-    --bg-rgb : var(--bg-dynamic, var(--rgb-main-bg));
+    --fill-accent : var(--dynamic-accent, var(--rgb-main-accent));
+    --fill-rgb : var(--dynamic-fill, var(--rgb-main-fill));
+    --bg-rgb : var(--dynamic-bg, var(--rgb-main-bg));
 
     --fill-w: #ffffff;
     --nav-fill: var(--fill);
@@ -42,8 +43,9 @@
 }
 
 html {
-    --fill-dynamic: var(--rgb-main-fill);
-    --bg-dynamic: var(--rgb-main-bg);
+    --dynamic-accent: var(--rgb-main-accent);
+    --dynamic-fill: var(--rgb-main-fill);
+    --dynamic-bg: var(--rgb-main-bg);
 
     --txt-size-ggrid: clamp(1px, 10px, var(--doc-scale-ggrid));
     --txt-size-morph: clamp(6px, 10px, var(--doc-scale-morph));

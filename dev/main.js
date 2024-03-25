@@ -98,27 +98,59 @@ if (navMenuButton) {
 
 
 // TRANSITION BG-DYNAMIC
-const bgDynamic_Default = getComputedStyle(doc).getPropertyValue("--rgb-main-bg");
-let bgDynamic_Current = "",
-    bgDynamic_Applied = bgDynamic_Default;
+let DYNAMIC_COLORS = {
+    default : {
+        accent : getComputedStyle(doc).getPropertyValue("--rgb-main-accent"),
+        fill : getComputedStyle(doc).getPropertyValue("--rgb-main-fill"),
+        bg : getComputedStyle(doc).getPropertyValue("--rgb-main-bg"),
+    },
+    current : {
+        accent : "",
+        fill : "",
+        bg : "",
+    },
+    applied : {}
+}
+DYNAMIC_COLORS.applied = {
+    accent : DYNAMIC_COLORS.default.accent,
+    fill : DYNAMIC_COLORS.default.fill,
+    bg : DYNAMIC_COLORS.default.bg,
+}
 
-function bgDynamicChange(newValue) {
-    if (bgDynamic_Current != newValue) { // only run if new color
-        //if (newValue == null /*|| newValue.split(",").length != 3*/) { newValue = bgDynamic_Default; }
+function dynamicColorUpdate(el) {
+    if ( // only run if new color
+           DYNAMIC_COLORS.current.accent != el.getAttribute("dynamic_color-accent")
+        || DYNAMIC_COLORS.current.fill != el.getAttribute("dynamic_color-fill")
+        || DYNAMIC_COLORS.current.bg != el.getAttribute("dynamic_color-bg")
+        ) {
 
-        bgDynamic_Current = newValue;
+        DYNAMIC_COLORS.current.accent = el.getAttribute("dynamic_color-accent");
+        DYNAMIC_COLORS.current.fill = el.getAttribute("dynamic_color-fill");
+        DYNAMIC_COLORS.current.bg = el.getAttribute("dynamic_color-bg");
 
-        const bgVar = { bgDynamic: bgDynamic_Applied, }
+        const colorsVar = {
+            dynamicAccent: DYNAMIC_COLORS.applied.accent,
+            dynamicFill: DYNAMIC_COLORS.applied.fill,
+            dynamicBg: DYNAMIC_COLORS.applied.bg,
+        }
         anime({
-            targets: bgVar,
+            targets: colorsVar,
             easing: 'easeInOutCubic',
-            duration: 2500,
+            duration: 2000,
             round: 100,
 
-            bgDynamic: [bgDynamic_Applied, newValue],
+            dynamicAccent: [DYNAMIC_COLORS.applied.accent, el.getAttribute("dynamic_color-accent")],
+            dynamicFill: [DYNAMIC_COLORS.applied.fill, el.getAttribute("dynamic_color-fill")],
+            dynamicBg: [DYNAMIC_COLORS.applied.bg, el.getAttribute("dynamic_color-bg")],
+
             update: () => {
-                doc.style.setProperty('--bg-dynamic', bgVar.bgDynamic);
-                bgDynamic_Applied = bgVar.bgDynamic;
+                doc.style.setProperty('--dynamic-accent', colorsVar.dynamicAccent);
+                doc.style.setProperty('--dynamic-fill', colorsVar.dynamicFill);
+                doc.style.setProperty('--dynamic-bg', colorsVar.dynamicBg);
+
+                DYNAMIC_COLORS.applied.accent = colorsVar.dynamicAccent;
+                DYNAMIC_COLORS.applied.fill = colorsVar.dynamicFill;
+                DYNAMIC_COLORS.applied.bg = colorsVar.dynamicBg;
             },
         });
     }
@@ -131,10 +163,16 @@ const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
       anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
 if (pageAnchorsSections) {
-    // default bg-dynamic color
+    // default dynamic colors
     pageAnchorsSections.forEach((anchorSection) => {
-        if (!anchorSection.getAttribute("section-bg")) {
-            anchorSection.setAttribute("section-bg", bgDynamic_Default)
+        if (!anchorSection.getAttribute("dynamic_color-accent")) {
+            anchorSection.setAttribute("dynamic_color-accent", DYNAMIC_COLORS.default.accent)
+        }
+        if (!anchorSection.getAttribute("dynamic_color-fill")) {
+            anchorSection.setAttribute("dynamic_color-fill", DYNAMIC_COLORS.default.fill)
+        }
+        if (!anchorSection.getAttribute("dynamic_color-bg")) {
+            anchorSection.setAttribute("dynamic_color-bg", DYNAMIC_COLORS.default.bg)
         }
     })
 
@@ -147,8 +185,8 @@ if (pageAnchorsSections) {
 
             if (anchorSectionRect.y < splitSection && anchorSectionRect.bottom > splitSection) {
                 if (anchorLink) { anchorLink.classList.add("active"); }
-                //doc.style.setProperty('--bg-dynamic', anchorSection.getAttribute("section-bg"));
-                bgDynamicChange(anchorSection.getAttribute("section-bg"));
+                //doc.style.setProperty('--bg-dynamic', anchorSection.getAttribute("dynamic_color-bg"));
+                dynamicColorUpdate(anchorSection);
             } else {
                 if (anchorLink) { anchorLink.classList.remove("active"); }
             }
