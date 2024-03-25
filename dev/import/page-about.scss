@@ -324,14 +324,9 @@ section[nav-anchor-section="mes_moyens"] {
             grid-row: 2;
 
             @media (max-width: $doc-phone) {
-                grid-column: 2 / -1;
+                grid-column: 1 / -1;
+                margin-left: calc(var(--doc-col-width) / 2);
             }
-        }
-
-        &#moyen_mat-perso {
-        }
-
-        &#moyen_mat-outils {
         }
     }
 }

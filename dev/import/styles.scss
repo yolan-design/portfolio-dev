@@ -37,6 +37,8 @@ $doc-half-m: ($doc-half + 0.1);
 @media (max-width: $doc-phone) {
     :root {
         --spacing-small: 1.25rem;
+        --spacing-small-medium: 1.6rem;
+        --spacing-medium: 2rem;
         --spacing-medium-large: 2.35rem;
         --spacing-super: 5rem;
 
@@ -280,14 +282,19 @@ h5 {
 
     font-size: 3.2rem;
     @media (max-width: $doc-phone) {
-        font-size: 2.9rem;
+        font-size: 2.8rem;
     }
 }
 h6 {
-    font-size: 2.4rem;
     font-weight: 550;
     letter-spacing: -0.03em;
     line-height: 125%;
+
+    font-size: 2.4rem;
+    @media (max-width: $doc-phone) {
+        font-weight: 600;
+        font-size: 2.1rem;
+    }
 }
 
 h-subtitle {
@@ -315,8 +322,15 @@ section[nav-anchor-section="landing"] {
     position: relative;
     width: 100%;
 
-    &:not(.top) { border-bottom: var(--stroke); }
-    &.top { border-top: var(--stroke); }
+    border-bottom: var(--stroke);
+    &.b-top,
+    &.b-left,
+    &.b-right
+    { border-bottom: 0; }
+
+    &.b-top { border-top: var(--stroke); }
+    &.b-left { border-left: var(--stroke); }
+    &.b-right { border-right: var(--stroke); }
 
     --sep-side-margin: var(--anchor-side-margin);
     &.mr { width: calc(100% - var(--sep-side-margin)); margin-right: var(--sep-side-margin); }
@@ -803,12 +817,12 @@ p key {
 
 // CONTENT CARDS
 .card-content {
+    box-sizing: border-box;
     display: flex;
     width: 100%;
     height: auto;
+
     @include stroke-around;
-    padding: var(--spacing-medium-large);
-    box-sizing: border-box;
     @include spacing-v-siblings(var(--spacing-medium-large));
 
     flex-direction: column;
@@ -922,6 +936,12 @@ p key {
                 text-align: right;
             }
         }
+    }
+
+
+    padding: var(--spacing-medium-large);
+    @media (max-width: $doc-phone) {
+        padding: var(--spacing-medium);
     }
 }
 
