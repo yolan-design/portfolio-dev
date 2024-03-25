@@ -160,7 +160,7 @@ html[page="about"] {
 
 
 section[nav-anchor-section="formations"] {
-    margin-bottom: var(--spacing-section-large);
+    padding-bottom: var(--spacing-section-large);
     row-gap: var(--spacing-super);
 
     .anchor-title {
@@ -274,7 +274,7 @@ section[nav-anchor-section="formations"] {
 
 
 section[nav-anchor-section="mes_moyens"] {
-    margin-bottom: var(--spacing-section-large);
+    padding-bottom: var(--spacing-section-large);
 
     > .ggrid:first-child {
         margin-bottom: var(--spacing-section-small);
