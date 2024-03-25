@@ -326,59 +326,12 @@ section[nav-anchor-section="mes_moyens"] {
             @media (max-width: $doc-phone) {
                 grid-column: 2 / -1;
             }
-
-            display: grid;
-            gap: var(--doc-gutter);
-
-            row-gap: var(--spacing-medium-large);
-            > * { margin-bottom: 0; }
         }
 
         &#moyen_mat-perso {
-            /* // flex version
-            .cards {
-                display: flex;
-                justify-content: space-between;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                .card-content.medium {
-                    // width: calc(var(--doc-col-width) * 3 + var(--doc-gutter) * 3);
-                    width: calc((var(--doc-col-width) + var(--doc-gutter)) * 3);
-
-                    @media (max-width: $doc-half) {
-                        width: calc(50% - (var(--doc-gutter) / 2));
-                    }
-                    @media (max-width: $doc-phone) {
-                        width: 100%;
-                    }
-                }
-            } */
-
-            .cards {
-                //grid-template-columns: repeat(3, calc((var(--doc-col-width) + var(--doc-gutter)) * 3));
-                grid-auto-rows: 1fr;
-
-                grid-template-columns: repeat(3, 1fr);
-                @media (min-width: $doc-half-m) { gap: var(--spacing-medium-large); }
-
-                @media (max-width: $doc-half) {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-                @media (max-width: $doc-phone) {
-                    grid-template-columns: 1fr;
-                }
-            }
         }
 
         &#moyen_mat-outils {
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-
-                @media (max-width: $doc-phone) {
-                    grid-template-columns: 1fr;
-                }
-            }
         }
     }
 }
