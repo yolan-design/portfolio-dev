@@ -117,6 +117,24 @@ DYNAMIC_COLORS.applied = {
     bg : DYNAMIC_COLORS.default.bg,
 }
 
+// default dynamic colors
+function elSetDefaultDynamicColor(elAll, attribute, defaultColor) {
+    if (elAll) {
+        // doc.querySelectorAll("*["+ attribute +"]").forEach((el) => {
+        elAll.forEach((el) => {
+            // set to default if does not exist
+            if (!el.getAttribute(attribute)) {
+                el.setAttribute(attribute, defaultColor)
+            }
+
+            // remove "rgb( -- )"
+            if (el.getAttribute(attribute).includes("(")) {
+                el.setAttribute(attribute, el.getAttribute(attribute).match(/\(([^()]+)\)/)[1]);
+            }
+        })
+    }
+}
+
 function dynamicColorUpdate(el) {
     if ( // only run if new color
            DYNAMIC_COLORS.current.accent != el.getAttribute("dynamic_color-accent")
@@ -163,18 +181,9 @@ const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
       anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
 if (pageAnchorsSections) {
-    // default dynamic colors
-    pageAnchorsSections.forEach((anchorSection) => {
-        if (!anchorSection.getAttribute("dynamic_color-accent")) {
-            anchorSection.setAttribute("dynamic_color-accent", DYNAMIC_COLORS.default.accent)
-        }
-        if (!anchorSection.getAttribute("dynamic_color-fill")) {
-            anchorSection.setAttribute("dynamic_color-fill", DYNAMIC_COLORS.default.fill)
-        }
-        if (!anchorSection.getAttribute("dynamic_color-bg")) {
-            anchorSection.setAttribute("dynamic_color-bg", DYNAMIC_COLORS.default.bg)
-        }
-    })
+    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-accent", DYNAMIC_COLORS.default.accent);
+    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-fill", DYNAMIC_COLORS.default.fill);
+    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-bg", DYNAMIC_COLORS.default.bg);
 
     // scroll updates
     scrollDoc.on('scroll', (args) => {
