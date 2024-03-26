@@ -6,7 +6,7 @@ import "./main.scss"
 
 // LIBRARIES
 import hotkeys from 'hotkeys-js';
-import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll.min.js";
+import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll.js";
 import anime from 'animejs/lib/anime.es.js';
 
 // GLOBAL VARIABLES

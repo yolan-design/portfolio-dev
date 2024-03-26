@@ -1,4 +1,4 @@
-/* loconative-scroll v1.0.2 | MIT License | https://github.com/quentinhocde/loconative-scroll */
+/* loconative-scroll v1.0.2 | MIT License | https://github.com/quentinhocde/loconative-scroll | edited by yolan.design to suit his needs */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1434,6 +1434,16 @@
       key: "transform",
       value: function transform(element, x, y, delay) {
         var transform;
+
+        if (element.getAttribute("data-scroll-parallax-clamp")) {
+          if (parseFloat(element.getAttribute("data-scroll-speed")) <= 0) {
+            x = Math.min(x, 0);
+            y = Math.min(y, 0);
+          } else {
+            x = Math.max(x, 0);
+            y = Math.max(y, 0);
+          }
+        }
 
         if (!delay) {
           transform = "matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,".concat(x, ",").concat(y, ",0,1)");
