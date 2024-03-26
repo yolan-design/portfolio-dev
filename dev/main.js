@@ -102,7 +102,7 @@ if (navMenuButton) {
 // TRANSITION BG-DYNAMIC
 let DYNAMIC_COLORS = {
     default : {
-        accent : getComputedStyle(doc).getPropertyValue("--rgb-main-accent"),
+        accent : getComputedStyle(doc).getPropertyValue("--rgb-main-fill"),
         fill : getComputedStyle(doc).getPropertyValue("--rgb-main-fill"),
         bg : getComputedStyle(doc).getPropertyValue("--rgb-main-bg"),
     },
