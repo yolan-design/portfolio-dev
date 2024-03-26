@@ -860,6 +860,11 @@ p key {
     width: 100%;
     height: auto;
 
+    background-color: transparent;
+    &[data-scroll]:not(.no-border) {
+        background-color: var(--bg);
+    }
+
     &:not(.no-border) {
         @include stroke-around;
         @include spacing-v-siblings(var(--spacing-medium-large));
@@ -991,11 +996,6 @@ p key {
         }
     }
 
-    background-color: transparent;
-    &[data-scroll] {
-        background-color: var(--bg);
-    }
-
     @include media-touch-not {
         &:not(.no-hover-hicon) {
             &:hover {
@@ -1051,6 +1051,7 @@ ggrid {
 *[class*="grid-col"] {
     display: grid;
     gap: var(--doc-gutter);
+    row-gap: var(--doc-gutter);
 
     + *[class*="grid-col"] {
         margin-top: var(--spacing-medium-large);
