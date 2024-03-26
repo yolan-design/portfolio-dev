@@ -506,6 +506,17 @@ section[nav-anchor-section="landing"] {
     }
 }
 
+@mixin media-touch-not() {
+    @media (hover: hover) and (pointer: fine) {
+        @content;
+    }
+}
+@mixin media-touch-only() {
+    @media (hover: none) and (pointer: coarse) {
+        @content;
+    }
+}
+
 
 // ELEMENTS
 svg {
@@ -817,7 +828,7 @@ p key {
     transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.65, 0, 1);
 
     // pc only
-    @media(hover: hover) and (pointer: fine) {
+    @include media-touch-not {
         &:hover {
             opacity: var(--hover-o);
             transition-duration: 0.1s, 0.8s;
@@ -831,7 +842,7 @@ p key {
     }
 
     // touch screens only
-    @media(hover: none) and (pointer: coarse) {
+    @include media-touch-only {
         &:active {
             opacity: var(--hover-o);
             transform: scale(0.9);
@@ -849,8 +860,21 @@ p key {
     width: 100%;
     height: auto;
 
-    @include stroke-around;
-    @include spacing-v-siblings(var(--spacing-medium-large));
+    &:not(.no-border) {
+        @include stroke-around;
+        @include spacing-v-siblings(var(--spacing-medium-large));
+
+        padding: var(--spacing-medium-large);
+        @media (max-width: $doc-phone) {
+            padding: var(--spacing-medium);
+        }
+    }
+    &.sep-between-v:not(:last-child) {
+        @include spacing-v-siblings(var(--spacing-large));
+        padding-bottom: var(--spacing-large);
+        border-bottom: var(--stroke);
+    }
+
 
     flex-direction: column;
     @include spacing-v-children(var(--spacing-medium));
@@ -965,10 +989,26 @@ p key {
         }
     }
 
+    background-color: transparent;
+    &[data-scroll] {
+        background-color: var(--bg);
+    }
 
-    padding: var(--spacing-medium-large);
-    @media (max-width: $doc-phone) {
-        padding: var(--spacing-medium);
+    @include media-touch-not {
+        &:not(.no-hover-hicon) {
+            &:hover {
+                .head .icon,
+                .header .icon {
+                    transform: scale(1.1) rotateZ(0.1deg);
+                    transition: transform 0.5s cubic-bezier(0.2, 0.6, 0, 1);
+                }
+            }
+            .head .icon,
+            .header .icon {
+                transform: scale(1) rotateZ(-0.1deg);
+                transition: transform 0.5s cubic-bezier(0.2, 0.5, 0, 1);
+            }
+        }
     }
 }
 
