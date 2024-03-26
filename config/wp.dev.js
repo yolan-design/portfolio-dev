@@ -42,8 +42,8 @@ module.exports = merge(wpBASE, {
 
     /* File watcher options */
     watchOptions: {
-      aggregateTimeout: 600,
-      poll: 500,
-      ignored: ["**/node_modules", "**/.git"],
+        // aggregateTimeout: 600,
+        // poll: 500,
+        ignored: ["**/node_modules", "**/.git"],
     },
 })
