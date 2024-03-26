@@ -869,10 +869,12 @@ p key {
             padding: var(--spacing-medium);
         }
     }
-    &.sep-between-v:not(:last-child) {
-        @include spacing-v-siblings(var(--spacing-large));
-        padding-bottom: var(--spacing-large);
-        border-bottom: var(--stroke);
+    &.sep-between-v {
+        &:not(:last-child) { border-bottom: var(--stroke); }
+
+        padding: var(--spacing-large) _;
+        &:first-child { padding-top: 0; }
+        &:last-child { padding-bottom: 0; }
     }
 
 
