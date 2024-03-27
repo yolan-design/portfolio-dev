@@ -160,6 +160,7 @@ nav-bar, nav-menu, nav-anchors {
     @include new-element_fill-top;
     height: var(--nav-height) !important;
     align-items: center;
+    user-select: none;
 
     pointer-events: none;
     *[class*="btn"] {
@@ -484,6 +485,9 @@ footer {
     @media (min-width: $doc-phone-m) {
         max-height: clamp(70vh, 56vw, var(--footer-height));
     }
+}
+footer-cta, footer-contact {
+    user-select: none;
 }
 
 

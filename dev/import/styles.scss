@@ -49,6 +49,10 @@ $doc-half-m: ($doc-half + 0.1);
         --spacing-section-large: 18rem;
     }
 }
+::selection {
+    color: var(--bg);
+    background-color: var(--accent);
+}
 
 // scale
 html {
