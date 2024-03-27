@@ -120,13 +120,17 @@ DYNAMIC_COLORS.applied = {
 }
 
 // default dynamic colors
-function elSetDefaultDynamicColor(elAll, attribute, defaultColor) {
-    if (elAll) {
+function elSetDefaultDynamicColor({targets, attribute, defaultColor, defaultFromAttribute, defaultColorFallback}) {
+    if (targets) {
         // doc.querySelectorAll("*["+ attribute +"]").forEach((el) => {
-        elAll.forEach((el) => {
+        targets.forEach((el) => {
             // set to default if does not exist
             if (!el.getAttribute(attribute)) {
-                el.setAttribute(attribute, defaultColor)
+                el.setAttribute(attribute,
+                    ((defaultColor) ? defaultColor : (
+                        (el.getAttribute(defaultFromAttribute)) ? el.getAttribute(defaultFromAttribute) : defaultColorFallback)
+                        )
+                    )
             }
 
             // remove "rgb( -- )"
@@ -183,9 +187,9 @@ const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
       anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
 if (pageAnchorsSections) {
-    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-accent", DYNAMIC_COLORS.default.accent);
-    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-fill", DYNAMIC_COLORS.default.fill);
-    elSetDefaultDynamicColor(pageAnchorsSections, "dynamic_color-bg", DYNAMIC_COLORS.default.bg);
+    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
+    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
+    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-accent", defaultFromAttribute : "dynamic_color-fill", defaultColorFallback : DYNAMIC_COLORS.default.accent});
 
     // scroll updates
     scrollDoc.on('scroll', (args) => {
