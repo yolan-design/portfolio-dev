@@ -998,8 +998,14 @@ p key {
         }
     }
     &.large {
-        padding: var(--spacing-large-super);
         @include spacing-v-children(var(--spacing-medium-large));
+
+        @media (min-width: $doc-half-m) {
+            padding: var(--spacing-large-super);
+        }
+        @media (max-width: $doc-phone) {
+            padding: var(--doc-margin);
+        }
 
         .head {
             align-items: flex-start;
@@ -1018,14 +1024,17 @@ p key {
 
             @media (max-width: $doc-half) {
                 flex-direction: column;
+
                 > *:last-child {
                     margin-top: var(--spacing-small);
                     text-align: left;
                 }
+
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+                border-bottom: var(--stroke);
             }
         }
-    }
-    &.xl {
     }
 
     @include media-touch-not {
