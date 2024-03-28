@@ -5,13 +5,13 @@ part_nav: `
 <nav-menu class="ggrid doc-margin-p">
     <div class="nav-pages">
         <a id="nav-pagelink-home" class="btn-interaction" href="/">
-            <span>Accueil</span>
+            <span translate-id="nav-page-home" translate-from-general></span>
         </a>
         <a id="nav-pagelink-portfolio" class="btn-interaction" href="/portfolio">
-            <span>Portfolio</span>
+            <span translate-id="nav-page-portfolio" translate-from-general></span>
         </a>
         <a id="nav-pagelink-about" class="active btn-interaction" href="/about">
-            <span>À propos</span>
+            <span translate-id="nav-page-about" translate-from-general></span>
         </a>
     </div>
     <div class="socials">
@@ -23,7 +23,7 @@ part_nav: `
         </a>
     </div>
     <div class="nav-buttons">
-        <div id="nav-btn-language" class="nav-btn-big btn-interaction">
+        <div id="nav-btn-language" class="nav-btn-big btn-interaction" translate-switch>
             <span class="active">FR</span>
             <span>/</span>
             <span>EN</span>
@@ -104,15 +104,15 @@ part_footer: `
                         <span>Sitemap</span>
                         <a class="ico-txt btn-interaction" href="/">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span>Accueil</span>
+                            <span translate-id="nav-page-home" translate-from-general></span>
                         </a>
                         <a class="ico-txt btn-interaction" href="/portfolio">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span>Portfolio</span>
+                            <span translate-id="nav-page-portfolio" translate-from-general></span>
                         </a>
                         <a class="ico-txt btn-interaction" href="/about">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span>À propos</span>
+                            <span translate-id="nav-page-about" translate-from-general></span>
                         </a>
                     </div>
 
