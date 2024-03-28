@@ -272,6 +272,38 @@ section[nav-anchor-section="formations"] {
 }
 
 
+section[nav-anchor-section="mes_moyens"],
+section[nav-anchor-section="experiences_pro"] {
+    > .ggrid:not(:first-child):not(:last-child) {
+        margin-bottom: var(--spacing-section-medium);
+    }
+
+    > .ggrid:not(:first-child) {
+        row-gap: var(--spacing-large);
+
+        h4 {
+            grid-column: 1 / -1;
+        }
+
+        .sep {
+            grid-column: 1 / 3;
+            grid-row: 2;
+
+            --sep-side-margin: calc(var(--doc-col-width) + var(--anchor-side-margin));
+        }
+
+        .cards {
+            grid-column: 2 / -2;
+            grid-row: 2;
+
+            @media (max-width: $doc-phone) {
+                grid-column: 1 / -1;
+                margin-left: calc(var(--doc-col-width) / 2);
+            }
+        }
+    }
+}
+
 
 section[nav-anchor-section="mes_moyens"] {
     padding-bottom: var(--spacing-section-large);
@@ -300,32 +332,83 @@ section[nav-anchor-section="mes_moyens"] {
             }
         }
     }
+}
 
-    > .ggrid:not(:first-child):not(:last-child) {
-        margin-bottom: var(--spacing-section-medium);
+
+section[nav-anchor-section="experiences_pro"] {
+    padding-bottom: var(--spacing-section-large);
+
+    .section-head {
+        margin-bottom: var(--spacing-mega);
+        display: flex;
+        align-items: baseline;
+
+        > * {
+            flex-grow: 1;
+        }
+        @media (min-width: $doc-half-m) {
+            .anchor-title {
+                margin-right: var(--anchor-side-margin);
+            }
+        }
+
+
+        h2 {
+            display: inline;
+            flex-grow: 0;
+            flex-shrink: 1;
+        }
+
+        @media (max-width: $doc-half) {
+            flex-direction: column;
+
+            .anchor-title {
+                margin-bottom: var(--spacing-super);
+            }
+        }
+
+    }
+}
+
+
+section[nav-anchor-section="autodidacte"] {
+    padding-bottom: var(--spacing-section-large);
+
+    .grid-col-1 {
+        row-gap: var(--spacing-super);
     }
 
-    > .ggrid:not(:first-child) {
-        row-gap: var(--spacing-large);
+    video {
+        @include doc-margin-small-w;
+        height: min-content;
+        grid-column: 1 / -1;
+        height: 40vh;
+    }
 
-        h4 {
-            grid-column: 1 / -1;
+    .ggrid {
+        padding: var(--spacing-large-super) _; // calc(var(--doc-col-width) + var(--doc-gutter))
+
+        .title {
+            grid-column: 2 / 7;
         }
 
-        .sep {
-            grid-column: 1 / 3;
-            grid-row: 2;
-
-            --sep-side-margin: calc(var(--doc-col-width) + var(--anchor-side-margin));
+        .content {
+            grid-column: 7 / -2;
+            padding-left: var(--doc-col-width);
         }
 
-        .cards {
-            grid-column: 2 / -2;
-            grid-row: 2;
+        @media (max-width: $doc-half) {
+            padding: _ var(--doc-margin);
 
-            @media (max-width: $doc-phone) {
+            .title,
+            .content {
                 grid-column: 1 / -1;
-                margin-left: calc(var(--doc-col-width) / 2);
+            }
+
+            .content {
+                grid-row: 2;
+                padding-left: 0;
+                padding-top: var(--spacing-large-super);
             }
         }
     }

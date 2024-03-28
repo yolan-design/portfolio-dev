@@ -24,7 +24,7 @@
     --doc-txt-size-mobile: 7.5px;
     --doc-grid-nb: 12;
     --doc-margin: 8rem;
-    --doc-margin_small: 3rem;
+    --doc-margin-small: 3rem;
     --doc-gutter: 6rem;
     --doc-gutter: 3.15vw;
     --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * (var(--doc-grid-nb) - 1))) / var(--doc-grid-nb)) );
@@ -38,7 +38,7 @@
     :root {
         --doc-grid-nb: 6;
         --doc-margin: 3rem;
-        --doc-margin_small: var(--doc-margin);
+        --doc-margin-small: var(--doc-margin);
         --doc-corner-big: 5.6rem;
 
         --nav-height: auto;
@@ -140,7 +140,7 @@ main {
 
             --spacing-bars: 0.8rem;
             --rotate-bars: 0deg;
-            transition: margin 0.25s 0.15s ease, transform 0.3s ease;
+            transition: margin 0.3s 0.2s ease, transform 0.35s ease;
 
             &:first-child {
                 margin: 0 0 var(--spacing-bars) 0;
@@ -351,7 +351,8 @@ html.nav-menu-open {
     .nav-btn-big#nav-btn-toggle-menu > div {
         --spacing-bars: 0rem;
         --rotate-bars: 25deg;
-        transition: margin 0.3s ease, transform 0.25s 0.15s ease;
+        transition: margin 0.35s ease, transform 0.55s 0.2s ease;
+        transition-timing-function: cubic-bezier(0.3, 0.65, 0.05, 1);
     }
 }
 
@@ -430,7 +431,7 @@ html.nav-menu-open {
         }
 
         opacity: 0;
-        padding: 0 !important;
+        // padding: 0 !important;
         height: 0vh !important;
 
         > * > *,

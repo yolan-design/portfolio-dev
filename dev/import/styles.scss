@@ -244,14 +244,14 @@ h2 {
         font-size: calc(var(--txt-size-ggrid) * 9);
     }
 
-    @media (max-width: $doc-phone) {
+    @media (max-width: $doc-half) {
         font-variation-settings:
             "wdth" 100,
                 "wght" 600,
             "opsz" 12;
-        font-size: 6.35rem;
+        font-size: 6rem;
         &.size-ggrid {
-            font-size: calc(var(--txt-size-ggrid) * 6.35);
+            font-size: calc(var(--txt-size-ggrid) * 6);
         }
     }
 }
@@ -268,10 +268,14 @@ h3 {
         font-size: calc(var(--txt-size-ggrid) * 6.5);
     }
 
-    @media (max-width: $doc-phone) {
-        font-size: 5.8rem;
+    @media (max-width: $doc-half) {
+        font-variation-settings:
+            "wdth" 100,
+                "wght" 600,
+            "opsz" 12;
+        font-size: 4.5rem;
         &.size-ggrid {
-            font-size: calc(var(--txt-size-ggrid) * 5.8);
+            font-size: calc(var(--txt-size-ggrid) * 4.5);
         }
     }
 }
@@ -497,7 +501,7 @@ section[nav-anchor-section="landing"] {
 .flex-fill {
     display: flex;
 
-    & > * {
+    > * {
         flex-grow: 1;
     }
 }
@@ -523,6 +527,12 @@ section[nav-anchor-section="landing"] {
 
 
 // ELEMENTS
+video[layout], img[layout] {
+    border-radius: var(--doc-corner-items);
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+}
 svg {
     user-select: none;
     overflow: visible;
@@ -639,7 +649,8 @@ a {
 .anchor-title {
     display: block;
     position: relative;
-    .fill_width { width: 100%; }
+    &.fill_width { width: 100%; }
+    &:not(.no-min_width) { min-width: var(--doc-col-width); }
 
     @include txt-w-semibold;
     font-size: 2.4rem;
@@ -719,6 +730,9 @@ nav-anchors {
 }
 @mixin stroke-accent {
     border-color: var(--accent) !important;
+}
+.stroke-around {
+    @include stroke-around;
 }
 .stroke-accent {
     @include stroke-accent;
@@ -910,6 +924,17 @@ p key {
         height: auto;
     }
 
+    // center
+    &:not(.mini) {
+        align-items: center;
+        justify-content: center;
+
+        > * {
+            flex: 1;
+            flex-grow: 0;
+        }
+    }
+
     .head {
         display: flex;
         align-items: center;
@@ -954,13 +979,6 @@ p key {
         }
     }
     &.medium {
-        justify-content: center;
-        align-items: center;
-        > * {
-            flex: 1;
-            flex-grow: 0;
-        }
-
         .head {
             @include spacing-h-children(var(--spacing-small-medium));
 
@@ -997,7 +1015,17 @@ p key {
                 flex-direction: column;
                 text-align: right;
             }
+
+            @media (max-width: $doc-half) {
+                flex-direction: column;
+                > *:last-child {
+                    margin-top: var(--spacing-small);
+                    text-align: left;
+                }
+            }
         }
+    }
+    &.xl {
     }
 
     @include media-touch-not {
@@ -1045,9 +1073,14 @@ ggrid {
     }
 }
 
-.grid-row-equal {
-    grid-auto-rows: 1fr;
-}
+.grid-center-v { align-items: center; }
+.grid-center-h { justify-content: center; }
+
+.grid-row-equal { grid-auto-rows: 1fr; }
+@media (min-width: $doc-phone-m) { .grid-row-equal--pc-phone { grid-auto-rows: 1fr; } }
+@media (max-width: $doc-phone) { .grid-row-equal--phone { grid-auto-rows: 1fr; } }
+
+
 .grid-row-auto > * {
     grid-row: auto !important;
 }
@@ -1101,6 +1134,9 @@ ggrid {
         }
     }
 }
+.grid-col-1 {
+    grid-template-columns: 1fr;
+}
 
 
 ggrid {
@@ -1149,11 +1185,32 @@ ggrid {
     box-sizing: border-box;
     padding: _ var(--doc-margin);
 }
+@mixin doc-margin-w {
+    @include doc-margin;
+    width: calc(100% - (var(--doc-margin) * 2));
+}
 .doc-margin {
     @include doc-margin;
 }
 .doc-margin-p {
     @include doc-margin-p;
+}
+.doc-margin-w {
+    @include doc-margin-w;
+}
+
+@mixin doc-margin-small {
+    margin: _ var(--doc-margin-small);
+}
+@mixin doc-margin-small-w {
+    @include doc-margin-small;
+    width: calc(100% - (var(--doc-margin-small) * 2));
+}
+.doc-margin-small {
+    @include doc-margin-small;
+}
+.doc-margin-small-w {
+    @include doc-margin-small-w;
 }
 
 @mixin section-margin($bottom : 0) {
