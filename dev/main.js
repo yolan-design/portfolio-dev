@@ -1,4 +1,5 @@
-import * as PROJECTS from "./import/projects.js";
+import * as DATA_PROJECTS from "./import/projects.js";
+import * as DATA_LANG from "./import/lang.js";
 import "./import/vh-fix.js";
 
 import "./main.scss"
@@ -69,6 +70,85 @@ if (pageID[pageID.length -1] == "") { pageID.pop(); }
 pageID = pageID[pageID.length -1];
 pageID = (pageID == "") ? "home" : pageID;
 doc.setAttribute("page", pageID);
+
+
+// LANG
+let LANG = {
+    translations : DATA_LANG.translations,
+    langBrowser : (navigator.language).split("-")[0], // navigator's language
+    langCurrent : "",
+    langList : ["en", "fr"],
+}
+// set the current language / fallback to default language if not listed
+LANG.langCurrent = (LANG.langList.includes(LANG.langBrowser)) ? LANG.langBrowser : LANG.langList[0];
+function langGetInvert() { return LANG.langList[Math.abs(LANG.langList.indexOf(LANG.langCurrent) - 1)]; }
+
+// get translations from database
+function translateGet({id, getLang = LANG.langCurrent, getPage}) {
+    return DATA_LANG.translations[getLang][(getPage) ? pageID : "_general"][id];
+}
+
+function translateElements({
+                            elements = doc.querySelectorAll("*[translate-id]"), // to translate elements
+                            substitute = true, // if translation not found will substitute with other language
+                            langSwitch = false // change language
+                        }) {
+
+    // swtich language
+    if (langSwitch) {
+        LANG.langCurrent = langGetInvert();
+    }
+
+    // css
+    doc.setAttribute("translate-lang-current", LANG.langCurrent);
+
+    if (elements) {
+        elements.forEach((el) => {
+            const tID = el.getAttribute("translate-id"),
+                  tFrom = !el.hasAttribute("translate-from-general"),
+                  translation = translateGet({id : tID, getPage : tFrom});
+
+            function replaceTxt(tr = translation) {
+                if (tID.includes("--html")) {
+                    el.innerHTML = tr;
+                } else {
+                    el.innerText = tr;
+                }
+            }
+
+            if (!translation) {
+                if (substitute) {
+                    const translationSubstitute = translateGet({id : tID, getLang : langGetInvert(), getPage : tFrom});
+                    if (!translationSubstitute) {
+                        console.error("TRANSLATION NOT FOUND IN [ ANY LANGUAGE ] FOR ["+ tID +"]", "\n", el);
+                    } else {
+                        console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR [ "+ tID +" ]", "\n", ">>> SUBSTITUTED WITH [ "+ langGetInvert() +" ]", "\n", el);
+                    }
+                    replaceTxt(translationSubstitute);
+                } else {
+                    console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR ["+ tID +"]", "\n", el);
+                }
+            }
+            else {
+                replaceTxt();
+            }
+        })
+    }
+}
+
+// init content
+translateElements({});
+
+
+// TRANSLATE SWITCHES
+const translateSwitches = doc.querySelectorAll("[translate-switch]");
+if(translateSwitches) {
+    translateSwitches.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            translateElements({langSwitch : true});
+        })
+    })
+}
 
 
 // SMOOTH SCROLL
