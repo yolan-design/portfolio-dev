@@ -24,7 +24,7 @@ part_nav: `
     </div>
     <div class="nav-buttons">
         <div id="nav-btn-language" class="nav-btn-big btn-interaction" translate-switch>
-            <span class="active">FR</span>
+            <span>FR</span>
             <span>/</span>
             <span>EN</span>
         </div>

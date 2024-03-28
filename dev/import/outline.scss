@@ -80,13 +80,12 @@ nav-menu, footer-contact {
 }
 
 main {
-    z-index: 100;
     display: block;
     position: relative;
     width: 100%;
     min-height: 100vh;
     height: auto;
-    overflow-x: hidden;
+    overflow: hidden;
 
     /* @media (max-width: $doc-phone) {
         padding-top: var(--doc-margin);
@@ -117,13 +116,31 @@ main {
         @include flex-center;
         span {
             display: block;
+            &:not(:last-child) { margin-right: 0.2em; }
 
-            &:not(:last-child) {
-                margin-right: 0.2em;
+            color: var(--bg-low);
+            transition: color 0.55s cubic-bezier(0, 1, 0.2, 1);
+
+            &:not(:first-child):not(:last-child) {
+                transform: rotateZ(360deg);
+                transition: transform 0.8s cubic-bezier(0.3, 0.8, 0.3, 1);
             }
+        }
 
-            &:not(.active) {
-                color: var(--bg-low);
+        html[translate-lang-current="fr"] & {
+            span:first-child {
+                color: var(--fill);
+            }
+            span:not(:first-child):not(:last-child) {
+                transform: rotateZ(-180deg);
+            }
+        }
+        html[translate-lang-current="en"] & {
+            span:last-child {
+                color: var(--fill);
+            }
+            span:not(:first-child):not(:last-child) {
+                transform: rotateZ(360deg);
             }
         }
     }
@@ -155,7 +172,6 @@ main {
 }
 
 nav-bar, nav-menu, nav-anchors {
-    z-index: 9999;
     position: fixed;
     @include new-element_fill-top;
     height: var(--nav-height) !important;
