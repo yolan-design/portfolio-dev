@@ -31,8 +31,8 @@ const translations = { // lang / page / id
             "anchor-mes_moyens": "My assets",
             "anchor-experiences_pro": "Work experience",
 
-            "landing-title": "A continuously growing creative & resourceful partner",
-            "landing-title_compact--html": "A continuously growing creative & resourceful partner",
+            "landing-title": "A continuously growing, creative & resourceful partner",
+            "landing-title_compact--html": "A continuously growing, creative & resourceful partner",
             "landing-subtitle": "I learn from each of my experiences. This allows me to always improve and design ever more accomplished projects."
         },
     }
