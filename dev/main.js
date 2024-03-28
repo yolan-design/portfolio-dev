@@ -61,6 +61,125 @@ function clamp(value, low, high) {
     return Math.min(Math.max(value, low), high);
 }
 
+// check if var is string
+function isString(check) { return (typeof check === "string"); }
+
+// convert to float and round to .01
+function float(str) { return parseFloat(str.toFixed(2)) }
+
+// get specified element's center position as tuple
+function getCenterOfEl(el) {
+    const elRect = el.getBoundingClientRect();
+    return [elRect.left + (elRect.width / 2),
+            elRect.top + (elRect.height / 2)]
+}
+
+
+// BOOM ANIM
+function boomAnimInit({boomOrigin, target, container, special, eventType = "mousedown"}) {
+    target.addEventListener(eventType, (ev) => { boomAnim({boomOrigin : (boomOrigin != undefined) ? boomOrigin : ev, target : target, container : container, special : special, eventType : eventType}); });
+}
+
+function boomAnim({
+    // if specified ("mousedown" event var) will appear from cursor position,
+    // else from center of target if specified,
+    // else center of container
+    boomOrigin = false,
+
+    // if specified : will dismiss boom when "mouseup" or "mouseleave",
+    // else will dismiss itself right away
+    target = false,
+
+    // boom will fill container
+    // default: page viewport
+    container = doc,
+
+    // custom css styling (attribute value goes here)
+    special = false,
+
+    // dismiss delay (ms)
+    fadeOutTime = 1500,
+
+    eventType
+}) {
+    // origin position of boom
+    var originX, originY;
+    if (!boomOrigin) { // not at cursor position
+        if (!target) { // not at target position
+            // will be at center of container
+            [originX, originY] = getCenterOfEl(container);
+        } else {
+            [originX, originY] = getCenterOfEl(target);
+        }
+    } else { // click position
+        originX = boomOrigin.clientX,
+        originY = boomOrigin.clientY;
+    }
+
+    const containerW = container.clientWidth, containerH = container.clientHeight,
+          // get farthest corner from origin
+          cornerX = Math.abs(originX - ((originX > containerW / 2) ? 0 : containerW)),
+          cornerY = Math.abs(originY - ((originY > containerH / 2) ? 0 : containerH)),
+          // use Pythagoras to get circle parameters
+          circleDiameter = float(Math.sqrt(cornerX**2 + cornerY**2) + 5) * 2, // get diameter + add 5px to be sure it fills the whole container
+          circleRotate = float(Math.atan(cornerX / cornerY) * 180 / Math.PI) * -1; // get angle to match middle of the circle div edge
+          //console.table({containerW2,containerH2, originX,originY, cornerX,cornerY, circleDiameter,circleRotate}) // debug values
+
+    // generate
+    var boom = document.createElement("div"),
+        boomCircle = document.createElement("div");
+
+    boom.classList.add("boom");
+    boomCircle.classList.add("circle");
+    if(special) { boom.setAttribute("special", special); }
+
+    boom.style.setProperty("--boom-rotate", circleRotate +"deg");
+    boom.style.setProperty("--boom-x", originX +"px");
+    boom.style.setProperty("--boom-y", originY +"px");
+
+    // create
+    const containerName = (container == doc) ? "boom-main-container" : "boom-container";
+    let boomContainer = container.querySelector("["+ containerName +"]");
+    if (!boomContainer) {
+        boomContainer = document.createElement("div");
+        boomContainer.setAttribute(containerName, "");
+        container.appendChild(boomContainer);
+    }
+    boomContainer.appendChild(boom);
+
+    boom.appendChild(boomCircle);
+
+    // animation in
+    setTimeout(function() { // delay for computing
+        boomCircle.style.setProperty("--boom-size", circleDiameter +"px");
+        boomCircle.style.setProperty("--boom-fadeout-time", fadeOutTime +"ms");
+        boomCircle.classList.add("final-style");
+    }, 10);
+
+    // dismissing the boom
+    function boomRemove() {
+        setTimeout(function() { // delay for computing
+            // animation out
+            boomCircle.style.opacity = "0";
+            setTimeout(function() {
+                boom.remove();
+            }, fadeOutTime);
+        }, 10);
+    }
+
+    if (eventType == "mousedown") {
+        // if there is a target element, wait for these events
+        if(target) {
+            target.addEventListener("mouseup", () => { boomRemove(); });
+            target.addEventListener("mouseleave", () => { boomRemove(); });
+        }
+        // else dismiss right away
+        else { boomRemove(); }
+    }
+    else { boomRemove(); }
+}
+
+
 
 // RUN
 
@@ -89,10 +208,10 @@ function translateGet({id, getLang = LANG.langCurrent, getPage}) {
 }
 
 function translateElements({
-                            elements = doc.querySelectorAll("*[translate-id]"), // to translate elements
-                            substitute = true, // if translation not found will substitute with other language
-                            langSwitch = false // change language
-                        }) {
+    elements = doc.querySelectorAll("*[translate-id]"), // to translate elements
+    substitute = true, // if translation not found will substitute with other language
+    langSwitch = false // change language
+}) {
 
     // swtich language
     if (langSwitch) {
@@ -147,6 +266,7 @@ if(translateSwitches) {
         btn.addEventListener("click", () => {
             translateElements({langSwitch : true});
         })
+        boomAnimInit({boomOrigin : false, target : btn, special : "btn-translate", eventType : "click"});
     })
 }
 
@@ -171,9 +291,6 @@ if (navMenuButton) {
     navMenuButton.forEach((btn) => {
         btn.addEventListener("click", () => {
             doc.classList.toggle("nav-menu-open");
-            setTimeout(() => {
-
-            }, 200);
         })
     })
 }
