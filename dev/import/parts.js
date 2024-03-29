@@ -143,12 +143,12 @@ part_footer: `
 
                 <span style="grid-column: 7 / 10;">Copyright © yolan.design 2024</span>
 
-                <div class="tip-hover-bottom" style="grid-column: 10 / 13;">
+                <a class="tip-hover-bottom" style="grid-column: 10 / 13;" href="https://github.com/yolan-design/portfolio-dev" target="_blank">
                     <span translate-id="footer-note" translate-from-general></span>
                     <div class="tip">
                         <p class="low" translate-id="footer-ggrid-tip--html" translate-from-general></p>
                     </div>
-                </div>
+                </a>
 
             </div>
 
