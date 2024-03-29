@@ -41,8 +41,16 @@ function addClassAll(e, c)    { e.forEach((el) => { el.classList.add(c); }); }
 function removeClassAll(e, c) { e.forEach((el) => { el.classList.remove(c); }); }
 function toggleClassAll(e, c) { e.forEach((el) => { el.classList.toggle(c); }); }
 
+
 function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+// will alternate between - and + at each call
+let randomIntFromIntervalAlternate_currentAlt = parseInt(Math.random().toFixed());
+function randomIntFromIntervalAlternate(min, max) {
+    randomIntFromIntervalAlternate_currentAlt = (randomIntFromIntervalAlternate_currentAlt >= 0) ? -1 : 1; // invert
+    return randomIntFromInterval(min, max) * randomIntFromIntervalAlternate_currentAlt;
 }
 
 // take a value, scale it from a range to another
@@ -494,7 +502,7 @@ if (footerCTA) {
     footerCTA.addEventListener("click", () => {
         navigator.clipboard.writeText("hello@yolan.design").then(() => { // success
             footerCTA.classList.add("copied");
-            footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
+            footerCTA.style.setProperty('--random-rotate', randomIntFromIntervalAlternate(5, 45) +"deg");
 
             // funny copy combo
             if (footerCTA_copiedComboCooldownStatus == 0) { footerCTA_copiedComboCooldown(); }
