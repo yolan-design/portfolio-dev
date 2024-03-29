@@ -20,6 +20,14 @@ html[page="about"] {
                     @include txt-w-550;
                     font-size: 3.6rem;
                 }
+
+                .age {
+                    @include flex-center-h;
+                    span {
+                        display: inline-block;
+                        @include spacing-h-siblings(0.3em);
+                    }
+                }
             }
             img {
                 size: 100%;
