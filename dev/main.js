@@ -202,15 +202,37 @@ let LANG = {
 LANG.langCurrent = (LANG.langList.includes(LANG.langBrowser)) ? LANG.langBrowser : LANG.langList[0];
 function langGetInvert() { return LANG.langList[Math.abs(LANG.langList.indexOf(LANG.langCurrent) - 1)]; }
 
-// get translations from database
-function translateGet({id, getLang = LANG.langCurrent, getPage}) {
-    return DATA_LANG.translations[getLang][(getPage) ? getPage : pageID][id];
+// get translations from database with error handling
+function translateGet({
+    id, getLang = LANG.langCurrent, getPage,
+    substitute = true // if translation not found : will substitute with other language
+}) {
+    const translateGrab = (id, getLang, getPage) => { return DATA_LANG.translations[getLang][(getPage) ? getPage : pageID][id]; }
+
+    const grab = translateGrab(id, getLang, getPage);
+
+    if (!grab) {
+        if (substitute) {
+            const translationSubstitute = translateGrab(id, langGetInvert(), getPage);
+            if (!translationSubstitute) {
+                console.error("TRANSLATION NOT FOUND IN [ ANY LANGUAGE ] FOR ["+ id +"]");
+            } else {
+                console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR [ "+ id +" ]", "\n", ">>> SUBSTITUTED WITH [ "+ langGetInvert() +" ]");
+            }
+            return translationSubstitute;
+        } else {
+            console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR ["+ id +"]");
+        }
+    }
+    else {
+        return grab;
+    }
 }
 
 function translateElements({
-    elements = doc.querySelectorAll("*[translate-id]"), // to translate elements
-    substitute = true, // if translation not found will substitute with other language
-    langSwitch = false // change language
+    elements = doc.querySelectorAll("*[translate-id]"), // elements to translate
+    langSwitch = false, // change language
+    substitute
 }) {
 
     // swtich language
@@ -225,31 +247,12 @@ function translateElements({
         elements.forEach((el) => {
             const tID = el.getAttribute("translate-id"),
                   tFrom = el.getAttribute("translate-from"),
-                  translation = translateGet({id : tID, getPage : tFrom});
+                  translation = translateGet({id : tID, getPage : tFrom, substitute : substitute});
 
-            function replaceTxt(tr = translation) {
-                if (tID.includes("--html")) {
-                    el.innerHTML = tr;
-                } else {
-                    el.innerText = tr;
-                }
-            }
-
-            if (!translation) {
-                if (substitute) {
-                    const translationSubstitute = translateGet({id : tID, getLang : langGetInvert(), getPage : tFrom});
-                    if (!translationSubstitute) {
-                        console.error("TRANSLATION NOT FOUND IN [ ANY LANGUAGE ] FOR ["+ tID +"]", "\n", el);
-                    } else {
-                        console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR [ "+ tID +" ]", "\n", ">>> SUBSTITUTED WITH [ "+ langGetInvert() +" ]", "\n", el);
-                    }
-                    replaceTxt(translationSubstitute);
-                } else {
-                    console.error("TRANSLATION NOT FOUND IN [ "+ LANG.langCurrent +" ] FOR ["+ tID +"]", "\n", el);
-                }
-            }
-            else {
-                replaceTxt();
+            if (tID.includes("--html")) {
+                el.innerHTML = translation;
+            } else {
+                el.innerText = translation;
             }
         })
     }
