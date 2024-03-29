@@ -8,6 +8,8 @@ const translations = { // lang / page / id
             "anchor-contact": "Contact",
 
             "footer-cta-title" : "Travaillons ensemble",
+            "footer-cta-email-click" : "Cliquez pour copier",
+            "footer-cta-email-click-notif--array" : ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Inarrêtable"],
             "footer-sitemap" : "Pages",
             "footer-socials" : "Me retrouver",
             "footer-note" : "Site web pensé et codé par mes soins.",
@@ -103,11 +105,14 @@ const translations = { // lang / page / id
             "anchor-contact": "Contact",
 
             "footer-cta-title" : "Let's work together",
+            "footer-cta-email-click" : "Click to copy",
+            "footer-cta-email-click-notif--array" : ["Copied!", "Super Copied!", "Mega Copied!", "Giga Copied!", "Ultra Copied!", "Ultra Super Copied!", "WOAOUW", "Unstoppable"],
             "footer-sitemap" : "Sitemap",
             "footer-socials" : "Follow me",
             "footer-note" : "Website designed and coded by myself.",
             "footer-ggrid-tip--html" : "(Press the keys <key>SHIFT</key> + <key>G</key> to display the grid)",
         },
+
         "about": {
             "anchor-formations": "Education",
             "anchor-mes_moyens": "My assets",

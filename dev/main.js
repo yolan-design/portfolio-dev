@@ -476,7 +476,7 @@ const footerCTA = document.querySelector("footer-cta button");
 if (footerCTA) {
 
     const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
-          footerCTA_copiedNotif_alt = ["Copié !", "Super Copié !", "Méga Copié !", "Giga Copié !", "Ultra Copié !", "Ultra Super Copié !", "WOAOUW", "Inarrêtable"];
+          footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
 
     let footerCTA_copiedRandom = 0,
     footerCTA_copiedComboCooldownStatus = 0;
@@ -488,7 +488,7 @@ if (footerCTA) {
         if (footerCTA_copiedComboCooldownStatus >= 1) {
             footerCTA_copiedComboCooldown();
         }
-    }, 600);
+    }, 500);
     }
 
     footerCTA.addEventListener("click", () => {
@@ -497,7 +497,7 @@ if (footerCTA) {
             footerCTA.style.setProperty('--random-rotate', randomIntFromInterval(-45, 45) +"deg");
 
             // funny copy combo
-            if (footerCTA_copiedComboCooldownStatus == 0) { console.log("run"); footerCTA_copiedComboCooldown(); }
+            if (footerCTA_copiedComboCooldownStatus == 0) { footerCTA_copiedComboCooldown(); }
             footerCTA_copiedComboCooldownStatus += 1;
 
             if (footerCTA_copiedComboCooldownStatus >= 6) {
