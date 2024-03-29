@@ -5,13 +5,13 @@ part_nav: `
 <nav-menu class="ggrid doc-margin-p">
     <div class="nav-pages">
         <a id="nav-pagelink-home" class="btn-interaction" href="/">
-            <span translate-id="nav-page-home" translate-from-general></span>
+            <span translate-id="nav-page-home" translate-from="_general"></span>
         </a>
         <a id="nav-pagelink-portfolio" class="btn-interaction" href="/portfolio">
-            <span translate-id="nav-page-portfolio" translate-from-general></span>
+            <span translate-id="nav-page-portfolio" translate-from="_general"></span>
         </a>
         <a id="nav-pagelink-about" class="active btn-interaction" href="/about">
-            <span translate-id="nav-page-about" translate-from-general></span>
+            <span translate-id="nav-page-about" translate-from="_general"></span>
         </a>
     </div>
     <div class="socials">
@@ -74,7 +74,7 @@ part_footer: `
 
     <footer-cta>
         <wrapper class="m--flex-col">
-            <span translate-id="footer-cta-title" translate-from-general></span>
+            <span translate-id="footer-cta-title" translate-from="_general"></span>
             <button class="ico-txt tip-hover-bottom">
                 <svg id="icon-hello" class="stroke rounded" style="stroke-width: 3.5px;" viewBox="0 0 64 64">
                     <g>
@@ -87,8 +87,8 @@ part_footer: `
                 </svg>
                 <div>
                     <span id="mail">hello@yolan.design</span>
-                    <div class="tip"><span class="low">Cliquez pour copier</span></div>
-                    <div class="tip no-hover copied-notif"><span>Copié !</span></div>
+                    <div class="tip"><span class="low" translate-id="footer-cta-email-click" translate-from="_general"></span></div>
+                    <div class="tip no-hover copied-notif"><span></span></div>
                 </div>
             </button>
         </wrapper>
@@ -101,23 +101,23 @@ part_footer: `
                 <div class="ggrid">
 
                     <div class="links" style="grid-column: 1 / 4;">
-                        <span translate-id="footer-sitemap" translate-from-general></span>
+                        <span translate-id="footer-sitemap" translate-from="_general"></span>
                         <a class="ico-txt btn-interaction" href="/">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span translate-id="nav-page-home" translate-from-general></span>
+                            <span translate-id="nav-page-home" translate-from="_general"></span>
                         </a>
                         <a class="ico-txt btn-interaction" href="/portfolio">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span translate-id="nav-page-portfolio" translate-from-general></span>
+                            <span translate-id="nav-page-portfolio" translate-from="_general"></span>
                         </a>
                         <a class="ico-txt btn-interaction" href="/about">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
-                            <span translate-id="nav-page-about" translate-from-general></span>
+                            <span translate-id="nav-page-about" translate-from="_general"></span>
                         </a>
                     </div>
 
                     <div class="links" style="grid-column: 4 / 7;">
-                        <span translate-id="footer-socials" translate-from-general></span>
+                        <span translate-id="footer-socials" translate-from="_general"></span>
                         <a class="ico-txt btn-interaction" href="https://www.linkedin.com/in/yolan-design/" target="_blank">
                             <svg id="logo-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                             <span>LinkedIn</span>
@@ -144,9 +144,9 @@ part_footer: `
                 <span style="grid-column: 7 / 10;">Copyright © yolan.design 2024</span>
 
                 <a class="tip-hover-bottom" style="grid-column: 10 / 13;" href="https://github.com/yolan-design/portfolio-dev" target="_blank">
-                    <span translate-id="footer-note" translate-from-general></span>
+                    <span translate-id="footer-note" translate-from="_general"></span>
                     <div class="tip">
-                        <p class="low" translate-id="footer-ggrid-tip--html" translate-from-general></p>
+                        <p class="low" translate-id="footer-ggrid-tip--html" translate-from="_general"></p>
                     </div>
                 </a>
 

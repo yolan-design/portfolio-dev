@@ -204,7 +204,7 @@ function langGetInvert() { return LANG.langList[Math.abs(LANG.langList.indexOf(L
 
 // get translations from database
 function translateGet({id, getLang = LANG.langCurrent, getPage}) {
-    return DATA_LANG.translations[getLang][(getPage) ? pageID : "_general"][id];
+    return DATA_LANG.translations[getLang][(getPage) ? getPage : pageID][id];
 }
 
 function translateElements({
@@ -224,7 +224,7 @@ function translateElements({
     if (elements) {
         elements.forEach((el) => {
             const tID = el.getAttribute("translate-id"),
-                  tFrom = !el.hasAttribute("translate-from-general"),
+                  tFrom = el.getAttribute("translate-from"),
                   translation = translateGet({id : tID, getPage : tFrom});
 
             function replaceTxt(tr = translation) {
