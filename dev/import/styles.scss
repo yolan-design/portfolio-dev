@@ -120,6 +120,9 @@ main { z-index: 100; }
 .txt-italic {
     font-style: italic;
 }
+.txt-underline {
+    text-decoration: underline;
+}
 .txt-accent, p aa {
     color: var(--accent);
 }
@@ -147,6 +150,8 @@ main { z-index: 100; }
     font-variant-ligatures: contextual;
     font-variant-numeric: ordinal;
     font-feature-settings: "liga", "clig", "calt", "ss04";
+
+    text-decoration: none;
 }
 @mixin font-base-BricolageGrotesque {
     font-family: "Bricolage Grotesque", serif;
@@ -159,8 +164,11 @@ body,
 p, span, a,
 h4, h5, h6, h-subtitle {
     @include font-base-WorkSans;
-
-    text-decoration: none;
+}
+body,
+p, span, a,
+h4, h5, h6, h-subtitle,
+.txt-underline {
     text-underline-offset: 0.2em !important;
     text-decoration-thickness: var(--stroke-w) !important;
 }
@@ -168,7 +176,7 @@ body {
     @include txt-normal;
     @include txt-w-450;
 }
-span, p, button {
+span, p, button, .txt-inherit {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
@@ -380,26 +388,6 @@ section[nav-anchor-section="landing"] {
         margin-left: $sp;
     }
 }
-@mixin spacing-h-small-siblings {
-    &:not(:last-child) {
-        margin-right: var(--spacing-small);
-    }
-}
-@mixin spacing-h-small-children {
-    > *:not(:last-child) {
-        margin-right: var(--spacing-small);
-    }
-}
-@mixin spacing-h-medium-siblings {
-    &:not(:last-child) {
-        margin-right: var(--spacing-medium);
-    }
-}
-@mixin spacing-h-medium-children {
-    > *:not(:last-child) {
-        margin-right: var(--spacing-medium);
-    }
-}
 
 @mixin spacing-v-siblings($sp : 1em) {
     &:not(:last-child) {
@@ -419,46 +407,6 @@ section[nav-anchor-section="landing"] {
 @mixin spacing-v-children-reverse($sp : 1em) {
     > *:not(:first-child) {
         margin-top: $sp;
-    }
-}
-@mixin spacing-v-small-siblings {
-    &:not(:last-child) {
-        margin-bottom: var(--spacing-small);
-    }
-}
-@mixin spacing-v-small-children {
-    > *:not(:last-child) {
-        margin-bottom: var(--spacing-small);
-    }
-}
-@mixin spacing-v-medium-siblings {
-    &:not(:last-child) {
-        margin-bottom: var(--spacing-medium);
-    }
-}
-@mixin spacing-v-medium-children {
-    > *:not(:last-child) {
-        margin-bottom: var(--spacing-medium);
-    }
-}
-@mixin spacing-v-medium-large-siblings {
-    &:not(:last-child) {
-        margin-bottom: var(--spacing-medium-large);
-    }
-}
-@mixin spacing-v-medium-large-children {
-    > *:not(:last-child) {
-        margin-bottom: var(--spacing-medium-large);
-    }
-}
-@mixin spacing-v-large-siblings {
-    &:not(:last-child) {
-        margin-bottom: var(--spacing-large);
-    }
-}
-@mixin spacing-v-large-children {
-    > *:not(:last-child) {
-        margin-bottom: var(--spacing-large);
     }
 }
 
@@ -635,7 +583,6 @@ a {
         text-decoration: underline;
         text-decoration-style: dotted;
     }
-
 }
 
 .logo {
@@ -765,7 +712,7 @@ nav-anchors {
 .keywords {
     font-size: 1.5rem;
     @include txt-w-semibold;
-    line-height: 115%;
+    line-height: 135%;
     letter-spacing: -0.03em;
     text-transform: uppercase;
 
@@ -1011,7 +958,7 @@ p key {
         display: flex;
         align-items: center;
 
-        @include spacing-h-small-children;
+        @include spacing-h-children(var(--spacing-small));
     }
     .icon {
         flex-grow: 0;
@@ -1148,11 +1095,8 @@ ggrid {
     }
 }
 
-@media (max-width: $doc-phone) {
-    .m--gg-fill > * {
-        grid-column: 1 / -1 !important;
-    }
-}
+.ggrid-child-fill > * { grid-column: 1 / -1 !important; }
+@media (max-width: $doc-phone) { .ggrid-child-fill--phone > * { grid-column: 1 / -1 !important; } }
 
 .grid-center-v { align-items: center; }
 .grid-center-h { justify-content: center; }
@@ -1162,9 +1106,10 @@ ggrid {
 @media (max-width: $doc-phone) { .grid-row-equal--phone { grid-auto-rows: 1fr; } }
 
 
-.grid-row-auto > * {
-    grid-row: auto !important;
-}
+.grid-row-auto > * { grid-row: auto !important; }
+@media (min-width: $doc-phone-m) { .grid-row-auto--pc-phone > * { grid-row: auto !important; } }
+@media (max-width: $doc-phone) { .grid-row-auto--phone > * { grid-row: auto !important; } }
+
 
 *[class*="grid-col"] {
     display: grid;

@@ -131,7 +131,7 @@ part_footer: `
                 </div>
             </div>
 
-            <div class="ggrid grid-row-auto m--gg-fill">
+            <div class="ggrid grid-row-auto--phone ggrid-child-fill--phone">
 
                 <div class="logo align-baseline" style="grid-column: 1 / 6;">
                     <svg id="yolan-baseline" viewBox="0 0 291.957 77.96">
@@ -141,9 +141,9 @@ part_footer: `
                     </svg>
                 </div>
 
-                <span style="grid-column: 7 / 10;">Copyright © yolan.design 2024</span>
+                <span class="footer-copyright">Copyright © yolan.design 2024</span>
 
-                <a class="tip-hover-bottom" style="grid-column: 10 / 13;" href="https://github.com/yolan-design/portfolio-dev" target="_blank">
+                <a class="footer-note tip-hover-bottom txt-inherit" href="https://github.com/yolan-design/portfolio-dev" target="_blank">
                     <span translate-id="footer-note" translate-from="_general"></span>
                     <div class="tip">
                         <p class="low" translate-id="footer-ggrid-tip--html" translate-from="_general"></p>

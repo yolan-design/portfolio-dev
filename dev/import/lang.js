@@ -79,6 +79,26 @@ const translations = { // lang / page / id
             "experiences_pro-title" : "Mes expériences professionnelles",
             "experiences_pro-plus-title" : "Mentions supplémentaires",
 
+            "experiences_pro-table-bm2023-duration--html" : `<p>4 semaines<br>2023</p>`,
+            "experiences_pro-table-bm2023-work--html" : `<p>Agence Big Mama</p>`,
+            "experiences_pro-table-bm2023-location--html" : `<p>À Montpellier, France</p>`,
+            "experiences_pro-table-bm2023-infos--html" : `
+                <p>Agence de communication co-créative</p>
+                <div class="keywords"><span>Branding</span><span>Marketing</span><span>Événementiel</span><span>Design graphique</span><span>Web design</span><span>Éditorial</span></div>`,
+            "experiences_pro-table-bm2023-experience--html" : `
+                <p>Réalisation d’un e-mail jeu concours (maquette, puis développement) en respectant la charte graphique complexe du client et les contraintes liées au support, tout en proposant plusieurs pistes créatives. Animation d’icônes en 3D pour illustrer des catégories de produits et développement web WordPress Elementor. Maquettage d’un site web en respectant les normes d’accessibilités AAA et conception de solutions d’aide à la lecture.</p>
+                <div class="keywords high"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Design graphique</span></div>`,
+
+            "experiences_pro-table-o2023-duration--html" : `<p>8 semaines<br>2023</p>`,
+            "experiences_pro-table-o2023-work--html" : `<p>Ocampo France</p>`,
+            "experiences_pro-table-o2023-location--html" : `<p>À Montpellier, France</p>`,
+            "experiences_pro-table-o2023-infos--html" : `
+                <p>Agence de communication créative</p>
+                <div class="keywords"><span>Branding</span><span>Marketing</span><span>Publicité</span><span>Design graphique</span><span>Web design</span></div>`,
+            "experiences_pro-table-o2023-experience--html" : `
+                <p>Création de supports animés et mockups pour valoriser l’identité de clients (animations de logo, d’icônes, de vidéos promotionnelles et d’écrans). Maquettage de sites web et intégration front-end sur Wix.</p>
+                <div class="keywords high"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Design graphique</span></div>`,
+
             "experiences_pro-plus-card-sc-title" : "Volontaire en mission de Service Civique",
             "experiences_pro-plus-card-sc-desc--html" : `
                 <span class="txt-low">Nov. 2020 - Juin 2021</span>
