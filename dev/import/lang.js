@@ -153,6 +153,9 @@ const translations = { // lang / page / id
             "footer-socials" : "Follow me",
             "footer-note" : "Website designed and coded by myself.",
             "footer-ggrid-tip--html" : "(Press the keys <key>SHIFT</key> + <key>G</key> to display the grid)",
+
+            "transition-portfolio-title" : "Bring your message to life",
+            "transition-portfolio-btn" : "See all projects",
         },
 
         "about": {
