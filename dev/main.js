@@ -264,11 +264,13 @@ function translateElements({
             }
         })
     }
+
+    footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
 }
 
 // init content
+let footerCTA_copiedNotif_alt;
 translateElements({});
-
 
 // TRANSLATE SWITCHES
 const translateSwitches = doc.querySelectorAll("[translate-switch]");
@@ -483,8 +485,7 @@ if (anchorLinks) {
 const footerCTA = document.querySelector("footer-cta button");
 if (footerCTA) {
 
-    const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span"),
-          footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
+    const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span");
 
     let footerCTA_copiedRandom = 0,
     footerCTA_copiedComboCooldownStatus = 0;
