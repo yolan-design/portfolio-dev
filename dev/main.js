@@ -555,8 +555,8 @@ const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
 if (layoutZoomInElements) {
     layoutZoomInElements.forEach((el) => {
         el.setAttribute("data-scroll-offset", "0");
-        el.setAttribute("onscroll-zoom_in--fraction", (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 3);
-        el.setAttribute("onscroll-zoom_in--strength", (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.85);
+        el.setAttribute("onscroll-zoom_in--fraction", (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2.5);
+        el.setAttribute("onscroll-zoom_in--strength", (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.925);
         el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
     })
 }
