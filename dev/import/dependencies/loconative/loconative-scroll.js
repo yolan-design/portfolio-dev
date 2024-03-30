@@ -1396,6 +1396,7 @@
             inView: false,
             call: call,
             speed: speed,
+            clampOrigin: el.dataset[_this4.name + 'Clamp_origin'],
             sticky: sticky
           };
           _this4.els[id] = mappedEl;
@@ -1434,16 +1435,6 @@
       key: "transform",
       value: function transform(element, x, y, delay) {
         var transform;
-
-        if (element.getAttribute("data-scroll-parallax-clamp")) {
-          if (parseFloat(element.getAttribute("data-scroll-speed")) <= 0) {
-            x = Math.min(x, 0);
-            y = Math.min(y, 0);
-          } else {
-            x = Math.max(x, 0);
-            y = Math.max(y, 0);
-          }
-        }
 
         if (!delay) {
           transform = "matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,".concat(x, ",").concat(y, ",0,1)");
@@ -1540,6 +1531,12 @@
                 }
               }
             }
+          }
+
+          if (current.clampOrigin === 'min') {
+            transformDistance = Math.max(transformDistance, 0);
+          } else if (current.clampOrigin === 'max') {
+            transformDistance = Math.min(transformDistance, 0);
           }
 
           if (transformDistance !== false) {
