@@ -460,7 +460,7 @@ section[nav-anchor-section="autodidacte"] {
         row-gap: var(--spacing-super);
     }
 
-    video {
+    .video-container {
         @include doc-margin-small-w;
         height: min-content;
         grid-column: 1 / -1;

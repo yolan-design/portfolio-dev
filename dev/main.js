@@ -549,6 +549,31 @@ scrollDoc.on('scroll', (args) => {
     }
 });
 
+// SCOLL PROGRESS FACTOR
+const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
+if (layoutZoomInElements) {
+    layoutZoomInElements.forEach((el) => {
+        el.setAttribute("data-scroll-offset", "0");
+        el.setAttribute("onscroll-zoom_in--fraction", (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 3);
+        el.setAttribute("onscroll-zoom_in--strength", (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.85);
+        el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
+    })
+}
+scrollDoc.on('scroll', (args) => {
+    layoutZoomInElements.forEach((el) => {
+        const elRect = el.getBoundingClientRect(),
+              progressFactor = mapRangeClamp(
+                    (doc.clientHeight - elRect.top),
+                    0,
+                    (doc.clientHeight + elRect.height) / parseFloat(el.getAttribute("onscroll-zoom_in--fraction")),
+                    parseFloat(el.getAttribute("onscroll-zoom_in--strength")),
+                    1
+                );
+
+        el.style.setProperty("--zoom-factor", progressFactor);
+    })
+});
+
 
 // GGRID display
 const ggridDisplay = document.querySelectorAll("ggrid");

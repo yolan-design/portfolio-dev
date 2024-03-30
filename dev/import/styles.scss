@@ -496,11 +496,30 @@ section[nav-anchor-section="landing"] {
 
 
 // ELEMENTS
+*[onscroll-zoom_in] {
+    transform: scale(var(--zoom-factor, 1));
+
+    *[onscroll-zoom_in--in] {
+        transform: scale(calc((1 - var(--zoom-factor, 1)) + 1));
+    }
+}
+*[onscroll-zoom_in], *[onscroll-zoom_in--in]
+//, *[data-scroll-clamp_origin]
+{
+    transition: transform 0.3s cubic-bezier(0, 0.2, 0.3, 1);
+}
+
+
 video[layout], img[layout] {
     border-radius: var(--doc-corner-items);
     object-fit: fill;
     pointer-events: none;
     user-select: none;
+}
+.video-container {
+    video {
+        size: 100%;
+    }
 }
 svg {
     user-select: none;
