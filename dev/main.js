@@ -490,13 +490,13 @@ if (footerCTA) {
     footerCTA_copiedComboCooldownStatus = 0;
 
     function footerCTA_copiedComboCooldown() {
-    setTimeout(() => {
-        footerCTA_copiedComboCooldownStatus -= 1;
+        setTimeout(() => {
+            footerCTA_copiedComboCooldownStatus -= 1;
 
-        if (footerCTA_copiedComboCooldownStatus >= 1) {
-            footerCTA_copiedComboCooldown();
-        }
-    }, 500);
+            if (footerCTA_copiedComboCooldownStatus >= 1) {
+                footerCTA_copiedComboCooldown();
+            }
+        }, 500);
     }
 
     footerCTA.addEventListener("click", () => {
@@ -549,7 +549,8 @@ scrollDoc.on('scroll', (args) => {
     }
 });
 
-// SCOLL PROGRESS FACTOR
+
+// ON SCOLL ZOOM IN REVEAL
 const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
 if (layoutZoomInElements) {
     layoutZoomInElements.forEach((el) => {
