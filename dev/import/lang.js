@@ -79,25 +79,44 @@ const translations = { // lang / page / id
             "experiences_pro-title" : "Mes expériences professionnelles",
             "experiences_pro-plus-title" : "Mentions supplémentaires",
 
-            "experiences_pro-table-bm2023-duration--html" : `<p>4 semaines<br>2023</p>`,
-            "experiences_pro-table-bm2023-work--html" : `<p>Agence Big Mama</p>`,
-            "experiences_pro-table-bm2023-location--html" : `<p>À Montpellier, France</p>`,
-            "experiences_pro-table-bm2023-infos--html" : `
-                <p>Agence de communication co-créative</p>
-                <div class="keywords"><span>Branding</span><span>Marketing</span><span>Événementiel</span><span>Design graphique</span><span>Web design</span><span>Éditorial</span></div>`,
+            "experiences_pro-table-bm2023-details--html" : `
+                <span>Stage de 4 semaines</span>
+                <div class="txt-low flex-v">
+                    <span>2023</span>
+                    <p>À Montpellier, France</p>
+                </div>`,
+            "experiences_pro-table-bm2023-work--html" : `
+                <p class="txt-underline">Agence Big Mama</p>
+                <div class="txt-low">
+                    <p>Agence de communication co-créative</p>
+                    <div class="keywords"><span>Branding</span><span>Marketing</span><span>Événementiel</span><span>Design graphique</span><span>Web design</span><span>Éditorial</span></div>
+                </div>`,
             "experiences_pro-table-bm2023-experience--html" : `
                 <p>Réalisation d’un e-mail jeu concours (maquette, puis développement) en respectant la charte graphique complexe du client et les contraintes liées au support, tout en proposant plusieurs pistes créatives. Animation d’icônes en 3D pour illustrer des catégories de produits et développement web WordPress Elementor. Maquettage d’un site web en respectant les normes d’accessibilités AAA et conception de solutions d’aide à la lecture.</p>
                 <div class="keywords high"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Design graphique</span></div>`,
 
-            "experiences_pro-table-o2023-duration--html" : `<p>8 semaines<br>2023</p>`,
-            "experiences_pro-table-o2023-work--html" : `<p>Ocampo France</p>`,
-            "experiences_pro-table-o2023-location--html" : `<p>À Montpellier, France</p>`,
-            "experiences_pro-table-o2023-infos--html" : `
-                <p>Agence de communication créative</p>
-                <div class="keywords"><span>Branding</span><span>Marketing</span><span>Publicité</span><span>Design graphique</span><span>Web design</span></div>`,
+            "experiences_pro-table-o2023-details--html" : `
+                <span>Stage de 8 semaines</span>
+                <div class="txt-low flex-v">
+                    <span>2023</span>
+                    <p>À Montpellier, France</p>
+                </div>`,
+            "experiences_pro-table-o2023-work--html" : `
+                <p class="txt-underline">Ocampo France</p>
+                <div class="txt-low">
+                    <p>Agence de communication créative</p>
+                    <div class="keywords"><span>Branding</span><span>Marketing</span><span>Publicité</span><span>Design graphique</span><span>Web design</span></div>
+                </div>`,
             "experiences_pro-table-o2023-experience--html" : `
                 <p>Création de supports animés et mockups pour valoriser l’identité de clients (animations de logo, d’icônes, de vidéos promotionnelles et d’écrans). Maquettage de sites web et intégration front-end sur Wix.</p>
                 <div class="keywords high"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Design graphique</span></div>`,
+
+            "experiences_pro-table-freelance-details--html" : `
+                <span>Depuis 2021</span>`,
+            "experiences_pro-table-freelance-work--html" : `
+                <p class="txt-underline">Freelance</p>`,
+            "experiences_pro-table-freelance-experience--html" : `
+                <p>Si ce n’est pas jouer ou me reposer, je crée des trucs, peu importe la forme ou l'objectif si c'est au service d'un besoin. Ça m'anime depuis toujours. C’est amusant de pouvoir concevoir et concrétiser mes idées et celles des autres.</p>`,
 
             "experiences_pro-plus-card-sc-title" : "Volontaire en mission de Service Civique",
             "experiences_pro-plus-card-sc-desc--html" : `
@@ -195,6 +214,45 @@ const translations = { // lang / page / id
 
             "experiences_pro-title" : "My work experiences",
             "experiences_pro-plus-title" : "Additional mentions",
+
+            "experiences_pro-table-bm2023-details--html" : `
+                <span>Internship of 4 weeks</span>
+                <div class="txt-low flex-v">
+                    <span>2023</span>
+                    <p>At Montpellier, France</p>
+                </div>`,
+            "experiences_pro-table-bm2023-work--html" : `
+                <p class="txt-underline">Agence Big Mama</p>
+                <div class="txt-low">
+                    <p>Co-creative design agency</p>
+                    <div class="keywords"><span>Branding</span><span>Marketing</span><span>Events</span><span>Graphic design</span><span>Web design</span><span>Print</span></div>
+                </div>`,
+            "experiences_pro-table-bm2023-experience--html" : `
+                <p>Designed a contest e-mail (mock-up, then production) in compliance with the client's complex identity guidelines and the constraints associated with the medium, while proposing a number of creative solutions. Animation of 3D icons to illustrate products in category, and web development using WordPress Elementor. Mock-up of a website that meets AAA accessibility standards and design of assistive reading aids.</p>
+                <div class="keywords high"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
+
+            "experiences_pro-table-o2023-details--html" : `
+                <span>Internship of 8 weeks</span>
+                <div class="txt-low flex-v">
+                    <span>2023</span>
+                    <p>At Montpellier, France</p>
+                </div>`,
+            "experiences_pro-table-o2023-work--html" : `
+                <p class="txt-underline">Ocampo France</p>
+                <div class="txt-low">
+                    <p>Creative design agency</p>
+                    <div class="keywords"><span>Branding</span><span>Marketing</span><span>Advertising</span><span>Graphic design</span><span>Web design</span></div>
+                </div>`,
+            "experiences_pro-table-o2023-experience--html" : `
+                <p>Creation of animated media and mock-ups to enhance clients' identities (animations of logos, icons, promotional videos and splash screens). Website layouts and front-end integrations on Wix.</p>
+                <div class="keywords high"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Graphic design</span></div>`,
+
+            "experiences_pro-table-freelance-details--html" : `
+                <span>Since 2021</span>`,
+            "experiences_pro-table-freelance-work--html" : `
+                <p class="txt-underline">Freelance</p>`,
+            "experiences_pro-table-freelance-experience--html" : `
+                <p>If it's not playing or relaxing, I create stuff, whatever the form or scope, as long as it serves a purpose. That's always been a driving force for me. It's fun to be able to conceive and bring to life my ideas and those of others.</p>`,
 
             "experiences_pro-plus-card-sc-title" : "Volunteered in a Service Civique mission",
             "experiences_pro-plus-card-sc-desc--html" : `

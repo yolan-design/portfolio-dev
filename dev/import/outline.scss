@@ -21,7 +21,7 @@
 
     --doc-scale-ggrid: 0.52vw;
     --doc-scale-morph: 0.6vw;
-    --doc-txt-size-mobile: 7.5px;
+    --doc-txt-size-mobile: 7.25px;
     --doc-grid-nb: 12;
     --doc-margin: 8rem;
     --doc-margin-small: 3rem;
@@ -423,7 +423,7 @@ html.nav-menu-open {
         padding-top: 18rem !important;
 
         flex-direction: column;
-        @include spacing-v-siblings(var(--spacing-medium-large));
+        @include spacing-v-children(var(--spacing-medium-large));
         span {
             @include txt-w-550;
             letter-spacing: -0.03em;

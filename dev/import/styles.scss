@@ -65,12 +65,18 @@ html {
 @media (min-width: $doc-tablet-m) {
     .display-tablet { display: none !important; }
 }
+@media (min-width: $doc-half-m) {
+    .display-half { display: none !important; }
+}
 
 @media (max-width: $doc-phone) {
     .display-pc--phone { display: none !important; }
 }
 @media (max-width: $doc-tablet) {
     .display-pc--tablet { display: none !important; }
+}
+@media (max-width: $doc-half) {
+    .display-pc--half { display: none !important; }
 }
 
 
@@ -134,8 +140,8 @@ main { z-index: 100; }
     color: var(--fill);
 
     line-height: 130%;
-    word-spacing: 0.025em;
-    letter-spacing: -0.03em;
+    word-spacing: 0.015em;
+    letter-spacing: -0.035em;
 
     font-size: var(--txt-body-size);
     font-size: calc($ts * 2.1);
@@ -214,6 +220,7 @@ span + p {
     display: inline-block;
     margin-top: 0.5rem;
 }
+p + .keywords, span + .keywords { margin-top: var(--spacing-small); }
 
 // TITLES
 h1, h2, h3,
@@ -438,6 +445,12 @@ section[nav-anchor-section="landing"] {
 @mixin flex-between {
     display: flex;
     justify-content: space-between;
+}
+.flex-h {
+    @include flex-h;
+}
+.flex-v {
+    @include flex-v;
 }
 .flex-center {
     @include flex-center;
@@ -717,6 +730,8 @@ nav-anchors {
     text-transform: uppercase;
 
     > span {
+        display: inline-block;
+
         &:not(:last-child) {
             &::after {
                 content: "·";
