@@ -92,8 +92,10 @@ button {
     outline: none;
     padding: 0;
     margin: 0;
+    color: inherit;
 }
 a, button {
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -126,12 +128,14 @@ body {
     position: relative;
 }
 
-img,
-audio,
-video {
+img, .img-container,
+video, .video-container,
+audio {
     max-width: 100%;
     height: auto;
 }
+.video-container video { size: 100%; }
+.img-container img { size: 100%; }
 
 // Corrects block display not defined in IE6/7/8/9 & FF3
 div,

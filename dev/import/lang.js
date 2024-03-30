@@ -14,6 +14,9 @@ const translations = { // lang / page / id
             "footer-socials" : "Me retrouver",
             "footer-note" : "Site web pensé et codé par mes soins.",
             "footer-ggrid-tip--html" : "(appuyez sur <key>MAJ</key> + <key>G</key> pour afficher la grille)",
+
+            "transition-portfolio-title" : "Faites parcourir votre message",
+            "transition-portfolio-btn" : "Voir tous les projets",
         },
 
         "about": {

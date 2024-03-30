@@ -510,17 +510,21 @@ section[nav-anchor-section="landing"] {
 }
 
 
-video[layout], img[layout] {
+[layout] {
+    overflow: hidden;
     border-radius: var(--doc-corner-items);
     object-fit: fill;
     pointer-events: none;
     user-select: none;
 }
-.video-container {
-    video {
-        size: 100%;
-    }
+[layout] > img,
+[layout] > video {
+    size: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
 }
+
 svg {
     user-select: none;
     overflow: visible;
@@ -596,7 +600,7 @@ svg {
     --stroke-width: 8px;
 } */
 
-a {
+*:not(.btn-pill) > a {
     @include txt-normal;
 
     &.fat,
@@ -859,6 +863,36 @@ p key {
     }
 }
 
+
+// BUTTON PILL
+.btn-pill {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    button, a {
+        display: inline-flex;
+        align-items: center;
+        flex-direction: row;
+
+        @include stroke-around;
+        border-left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding: var(--spacing-small) var(--spacing-large);
+        padding-left: 0;
+
+        @include spacing-h-children(var(--spacing-small));
+    }
+
+    svg {
+        size: 2.4rem;
+    }
+
+    span {
+        font-size: 2.4rem;
+        @include txt-w-550;
+    }
+}
 
 // BOOM
 [boom-main-container], [boom-container] {

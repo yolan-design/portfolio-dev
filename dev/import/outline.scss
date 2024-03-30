@@ -714,3 +714,109 @@ footer-contact {
         }
     }
 }
+
+
+*[nav-anchor-section^="transition-"] {
+    padding-bottom: var(--spacing-section-large);
+    align-items: center;
+    // grid-template-columns: var(--doc-margin-small) repeat(var(--doc-grid-nb), minmax(0, 1fr)) var(--doc-margin-small);
+
+    // left
+    > .img-container:nth-child(1) {
+        grid-column: 1 / 7;
+
+        @media (max-width: $doc-phone) {
+            grid-column: 1 / -2;
+        }
+    }
+    > .content-container:nth-child(2) {
+        grid-column: 8 / -2;
+
+        @media (max-width: $doc-half) {
+            grid-column: 7 / -1;
+        }
+
+        @media (max-width: $doc-phone) {
+            padding-left: calc(var(--doc-col-width) / 2);
+
+            wrapper {
+                padding-left: var(--offset-grid);
+            }
+        }
+    }
+
+    // right
+    > .content-container:nth-child(1) {
+        grid-column: 2 / 7;
+
+        @media (max-width: $doc-half) {
+            grid-column: 1 / 7;
+        }
+        @media (max-width: $doc-phone) {
+            padding-right: calc(var(--doc-col-width) / 2);
+
+            wrapper {
+                padding-right: var(--offset-grid);
+            }
+        }
+    }
+    > .img-container:nth-child(2) {
+        grid-column: 7 / -1;
+
+        @media (max-width: $doc-phone) {
+            grid-column: 2 / -1;
+        }
+    }
+
+
+    // global
+    .img-container {
+        height: 110vh;
+
+        @media (max-width: $doc-half) {
+            height: 60vh;
+            min-height: 100%;
+        }
+        @media (max-width: $doc-phone) {
+            height: 20vh;
+        }
+    }
+    .content-container {
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @media (max-width: $doc-phone) {
+            grid-column: 1 / -1 !important;
+        }
+
+        wrapper {
+            margin: var(--spacing-section-large) _ ;
+            @include spacing-v-siblings(var(--spacing-large-super));
+            @include spacing-v-children(var(--spacing-mega));
+
+            @media (max-width: $doc-phone) {
+                background-color: var(--bg);
+                padding: var(--spacing-mega) _;
+                --offset-grid: calc((var(--doc-col-width) / 2) + var(--doc-gutter));
+                border-radius: var(--doc-corner-items);
+            }
+        }
+    }
+}
+
+.fill-to-margin-small--left,
+.fill-to-margin-small--right {
+    position: relative;
+    --offset-img: calc(var(--doc-margin-small) - var(--doc-margin));
+}
+.fill-to-margin-small--left {
+    left: var(--offset-img);
+    --new-width: calc(100% + (var(--offset-img) * -1));
+    width: var(--new-width);
+    max-width: var(--new-width);
+}
+.fill-to-margin-small--right {
+    right: var(--offset-img);
+}
