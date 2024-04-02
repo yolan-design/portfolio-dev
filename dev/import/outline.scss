@@ -177,15 +177,19 @@ nav-bar, nav-menu, nav-anchors {
     align-items: center;
     user-select: none;
 
+    *[class*="btn"] {
+        cursor: pointer;
+    }
+    .nav-buttons {
+        grid-column: -1 / -4;
+        @include flex-hr;
+    }
+}
+nav-bar, nav-anchors {
     pointer-events: none;
     *[class*="btn"] {
         pointer-events: initial;
         cursor: pointer;
-    }
-
-    .nav-buttons {
-        grid-column: -1 / -4;
-        @include flex-hr;
     }
 }
 /* nav-bar, nav-menu {
@@ -380,10 +384,14 @@ html.nav-menu-open {
         transition-delay: 0.3s;
     }
     html.nav-menu-open .nav-menu--hide {
-        pointer-events: none;
         opacity: 0;
         transform: translateY(0.75em);
         transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.4, 0.3, 0, 1);
+
+        pointer-events: none;
+        *[class*="btn"] {
+            pointer-events: none;
+        }
     }
 }
 
