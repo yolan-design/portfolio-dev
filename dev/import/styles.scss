@@ -18,6 +18,8 @@ $doc-half-m: ($doc-half + 0.1);
 
     --txt-body-size: 2.1rem;
 
+    --onscroll-transition: 0.3s cubic-bezier(0, 0.2, 0.3, 1);
+
     --spacing-mini: 1rem;
     --spacing-small: 1.5rem;
     --spacing-small-medium: 2rem;
@@ -57,6 +59,10 @@ $doc-half-m: ($doc-half + 0.1);
 // scale
 html {
     font-size: 10px;
+
+    @media (max-width: $doc-tablet) {
+        scroll-behavior: smooth;
+    }
 }
 
 @media (min-width: $doc-phone-m) {
@@ -503,10 +509,8 @@ section[nav-anchor-section="landing"] {
         transform: scale(calc((1 - var(--zoom-factor, 1)) + 1));
     }
 }
-*[onscroll-zoom_in], *[onscroll-zoom_in--in]
-//, *[data-scroll-clamp_origin]
-{
-    transition: transform 0.3s cubic-bezier(0, 0.2, 0.3, 1);
+*[onscroll-zoom_in], *[onscroll-zoom_in--in] {
+    transition: transform var(--onscroll-transition);
 }
 
 

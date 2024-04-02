@@ -95,7 +95,7 @@ part_footer: `
     </footer-cta>
 
     <footer-contact>
-        <wrapper data-scroll data-scroll-id="footer-contact" data-scroll-offset="0">
+        <wrapper>
 
             <div class="flex-center-h">
                 <div class="ggrid">

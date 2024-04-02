@@ -56,8 +56,6 @@ html {
     font-size: var(--txt-size-morph);
 
     @media (max-width: $doc-phone) {
-        scroll-behavior: smooth;
-
         --txt-size-ggrid: calc(var(--doc-txt-size-mobile) * 0.666 );
         --txt-size-morph: var(--doc-txt-size-mobile);
     }
@@ -492,6 +490,7 @@ html.nav-menu-open {
 
 // FOOTER
 footer {
+    overflow: hidden;
     @include flex-v;
     height: 100vh !important;
     max-height: var(--footer-height);
@@ -628,6 +627,7 @@ footer-contact {
     @include txt-w-425;
 
     > wrapper {
+        transition: transform var(--onscroll-transition);
         @include flex-v;
         height: 100%;
 

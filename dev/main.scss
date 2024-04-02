@@ -7,7 +7,8 @@
 @import './import/outline.scss';
 
 // LIBRARIES
-@import './import/dependencies/loconative/loconative-scroll.css';
+// @import './import/dependencies/loconative/loconative-scroll.css';
+@import './import/dependencies/scroll/locomotive-scroll.css';
 
 // CONTENT
 @import './import/page-about.scss';

@@ -6,9 +6,9 @@ import "./main.scss"
 
 
 // LIBRARIES
-import hotkeys from 'hotkeys-js';
-import LoconativeScroll from "./import/dependencies/loconative/loconative-scroll.js";
+import LocomotiveScroll from "./import/dependencies/scroll/locomotive-scroll.js";
 import anime from 'animejs/lib/anime.es.js';
+import hotkeys from 'hotkeys-js';
 
 // GLOBAL VARIABLES
 const doc = document.documentElement,
@@ -285,36 +285,25 @@ if(translateSwitches) {
 
 
 // SMOOTH SCROLL
-// https://github.com/quentinhocde/loconative-scroll
-const scrollDoc = new LoconativeScroll({
-    smooth: true,
-    duration: 0.85,
-    easing: (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x)),
-    scrollToEasing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
-    offset: ["40%", 0],
-    repeat: true,
-    tablet: {
-        breakpoint: 1300,
-        smooth: false,
-        gestureDirection: "vertical",
+const ScrollMain = new LocomotiveScroll({
+    lenisOptions: {
+        smoothWheel: true,
+        smoothTouch: false,
+        wheelMultiplier: 0.85,
+        duration: 1.25,
+        easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6.1 * x)), // https://www.desmos.com/calculator/brs54l4xou
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
     },
-    smartphone: {
-        smooth: false,
-        gestureDirection: "vertical",
-    },
-    reloadOnContextChange: false,
+    triggerRootMargin: '-1px -1px -1px -1px', // inview elements
+    rafRootMargin: '100% 100% 100% 100%', // scroll elements
+    autoResize: true,
+    scrollCallback: ScrollMain_onScroll,
 });
-const scrollToDuration = 1.4;
-
-
-// NAV MENU TOGGLE
-const navMenuButton = document.querySelectorAll("nav-bar #nav-btn-toggle-menu");
-if (navMenuButton) {
-    navMenuButton.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            doc.classList.toggle("nav-menu-open");
-        })
-    })
+const scrollToOptions = {
+    duration: 1.4,
+    lock: false,
+    easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
 }
 
 
@@ -402,54 +391,30 @@ function dynamicColorUpdate(el) {
 
 // NAV ANCHORS
 const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
+      check_pageAnchorsSections = (!!pageAnchorsSections),
       // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]"),
       anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
-if (pageAnchorsSections) {
+if (check_pageAnchorsSections) {
     elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
     elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
     elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-accent", defaultFromAttribute : "dynamic_color-fill", defaultColorFallback : DYNAMIC_COLORS.default.accent});
-
-    // scroll updates
-    scrollDoc.on('scroll', (args) => {
-        pageAnchorsSections.forEach((anchorSection) => {
-            const anchorSectionRect = anchorSection.getBoundingClientRect(),
-                  anchorLink = document.querySelector("[nav-anchor-link='"+ anchorSection.getAttribute("nav-anchor-section") +"']"),
-                  splitSection = doc.clientHeight / 2;
-
-            if (anchorSectionRect.y < splitSection && anchorSectionRect.bottom > splitSection) {
-                if (anchorLink) { anchorLink.classList.add("active"); }
-                //doc.style.setProperty('--bg-dynamic', anchorSection.getAttribute("dynamic_color-bg"));
-                dynamicColorUpdate(anchorSection);
-            } else {
-                if (anchorLink) { anchorLink.classList.remove("active"); }
-            }
-        })
-    });
 }
 
+function onScroll_PageAnchorsSections() {
+    pageAnchorsSections.forEach((anchorSection) => {
+        const anchorSectionRect = anchorSection.getBoundingClientRect(),
+              anchorLink = document.querySelector("[nav-anchor-link='"+ anchorSection.getAttribute("nav-anchor-section") +"']"),
+              splitSection = doc.clientHeight / 2;
 
-// failed attempt at using IntersectionObserver
-/* let pageAnchorsIO = new IntersectionObserver((entries) => {
-    console.log("---");
-    entries.forEach(entry => {
-        if(entry.isIntersecting) {
-            console.log(entry.target.getAttribute("nav-anchor-section"));
-            const anchorLink = document.querySelector("[nav-anchor-link='"+ entry.target.getAttribute("nav-anchor-section") +"']")
-
-            if (anchorLink) {
-                anchorLink.classList.add("active");
-            }
+        if (anchorSectionRect.y < splitSection && anchorSectionRect.bottom > splitSection) {
+            if (anchorLink) { anchorLink.classList.add("active"); }
+            dynamicColorUpdate(anchorSection);
         } else {
-            document.querySelector("*:not([nav-anchor-link='"+ entry.target.getAttribute("nav-anchor-section") +"'])").classList.remove("active");
+            if (anchorLink) { anchorLink.classList.remove("active"); }
         }
     })
-}, {
-    rootMargin: "-50%",
-    threshold: [0, 0.05, 0.15, 0.85, 0.95, 1]
-})
-if (pageAnchorsSections) { pageAnchorsSections.forEach((anchorSection) => { pageAnchorsIO.observe(anchorSection); }) };
- */
+}
 
 
 // NAV ANCHORS SCROLL TO
@@ -461,13 +426,13 @@ if (anchorLinks) {
 
             if (scrollToTarget) {
                 if (anchorID == "contact") {
-                    scrollDoc.scrollTo("bottom", {
-                        duration : scrollToDuration,
+                    ScrollMain.scrollTo("bottom", {
+                        ...scrollToOptions,
                         offset : 0
                     })
                 } else {
-                    scrollDoc.scrollTo(scrollToTarget, {
-                        duration : scrollToDuration,
+                    ScrollMain.scrollTo(scrollToTarget, {
+                        ...scrollToOptions,
                         offset : doc.clientHeight * -0.15 //-150
                     })
                 }
@@ -477,8 +442,8 @@ if (anchorLinks) {
                     document.querySelector("nav-anchors").classList.add("active-pause");
                     setTimeout(() => {
                         document.querySelector("nav-anchors").classList.remove("active-pause");
-                    }, scrollToDuration * 550);
-                }, scrollToDuration * 300);
+                    }, scrollToOptions.duration * 550);
+                }, scrollToOptions.duration * 300);
 
                 // close menu if mobile
                 if (doc.clientWidth < docSizePhone) {
@@ -488,6 +453,29 @@ if (anchorLinks) {
         })
     })
 };
+
+
+// NAV MENU TOGGLE
+const navMenuButton = document.querySelectorAll("nav-bar #nav-btn-toggle-menu");
+if (navMenuButton) {
+    navMenuButton.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            doc.classList.toggle("nav-menu-open");
+        })
+    })
+}
+
+
+// GGRID display
+const ggridDisplay = document.querySelectorAll("ggrid");
+if (ggridDisplay) {
+    hotkeys('shift+g', {keydown: true}, function(event, handler){
+        if (event.type === 'keydown') {
+            event.preventDefault()
+            toggleClassAll(ggridDisplay, "hidden");
+        }
+    });
+}
 
 
 // FOOTER BUTTON EMAIL COPY
@@ -548,29 +536,37 @@ if (footerCTA) {
 
 
 // FOOTER SCROLL REVEAL
-scrollDoc.on('scroll', (args) => {
-    if(typeof args.currentElements['footer-contact'] === 'object') {
-        // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
-        const elParentRect = args.currentElements['footer-contact'].el.parentElement.getBoundingClientRect(),
-              progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.0015), 0, elParentRect.height, 0, 1);
+const footerContactWrapper = doc.querySelector("footer-contact > wrapper"),
+      check_FooterContactReveal = (!!footerContactWrapper);
 
-        args.currentElements['footer-contact'].el.style.opacity = progressFactor;
-        args.currentElements['footer-contact'].el.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
-    }
-});
+function onScroll_FooterContactReveal() {
+    // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
+    const elParentRect = footerContactWrapper.parentElement.getBoundingClientRect(),
+          progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.05), 0, elParentRect.height, 0, 1);
+
+    footerContactWrapper.style.opacity = progressFactor;
+    footerContactWrapper.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
+}
 
 
 // ON SCOLL ZOOM IN REVEAL
-const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
-if (layoutZoomInElements) {
+const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]"),
+      check_ZoomInElements = (!!layoutZoomInElements);
+
+if (check_ZoomInElements) {
     layoutZoomInElements.forEach((el) => {
+        /* el.setAttribute("data-scroll", "");
+        el.setAttribute("data-scroll-css-progress", "");
+        el.setAttribute("data-scroll-position", "start,start"); */
         el.setAttribute("data-scroll-offset", "0");
-        el.setAttribute("onscroll-zoom_in--fraction", (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2);
-        el.setAttribute("onscroll-zoom_in--strength", (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.92);
+        el.setAttribute("onscroll-zoom_in--fraction",
+            (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2);
+        el.setAttribute("onscroll-zoom_in--strength",
+            (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.92);
         el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
     })
 }
-scrollDoc.on('scroll', (args) => {
+function onScroll_ZoomInElements() {
     layoutZoomInElements.forEach((el) => {
         const elRect = el.getBoundingClientRect(),
               progressFactor = mapRangeClamp(
@@ -580,26 +576,15 @@ scrollDoc.on('scroll', (args) => {
                     parseFloat(el.getAttribute("onscroll-zoom_in--strength")),
                     1
               );
-              /* progressFactor = mapRangeClamp(
-                    (doc.clientHeight - elRect.top),
-                    0,
-                    (doc.clientHeight + elRect.height) / parseFloat(el.getAttribute("onscroll-zoom_in--fraction")),
-                    parseFloat(el.getAttribute("onscroll-zoom_in--strength")),
-                    1
-              ); */
 
         el.style.setProperty("--zoom-factor", progressFactor);
     })
-});
+}
 
 
-// GGRID display
-const ggridDisplay = document.querySelectorAll("ggrid");
-if (ggridDisplay) {
-    hotkeys('shift+g', {keydown: true}, function(event, handler){
-        if (event.type === 'keydown') {
-            event.preventDefault()
-            toggleClassAll(ggridDisplay, "hidden");
-        }
-    });
+// SCROLL CALLBACKS
+function ScrollMain_onScroll(/* { scroll, limit, velocity, direction, progress } */) {
+    if (check_ZoomInElements) { onScroll_ZoomInElements(); }
+    if (check_FooterContactReveal) { onScroll_FooterContactReveal(); }
+    if (check_pageAnchorsSections) { onScroll_PageAnchorsSections(); }
 }
