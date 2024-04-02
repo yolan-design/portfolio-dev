@@ -7,6 +7,8 @@
  * {@link https://github.com/locomotivemtl/locomotive-scroll locomotive-scroll.js}
  * and built around
  * {@link https://github.com/studio-freight/lenis lenis.js}.
+ *
+ * edited by yolan.design to suit his needs - 5.0beta11
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -384,10 +386,20 @@
             var progress = Math.max(0, this.progress);
             this.translateValue = progress * wSize * this.attributes.scrollSpeed * -1;
           } else {
-            var _progress = mapRange(0, 1, -1, 1, this.progress);
+            var _this$$el$dataset$scr6 = this.$el.dataset['scrollClamp_origin'],
+                _progress;
+            if (_this$$el$dataset$scr6 == null) {
+              _progress = mapRange(0, 1, -1, 1, this.progress), 0;
+            } else if (_this$$el$dataset$scr6 === 'min') {
+              _progress = Math.max(mapRange(0, 1, -1, 1, this.progress), 0);
+            } else if (_this$$el$dataset$scr6 === 'max') {
+              _progress = Math.min(mapRange(0, 1, -1, 1, this.progress), 0);
+            }
             this.translateValue = _progress * wSize * this.attributes.scrollSpeed * -1;
           }
-          this.$el.style.transform = this.scrollOrientation === 'vertical' ? "translate3d(0, " + this.translateValue + "px, 0)" : "translate3d(" + this.translateValue + "px, 0, 0)";
+          this.$el.style.transform = this.scrollOrientation === 'vertical'
+            ? "translate3d("+ ((this.$el.dataset['scrollDirection'] == "horizontal") ? this.translateValue + "px, 0, 0)" : "0, " + this.translateValue + "px, 0)")
+            : "translate3d(" + this.translateValue + "px, 0, 0)";
         }
       }
     }
