@@ -116,8 +116,9 @@ main {
             display: block;
             &:not(:last-child) { margin-right: 0.2em; }
 
-            color: var(--bg-low);
-            transition: color 0.55s cubic-bezier(0, 1, 0.2, 1);
+            color: var(--fill);
+            opacity: var(--low-bg-o);
+            transition: opacity 0.55s cubic-bezier(0, 1, 0.2, 1);
 
             &:not(:first-child):not(:last-child) {
                 transform: rotateZ(360deg);
@@ -127,7 +128,7 @@ main {
 
         html[translate-lang-current="fr"] & {
             span:first-child {
-                color: var(--fill);
+                opacity: 1;
             }
             span:not(:first-child):not(:last-child) {
                 transform: rotateZ(-180deg);
@@ -135,7 +136,7 @@ main {
         }
         html[translate-lang-current="en"] & {
             span:last-child {
-                color: var(--fill);
+                opacity: 1;
             }
             span:not(:first-child):not(:last-child) {
                 transform: rotateZ(360deg);
