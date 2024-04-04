@@ -10,7 +10,7 @@ part_nav: `
         <a id="nav-pagelink-portfolio" class="btn-interaction" href="/portfolio">
             <span translate-id="nav-page-portfolio" translate-from="_general"></span>
         </a>
-        <a id="nav-pagelink-about" class="active btn-interaction" href="/about">
+        <a id="nav-pagelink-about" class="btn-interaction" href="/about">
             <span translate-id="nav-page-about" translate-from="_general"></span>
         </a>
     </div>

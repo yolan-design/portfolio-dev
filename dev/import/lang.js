@@ -19,6 +19,24 @@ const translations = { // lang / page / id
             "transition-portfolio-btn" : "Voir tous les projets",
         },
 
+        "home": {
+            "anchor-approche": "Approche",
+            "anchor-portfolio": "Portfolio",
+            "anchor-about": "À propos",
+
+            "showreel-title": "Propulsé par le désir de toujours me surpasser",
+            "showreel-video-txt": "Showreel (2024)",
+
+            "approche-title": "Une stratégie qui convient à votre message",
+            "approche-btn": "Travaillons ensemble !",
+            "approche-card-1-title--html" : "Donner de<br>l’intention",
+            "approche-card-1-content" : "Chaque choix est intentionnel et donne sens au message que vous souhaitez transmettre en tenant compte de la sémantique de votre identité.",
+            "approche-card-2-title--html" : "Une solution<br>percutante",
+            "approche-card-2-content" : "On analyse ensemble les besoins de votre cible pour trouver ce qui convient à faire évoluer votre image et vous démarquer.",
+            "approche-card-3-title--html" : "Nous sommes<br>partenaires",
+            "approche-card-3-content" : "Chaque projet est différent, c’est pourquoi je m’applique à concevoir le meilleur pour vos besoins. Transformons chaque défi complexe en une collaboration unique !",
+        },
+
         "about": {
             "anchor-formations": "Formations",
             "anchor-mes_moyens": "Mes moyens",
@@ -156,6 +174,9 @@ const translations = { // lang / page / id
 
             "transition-portfolio-title" : "Bring your message to life",
             "transition-portfolio-btn" : "See all projects",
+        },
+
+        "home": {
         },
 
         "about": {

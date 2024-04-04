@@ -7,44 +7,142 @@
 <body>
     <%= htmlWebpackPlugin.options.noscript_error %>
 
-    <span>test</span>
-    <a class="fat" href="about">about</a>
-    <a href="portfolio" class="minimal">portfolio</a>
+    <nav-anchors class="nav-menu--hide">
+        <div nav-anchor-link="approche" class="btn-interaction">
+            <span translate-id="anchor-approche"></span>
+        </div>
+        <div nav-anchor-link="portfolio" class="btn-interaction">
+            <span translate-id="anchor-portfolio"></span>
+        </div>
+        <div nav-anchor-link="about" class="btn-interaction">
+            <span translate-id="anchor-about"></span>
+        </div>
+        <div nav-anchor-link="contact" class="btn-interaction">
+            <span translate-id="anchor-contact" translate-from="_general"></span>
+        </div>
+    </nav-anchors>
+
+    <%= htmlWebpackPlugin.options.part_nav %>
 
 
-    <span>Lorem ipsum dolor sit amet.</span>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptates perspiciatis iusto cum, ab nam ducimus nesciunt quisquam fugit tenetur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptates perspiciatis iusto cum, ab nam ducimus nesciunt quisquam fugit tenetur.</p>
-    <p>Delectus voluptates perspiciatis iusto cum, ab nam ducimus nesciunt quisquam fugit tenetur.</p>
+    <main>
+        <section nav-anchor-section="landing" class="doc-margin-p">
+            <!-- <div class="ggrid">
+                <div>
+                    <span>Je suis</span><span>Yolan</span>
+                </div>
+                <span>à votre service pour transformer vos idées en expériences uniques</span>
+                <span>Créatif et<br>passionné</span>
+                <div class="scroll-down-notice">
+                    <div class="btn-interaction" nav-anchor-link="formations">
+                        <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+                    </div>
+                </div>
+            </div> -->
 
-    <div class="sep"></div>
+        </section>
 
-    <h1>Lorem ipsum dolor sit amet.</h1>
-    <h-subtitle>Lorem ipsum dolor sit amet.</h-subtitle>
-    <h2>Lorem ipsum dolor sit amet.</h2>
-    <h3>Lorem ipsum dolor sit amet.</h3>
-    <h4>Lorem ipsum dolor sit amet.</h4>
-    <h5>Lorem ipsum dolor sit amet.</h5>
-    <h6>Lorem ipsum dolor sit amet.</h6>
 
-    <div class="anchor-title">Test</div>
-    <div class="anchor-title ml">Test</div>
-    <div class="anchor-title mr">Test</div>
+        <section nav-anchor-section="showreel" class="doc-margin-p">
+            <div class="ggrid">
+                <div class="showreel-container">
+                    <div class="showreel-in" layout onscroll-zoom_in>
+                        <video onscroll-zoom_in--in src="./assets/medias/placeholder.mp4" autoplay mute loop></video>
+                        <span class="invert-color" translate-id="showreel-video-txt"></span>
+                    </div>
+                </div>
+                <h2 data-scroll data-scroll-speed="0.16" translate-id="showreel-title"></h2>
+            </div>
 
-    <div class="txt-low">Test</div>
+        </section>
 
-    <div class="high">Lorem ipsum dolor sit amet.</div>
-    <div class="high">Lorem ipsum dolor<br>sit amet.</div>
-    <div class="high fill_width">Lorem ipsum dolor sit amet.</div>
 
-    <div class="keywords">Lorem ipsum dolor sit amet.</div>
-    <div class="keywords"><span>Lorem</span><span>Lorem</span><span>Lorem</span><span>Lorem</span></div>
-    <div class="keywords low">Lorem ipsum dolor sit amet.</div>
-    <div class="keywords high low">Lorem ipsum dolor sit amet.</div>
-    <div class="keywords high">Lorem ipsum dolor sit amet.</div>
-    <div class="keywords high"><span>Lorem</span><span>Lorem</span><span>Lorem</span><span>Lorem</span></div>
-    <div class="keywords high fill_width"><span>Lorem</span><span>Lorem</span><span>Lorem</span><span>Lorem</span></div>
+        <section nav-anchor-section="approche">
 
-    <img layout src="assets/medias/placeholder.png" alt="">
-    <video layout src="assets/medias/placeholder.mp4" autoplay mute loop></video>
+            <div class="section-head ggrid doc-margin-p">
+                <h2 translate-id="approche-title"></h2>
+                <div nav-anchor-scroll="approche" class="anchor-title expand-left align-right offset-h2-baseline"><span translate-id="anchor-approche"></span></div>
+            </div>
+
+            <div class="section-side_to_side m--bg-disect ggrid doc-margin-p">
+                <div class="media-container fill-to-margin-small--left" layout onscroll-zoom_in>
+                    <video onscroll-zoom_in--in src="./assets/medias/placeholder.mp4" autoplay mute loop></video>
+                </div>
+                <div class="content-container">
+                    <wrapper>
+
+                        <div class="card-content medium-large no-border" data-scroll data-scroll-speed="0.175">
+                            <div class="head">
+                                <div class="icon">
+                                    <svg id="icon-star" viewBox="0 0 64 64">
+                                        <g>
+                                            <path class="stroke" d="M34,64h-4c0-16.57-13.43-30-30-30v-4C16.57,30,30,16.57,30,0h4c0,16.57,13.43,30,30,30v4c-16.57,0-30,13.43-30,30Z" />
+                                            <path class="fill" d="M32.99,39.49h-1.98c0-3.59-2.91-6.5-6.5-6.5v-1.98c3.59,0,6.5-2.91,6.5-6.5h1.98c0,3.59,2.91,6.5,6.5,6.5v1.98c-3.59,0-6.5,2.91-6.5,6.5Z"  class=""/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h3 class="title" translate-id="approche-card-1-title--html"></h3>
+                            </div>
+                            <div class="content">
+                                <span translate-id="approche-card-1-content"></span>
+                            </div>
+                        </div>
+
+                        <div class="card-content medium-large no-border" data-scroll data-scroll-speed="0.15">
+                            <div class="head">
+                                <div class="icon">
+                                    <svg id="icon-precise" viewBox="0 0 64 64">
+                                        <g class="stroke">
+                                            <path d="M32,64C14.33,64,0,49.67,0,32S14.33,0,32,0,64,14.33,64,32" />
+                                            <path d="M32,52.61c-11.36,0-20.61-9.24-20.61-20.61s9.24-20.61,20.61-20.61,20.61,9.24,20.61,20.61" />
+                                            <polyline points="29.96 43.64 28 28 43.64 29.96" />
+                                            <line x1="28" y1="28" x2="64" y2="64" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h3 class="title" translate-id="approche-card-2-title--html"></h3>
+                            </div>
+                            <div class="content">
+                                <span translate-id="approche-card-2-content"></span>
+                            </div>
+                        </div>
+
+                        <div class="card-content medium-large no-border" data-scroll data-scroll-speed="0.1">
+                            <div class="head">
+                                <div class="icon">
+                                    <svg id="icon-partner" viewBox="0 0 64 64">
+                                        <g class="stroke">
+                                            <path d="M38.16,30.53c1.01-.9,2.48-1.22,3.84-.71l5.42,2.03c.47.17.95-.31.72-.77-.72-1.46-.85-3.22-.24-4.87,1.21-3.22,4.81-4.84,8.01-3.59,3.17,1.24,4.75,4.98,3.46,8.11-.64,1.55-1.85,2.71-3.31,3.32-.46.2-.42.87.05,1.04l5.42,2.03c1.97.74,2.96,2.92,2.23,4.88l-7.31,19.54c-.73,1.96-2.92,2.96-4.88,2.22l-19.53-7.3c-1.96-.74-2.96-2.92-2.23-4.88l2.03-5.43c.18-.48.86-.5,1.05-.04.61,1.45,1.77,2.65,3.32,3.3,3.13,1.3,6.87-.29,8.1-3.45,1.25-3.21-.37-6.81-3.58-8.01-.91-.34-1.84-.45-2.75-.37" />
+                                            <path d="M37.98,37.58c-.14.2-.3.39-.47.57-2.32,2.47-6.39,2.54-8.81.16-1.19-1.17-1.81-2.73-1.84-4.3-.01-.5-.64-.73-.98-.35l-3.92,4.27c-1.41,1.54-3.81,1.65-5.35.23l-4.28-3.91c-.37-.34-.15-.98.36-.99,1.57-.02,3.12-.64,4.3-1.84,2.38-2.42,2.3-6.48-.16-8.81-2.51-2.36-6.46-2.2-8.77.33-1.2,1.3-1.73,2.98-1.61,4.61.04.5-.58.78-.95.44l-4.27-3.92c-1.55-1.41-1.65-3.81-.24-5.35L15.08,3.34c1.42-1.55,3.82-1.65,5.36-.24l4.27,3.92c.38.34.99.06.95-.44-.11-1.57.37-3.17,1.46-4.45,2.2-2.58,6.26-2.86,8.79-.6,2.57,2.29,2.76,6.23.45,8.76-1.2,1.31-2.82,1.98-4.46,2-.5.01-.72.65-.35.99l4.27,3.91c1.54,1.42,1.65,3.82.23,5.36l-3.91,4.27c-.34.37-.07.99.44.95,1.63-.11,3.31.42,4.61,1.61.38.35.71.74.97,1.15,1.42,2.12,1.38,4.95-.18,7.05Z" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h3 class="title" translate-id="approche-card-3-title--html"></h3>
+                            </div>
+                            <div class="content">
+                                <span translate-id="approche-card-3-content"></span>
+                            </div>
+                        </div>
+
+                        <div class="btn-pill fill_width" data-scroll data-scroll-speed="0.025">
+                            <button class="btn-interaction" nav-anchor-link="contact">
+                                <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+                                <span translate-id="approche-btn"></span>
+                            </button>
+                        </div>
+
+                    </wrapper>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <%= htmlWebpackPlugin.options.part_footer %>
+
+    <%= htmlWebpackPlugin.options.part_ggrid %>
+
 </body>
 </html>
