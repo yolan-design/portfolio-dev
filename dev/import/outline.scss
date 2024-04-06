@@ -461,25 +461,25 @@ html.nav-menu-open {
         }
 
         opacity: 0;
-        // padding: 0 !important;
+        padding: 0 !important;
         height: 0vh !important;
 
         > * > *,
         > *::after {
             opacity: 0 !important;
-            transition-duration: 0.3s !important;
-            transition-delay: 0.05s !important;
+            transition-duration: 0.4s !important;
+            transition-delay: 0s !important;
         }
     }
 
     nav-bar, nav-anchors {
-        transition: opacity 0.4s 0.2s ease,
+        transition: opacity 0.25s 0.275s ease,
                     padding 0.7s cubic-bezier(0.4, 0.2, 0, 1),
-                    height 0.8s cubic-bezier(0.4, 0, 0, 1);
+                    height 0.8s cubic-bezier(0.5, 0.1, 0.1, 0.9);
     }
     html.nav-menu-open {
         nav-bar, nav-anchors {
-            transition: opacity 0.35s 0.05s ease,
+            transition: opacity 0.35s 0.1s ease,
                         padding 0.8s cubic-bezier(0.3, 0.4, 0, 1),
                         height 0.9s cubic-bezier(0.5, 0.8, 0, 1);
         }
@@ -493,11 +493,20 @@ html.nav-menu-open {
             opacity: 1;
             height: 100vh !important;
 
-            > * > *,
-            > *::after {
+            .btn-interaction > *,
+            .btn-interaction::after {
                 opacity: 1 !important;
                 transition-duration: 0.6s !important;
                 transition-delay: 0.3s !important;
+            }
+
+            @for $i from 1 through 6 {
+                .btn-interaction:nth-last-child(#{$i}) {
+                     > *,
+                     &::after {
+                        transition-delay: 0.2s + (0.075s * $i) !important;
+                    }
+                }
             }
         }
     }
