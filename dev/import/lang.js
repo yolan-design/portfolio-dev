@@ -24,6 +24,11 @@ const translations = { // lang / page / id
             "anchor-portfolio": "Portfolio",
             "anchor-about": "À propos",
 
+            "landing-txt-top-title--html": `<span>Je suis</span><span>Yolan</span>`,
+            "landing-txt-top-subtitle--html": `<span>à votre service pour transformer<br>vos idées en expériences uniques</span>`,
+            "landing-txt-bottom-keyword1": "Créatif",
+            "landing-txt-bottom-keyword2": "Passionné",
+
             "showreel-title": "Propulsé par le désir de toujours me surpasser",
             "showreel-video-txt": "Showreel (2024)",
 

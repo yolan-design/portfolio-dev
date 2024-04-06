@@ -25,6 +25,8 @@
     --doc-grid-nb: 12;
     --doc-margin: 8rem;
     --doc-margin-small: 3rem;
+    --doc-margin-small-offset: calc(var(--doc-margin) - var(--doc-margin-small));
+    --doc-margin-small-offset-i: calc(var(--doc-margin-small-offset) * -1);
     --doc-gutter: 6rem;
     --doc-gutter: 3.15vw;
     --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * (var(--doc-grid-nb) - 1))) / var(--doc-grid-nb)) );
@@ -33,15 +35,18 @@
 
     --footer-height: 88vh;
     --nav-height: 12vh;
+    --nav-height-min: var(--nav-height);
 }
 @media (max-width: $doc-phone) {
     :root {
         --doc-grid-nb: 6;
         --doc-margin: 3rem;
         --doc-margin-small: var(--doc-margin);
+        --doc-margin-small-offset: var(--doc-margin-small);
         --doc-corner-big: 5.6rem;
 
         --nav-height: auto;
+        --nav-height-min: calc(var(--doc-margin) + var(--spacing-mega));
     }
 }
 

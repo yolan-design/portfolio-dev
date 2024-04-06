@@ -27,25 +27,36 @@
 
     <main>
         <section nav-anchor-section="landing" class="doc-margin-p">
-            <!-- <div class="ggrid">
-                <div>
-                    <span>Je suis</span><span>Yolan</span>
-                </div>
-                <span>à votre service pour transformer vos idées en expériences uniques</span>
-                <span>Créatif et<br>passionné</span>
-                <div class="scroll-down-notice">
-                    <div class="btn-interaction" nav-anchor-link="formations">
-                        <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+            <div>
+
+                <div class="top-container">
+                    <div class="img-container fill-to-margin-small--both">
+                        <img layout src="./assets/medias/placeholder.png">
+                    </div>
+
+                    <div class="content-txt-top">
+                        <div translate-id="landing-txt-top-title--html"></div>
+                        <div translate-id="landing-txt-top-subtitle--html"></div>
                     </div>
                 </div>
-            </div> -->
 
+                <div class="content-txt-bottom ggrid">
+                    <h1 translate-id="landing-txt-bottom-keyword1"></h1>
+                    <h1 translate-id="landing-txt-bottom-keyword2"></h1>
+                    <div class="scroll-down-notice">
+                        <div class="btn-interaction" nav-anchor-link="showreel">
+                            <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
 
         <section nav-anchor-section="showreel" class="doc-margin-p">
             <div class="ggrid">
-                <div class="showreel-container">
+                <div class="showreel-container" nav-anchor-scroll="showreel">
                     <div class="showreel-in" layout onscroll-zoom_in>
                         <video onscroll-zoom_in--in src="./assets/medias/placeholder.mp4" autoplay mute loop></video>
                         <span class="invert-color" translate-id="showreel-video-txt"></span>

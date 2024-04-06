@@ -47,7 +47,6 @@ html[page="about"] {
             svg {
                 size: var(--doc-gutter);
                 --stroke-width: 4px;
-                transform: rotateZ(90deg);
             }
         }
 
@@ -129,7 +128,7 @@ html[page="about"] {
             }
 
             @media (max-width: $doc-phone) {
-                padding-top: calc(var(--doc-margin) + var(--spacing-mega));
+                padding-top: var(--nav-height-min);
                 padding-bottom: var(--spacing-super);
                 align-items: end;
 

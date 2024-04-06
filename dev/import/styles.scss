@@ -523,14 +523,14 @@ section[nav-anchor-section="landing"] {
 [layout] {
     overflow: hidden;
     border-radius: var(--doc-corner-items);
-    object-fit: fill;
+    object-fit: cover;
     pointer-events: none;
     user-select: none;
 }
 [layout] > img,
 [layout] > video {
     size: 100%;
-    object-fit: fill;
+    object-fit: cover;
     pointer-events: none;
     user-select: none;
 }
@@ -587,6 +587,12 @@ svg {
     polyline {
         stroke-width: var(--stroke-width);
         stroke-linecap: round;
+    }
+}
+.scroll-down-notice {
+    display: flex;
+    svg {
+        transform: rotateZ(90deg);
     }
 }
 
@@ -1302,19 +1308,28 @@ p key {
 }
 
 .fill-to-margin-small--left,
-.fill-to-margin-small--right {
+.fill-to-margin-small--right,
+.fill-to-margin-small--both {
     position: relative;
-    --offset-img: calc(var(--doc-margin-small) - var(--doc-margin));
-}
-.fill-to-margin-small--left {
-    left: var(--offset-img);
-    --new-width: calc(100% + (var(--offset-img) * -1));
+    --new-width: 100%; // fallback
     width: var(--new-width);
     max-width: var(--new-width);
 }
+.fill-to-margin-small--left,
 .fill-to-margin-small--right {
-    right: var(--offset-img);
+    --new-width: calc(100% + var(--doc-margin-small-offset));
 }
+.fill-to-margin-small--left {
+    left: var(--doc-margin-small-offset-i);
+}
+.fill-to-margin-small--right {
+    right: var(--doc-margin-small-offset-i);
+}
+.fill-to-margin-small--both {
+    left: var(--doc-margin-small-offset-i);
+    --new-width: calc(100% + (var(--doc-margin-small-offset) * 2));
+}
+
 
 
 // GLOBAL GRID
@@ -1404,6 +1419,7 @@ ggrid {
 }
 .grid-col-1 {
     grid-template-columns: 1fr;
+    > * { grid-column: 1 / -1; }
 }
 
 
@@ -1453,6 +1469,10 @@ ggrid {
     box-sizing: border-box;
     padding: _ var(--doc-margin);
 }
+@mixin doc-margin-small-p {
+    box-sizing: border-box;
+    padding: _ var(--doc-margin-small);
+}
 @mixin doc-margin-w {
     @include doc-margin;
     width: calc(100% - (var(--doc-margin) * 2));
@@ -1462,6 +1482,9 @@ ggrid {
 }
 .doc-margin-p {
     @include doc-margin-p;
+}
+.doc-margin-small-p {
+    @include doc-margin-small-p;
 }
 .doc-margin-w {
     @include doc-margin-w;
