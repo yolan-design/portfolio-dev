@@ -224,6 +224,8 @@ section[nav-anchor-section="showreel"] {
 
 
 section[nav-anchor-section="approche"] {
+    padding-bottom: var(--spacing-section-medium-large);
+
     .section-head {
         padding-bottom: var(--spacing-section-small);
         row-gap: var(--spacing-super);
@@ -244,8 +246,6 @@ section[nav-anchor-section="approche"] {
         }
     }
     .section-side_to_side {
-        padding-bottom: var(--spacing-section-large);
-
         wrapper {
             margin: var(--spacing-section-small) _ ;
         }

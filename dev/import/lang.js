@@ -15,6 +15,10 @@ const translations = { // lang / page / id
             "footer-note" : "Site web pensé et codé par mes soins.",
             "footer-ggrid-tip--html" : "(appuyez sur <key>MAJ</key> + <key>G</key> pour afficher la grille)",
 
+            "transition-about-title" : "Je transforme pour transmettre",
+            "transition-about-desc" : "Constamment à l’affût des nouvelles technologies et de nouvelles techniques, je suis sans cesse à me renouveler et innover. J’ai fait de ma passion mon travail : mettre en relation le message et la forme pour créer des supports plus parlants que des mots et marquer les esprits.",
+            "transition-about-btn" : "En apprendre plus sur moi",
+
             "transition-portfolio-title" : "Faites parcourir votre message",
             "transition-portfolio-btn" : "Voir tous les projets",
         },

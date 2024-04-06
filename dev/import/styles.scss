@@ -1185,8 +1185,37 @@ p key {
 // SIDE TO SIDE
 .section-side_to_side,
 *[nav-anchor-section^="transition-"] {
+    position: relative;
     align-items: center;
     // grid-template-columns: var(--doc-margin-small) repeat(var(--doc-grid-nb), minmax(0, 1fr)) var(--doc-margin-small);
+
+    // anchor
+    .anchor-container {
+        height: auto;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        align-self: baseline;
+
+        @media (min-width: $doc-phone-m) {
+            position: absolute;
+            top: var(--nav-height-min);
+        }
+        @media (max-width: $doc-half) {
+            top: 0;
+        }
+
+        .anchor-title {
+            grid-column: 2 / -1;
+        }
+    }
+    @media (max-width: $doc-phone) {
+        &.has-anchor {
+            padding-top: var(--spacing-section-small);
+        }
+        .anchor-title {
+            top: -150%;
+        }
+    }
 
     // left
     > .media-container:nth-child(1) {
@@ -1260,8 +1289,19 @@ p key {
 
         > wrapper {
             margin: var(--spacing-section-large) _ ;
-            @include spacing-v-siblings(var(--spacing-large-super));
-            @include spacing-v-children(var(--spacing-mega));
+
+            @include spacing-v-children(var(--spacing-super));
+            .content {
+                @include spacing-v-children(var(--spacing-large-super));
+
+                p {
+                    text-wrap: balance;
+
+                    @media (min-width: $doc-phone-m) {
+                        width: 75%;
+                    }
+                }
+            }
 
             @media (max-width: $doc-phone) {
                 --offset-grid: calc((var(--doc-col-width) / 2) + var(--doc-gutter));
@@ -1323,7 +1363,7 @@ p key {
     left: var(--doc-margin-small-offset-i);
 }
 .fill-to-margin-small--right {
-    right: var(--doc-margin-small-offset-i);
+    left: 0;
 }
 .fill-to-margin-small--both {
     left: var(--doc-margin-small-offset-i);
