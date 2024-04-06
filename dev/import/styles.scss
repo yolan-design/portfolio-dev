@@ -1343,7 +1343,8 @@ p key {
     }
 }
 
-*[nav-anchor-section^="transition-"] {
+*[nav-anchor-section^="transition-"],
+.section-transition {
     padding-bottom: var(--spacing-section-large);
 }
 
