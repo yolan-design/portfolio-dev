@@ -348,12 +348,15 @@ section[nav-anchor-section="mes_moyens"] {
             --offset-cards1: min(calc(var(--offset-cards) - 0px), 0px);
             --offset-cards2: min(calc(var(--offset-cards) * 2 - 25px), 0px);
             --offset-cards3: min(calc(var(--offset-cards) * 3 - 50px), 0px);
+            // --offset-cards4: min(calc(var(--offset-cards) * 4 - 75px), 0px);
             .card-content:nth-child(1) { transform: translate3d(var(--offset-cards1), 0, 0); }
             .card-content:nth-child(2) { transform: translate3d(calc(var(--offset-cards1) * -1), 0, 0); }
             .card-content:nth-child(3) { transform: translate3d(var(--offset-cards2), 0, 0); }
             .card-content:nth-child(4) { transform: translate3d(calc(var(--offset-cards2) * -1), 0, 0); }
             .card-content:nth-child(5) { transform: translate3d(var(--offset-cards3), 0, 0); }
             .card-content:nth-child(6) { transform: translate3d(calc(var(--offset-cards3) * -1), 0, 0); }
+            // .card-content:nth-child(7) { transform: translate3d(var(--offset-cards4), 0, 0); }
+            // .card-content:nth-child(8) { transform: translate3d(calc(var(--offset-cards4) * -1), 0, 0); }
 
             .card-content { transition: transform var(--onscroll-transition); }
         }

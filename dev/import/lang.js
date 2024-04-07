@@ -91,7 +91,7 @@ const translations = { // lang / page / id
             "mes_moyens-mat-perso-card-camera-content--html" : "<p>Boîtier : <ba>Canon EOS 60D</ba><br>Objectif : <ba>SIGMA 18-250mm</ba></p>",
             "mes_moyens-mat-perso-card-lights-title" : "Matériel d’éclairage",
 
-            "mes_moyens-mat-outils-card-motion" : "Motion design",
+            "mes_moyens-mat-outils-card-motion" : "Motion design & 3D",
             "mes_moyens-mat-outils-card-web" : "Web design",
             "mes_moyens-mat-outils-card-branding" : "Identité et Éditorial",
             "mes_moyens-mat-outils-card-photo" : "Photographie",
@@ -233,7 +233,7 @@ const translations = { // lang / page / id
             "mes_moyens-mat-perso-card-camera-content--html" : "<p>Camera: <ba>Canon EOS 60D</ba><br>Lens: <ba>SIGMA 18-250mm</ba></p>",
             "mes_moyens-mat-perso-card-lights-title" : "Lighting equipment",
 
-            "mes_moyens-mat-outils-card-motion" : "Motion design",
+            "mes_moyens-mat-outils-card-motion" : "Motion design & 3D",
             "mes_moyens-mat-outils-card-web" : "Web design",
             "mes_moyens-mat-outils-card-branding" : "Branding & Print",
             "mes_moyens-mat-outils-card-photo" : "Photography",
