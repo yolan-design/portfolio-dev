@@ -16,7 +16,7 @@ const translations = { // lang / page / id
             "footer-ggrid-tip--html" : "(appuyez sur <key>MAJ</key> + <key>G</key> pour afficher la grille)",
 
             "transition-about-title" : "Je transforme pour transmettre",
-            "transition-about-desc" : "Constamment à l’affût des nouvelles technologies et de nouvelles techniques, je suis sans cesse à me renouveler et innover. J’ai fait de ma passion mon travail : mettre en relation le message et la forme pour créer des supports plus parlants que des mots et marquer les esprits.",
+            "transition-about-desc" : "Constamment à l’affût des nouvelles techniques et technologies, je suis sans cesse à me renouveler et innover. J’ai fait de ma passion mon travail : mettre en relation le message et la forme pour créer des supports plus parlants que des mots et marquer les esprits.",
             "transition-about-btn" : "En apprendre plus sur moi",
 
             "transition-portfolio-title" : "Faites parcourir votre message",
@@ -36,7 +36,8 @@ const translations = { // lang / page / id
             "showreel-title": "Propulsé par le désir de toujours me surpasser",
             "showreel-video-txt": "Showreel (2024)",
 
-            "approche-title": "Une stratégie qui convient à votre message",
+            // "approche-title": "Une stratégie qui convient à votre message",
+            "approche-title": "Propulsé par le désir de toujours surpasser les attentes",
             "approche-btn": "Travaillons ensemble !",
             "approche-card-1-title--html" : "Donner de<br>l’intention",
             "approche-card-1-content" : "Chaque choix est intentionnel et donne sens au message que vous souhaitez transmettre en tenant compte de la sémantique de votre identité.",
@@ -222,6 +223,7 @@ const translations = { // lang / page / id
             "formations-diploma-bac1-keywords--html" : "<span>Mathematics</span><span>Reasoning</span><span>Rigor</span><span>Observation</span>",
 
             "mes_moyens-title" : "I use all the means necessary for my projects",
+            "mes_moyens-title--html" : "I use all the <anim-u>means necessary</anim-u> for my projects",
             "mes_moyens-mat-perso-title" : "My personal gear",
             "mes_moyens-mat-outils-title" : "My skills and digital tools",
 
@@ -265,7 +267,7 @@ const translations = { // lang / page / id
                 </div>`,
             "experiences_pro-table-bm2023-experience--html" : `
                 <p>Designed a contest e-mail (mock-up, then production) in compliance with the client's complex identity guidelines and the constraints associated with the medium, while proposing a number of creative solutions. Animation of 3D icons to illustrate products in category, and web development using WordPress Elementor. Mock-up of a website that meets AAA accessibility standards and design of assistive reading aids.</p>
-                <div class="keywords high"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
+                <div class="keywords high lift-high2"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
 
             "experiences_pro-table-o2023-details--html" : `
                 <span>Internship of 8 weeks</span>
@@ -281,7 +283,7 @@ const translations = { // lang / page / id
                 </div>`,
             "experiences_pro-table-o2023-experience--html" : `
                 <p>Creation of animated media and mock-ups to enhance clients' identities (animations of logos, icons, promotional videos and splash screens). Website layouts and front-end integrations on Wix.</p>
-                <div class="keywords high"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Graphic design</span></div>`,
+                <div class="keywords high lift-high2"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Graphic design</span></div>`,
 
             "experiences_pro-table-freelance-details--html" : `
                 <span>Since 2021</span>`,

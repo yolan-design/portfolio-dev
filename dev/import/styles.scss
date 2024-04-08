@@ -109,6 +109,7 @@ main { z-index: 100; }
 }
 @mixin txt-w-semibold {
     font-weight: 600;
+    letter-spacing: -0.025em;
 }
 @mixin txt-w-semibold_italic {
     @include txt-w-semibold;
@@ -229,14 +230,14 @@ span + p {
 p + .keywords, span + .keywords { margin-top: var(--spacing-small); }
 
 // TITLES
-h1, h2, h3,
+h1, h2, h3, *[class*="doc-title-big-"],
 h4, h5, h6, h-subtitle {
     display: inline-block;
 }
-h1, h2, h3 {
+h1, h2, h3, *[class*="doc-title-big-"] {
     @include font-base-BricolageGrotesque;
 }
-h1 {
+h1, .doc-title-big-1 {
     letter-spacing: -0.06em;
     line-height: 100%;
     font-variation-settings:
@@ -260,7 +261,7 @@ h1 {
         }
     }
 }
-h2 {
+h2, .doc-title-big-2 {
     letter-spacing: -0.065em;
     line-height: 100%;
     font-variation-settings:
@@ -284,7 +285,7 @@ h2 {
         }
     }
 }
-h3 {
+h3, .doc-title-big-3 {
     letter-spacing: -0.05em;
     line-height: 95%;
     font-variation-settings:
@@ -354,6 +355,11 @@ h-subtitle {
 
 
 // LAYOUT
+* {
+    border-color: inherit;
+    color: inherit;
+}
+
 section[nav-anchor-section] {
     width: 100%;
 }
@@ -542,8 +548,10 @@ svg {
     font-size: 6.4rem;
     size: 1em;
 
-    fill: var(--fill);
-    stroke: var(--fill);
+    --svg-fill: var(--fill);
+    --svg-stroke: var(--fill);
+    fill: var(--svg-fill);
+    stroke: var(--svg-stroke);
     stroke-width: 0;
 
     &[id^="icon-"] {
@@ -553,7 +561,7 @@ svg {
     --stroke-width: 5px;
 
     &.fill, .fill {
-        fill: var(--fill);
+        fill: var(--svg-fill);
     }
     &.stroke, .stroke {
         stroke-width: var(--stroke-width);
@@ -563,15 +571,19 @@ svg {
     }
 
     &.only-fill, .only-fill {
-        fill: var(--fill);
+        fill: var(--svg-fill);
         stroke: transparent;
         stroke-width: 0;
     }
     &.only-stroke, .only-stroke {
         fill: transparent;
-        stroke: var(--fill);
+        stroke: var(--svg-stroke);
         stroke-width: var(--stroke-width);
     }
+}
+.svg-accent svg {
+    --svg-fill: var(--accent);
+    --svg-stroke: var(--accent);
 }
 .icon-arrow {
     --stroke-width: 6px;
@@ -743,6 +755,48 @@ nav-anchors {
 }
 .stroke-accent {
     @include stroke-accent;
+}
+.stroke-no, .lift-high, .lift-high2 {
+    border-color: transparent !important;
+}
+
+.bg_color-bg, .lift-high, .lift-high2 {
+    background-color: var(--bg) !important;
+}
+.bg_color-bg_d {
+    background-color: var(--bg-default) !important;
+}
+.bg_color-bg_d50 {
+    background-color: var(--bg-default-50) !important;
+}
+.bg_color-fill {
+    background-color: var(--bg-fill) !important;
+}
+.bg_color-accent {
+    background-color: var(--bg-accent) !important;
+    color: var(--bg) !important;
+}
+
+.filter-strong {
+    filter: saturate(1.6) brightness(1.1) contrast(1);
+}
+.filter-saturate-high, .lift-high2 {
+    filter: saturate(1.3) brightness(0.975) contrast(1.5);
+}
+.filter-saturate, .lift-high {
+    filter: saturate(1.3) brightness(0.94) contrast(1.5);
+}
+.filter-saturate-low {
+    filter: saturate(1.2) brightness(0.89) contrast(1.55);
+}
+.filter-lift {
+    filter: saturate(1.3) brightness(1.15) contrast(0.9);
+}
+.filter-darker {
+    filter: saturate(1.4) brightness(0.95);
+}
+.filter-heavy {
+    filter: saturate(1.6) brightness(0.9) contrast(1.3);
 }
 
 .high {

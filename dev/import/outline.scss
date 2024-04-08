@@ -4,9 +4,14 @@
     --hover-o: 0.7;
     --hover-o-dark: 0.8;
 
-    --accent-rgb : var(--dynamic-accent, var(--rgb-main-accent));
-    --fill-rgb : var(--dynamic-fill, var(--rgb-main-fill));
-    --bg-rgb : var(--dynamic-bg, var(--rgb-main-bg));
+    --accent-default: rgb(var(--rgb-main-accent));
+    --fill-default: rgb(var(--rgb-main-fill));
+    --bg-default: rgb(var(--rgb-main-bg));
+    --bg-default-50: rgba(var(--rgb-main-bg), 0.5);
+
+    --accent-rgb: var(--dynamic-accent, var(--rgb-main-accent));
+    --fill-rgb: var(--dynamic-fill, var(--rgb-main-fill));
+    --bg-rgb: var(--dynamic-bg, var(--rgb-main-bg));
 
     --fill-invert: #ffffff;
     --nav-fill: var(--fill);
@@ -31,7 +36,7 @@
     --doc-gutter: 3.15vw;
     --doc-col-width: calc( ((100vw - (var(--doc-margin) * 2) - (var(--doc-gutter) * (var(--doc-grid-nb) - 1))) / var(--doc-grid-nb)) );
     --doc-corner-big: var(--doc-margin);
-    --doc-corner-items: 3.2rem;
+    --doc-corner-items: 3rem;
 
     --footer-height: 88vh;
     --nav-height: 12vh;
