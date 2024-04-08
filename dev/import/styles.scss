@@ -563,6 +563,9 @@ svg {
     &.fill, .fill {
         fill: var(--svg-fill);
     }
+    &.fill-i, .fill-i {
+        fill: var(--svg-fill) !important;
+    }
     &.stroke, .stroke {
         stroke-width: var(--stroke-width);
     }

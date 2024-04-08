@@ -549,6 +549,33 @@ function onScroll_FooterContactReveal() {
 }
 
 
+// ANIM STROKE ON SCROLL
+window.addEventListener('logo_anim_svg_stroke', (e) => {
+    const { target, way, from } = e.detail;
+    if (way == "enter" && from == "start") {
+        console.log(`target: ${target}`, `way: ${way}`, `from: ${from}`);
+
+        anime({
+            targets: target.querySelectorAll("g > *"),
+            strokeDashoffset: [anime.setDashoffset, 0],
+            easing: 'cubicBezier(0.4, 0.6, 0.3, 1)',
+            duration: function(el, i) { return (el.hasAttribute("anim-duration")) ? parseInt(el.getAttribute("anim-duration")) : 2500 },
+            loop: false,
+            delay: function(el, i) { return i * 150 },
+            update: function(anim) {
+                console.log(anim.progress);
+                if (anim.progress > 60) {
+                    target.querySelector("g").classList.add("fill-i");
+                } else {
+                    target.querySelector("g").classList.remove("fill-i");
+                }
+            }
+        });
+
+    }
+});
+
+
 // ON SCOLL ZOOM IN REVEAL
 const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]"),
       check_ZoomInElements = (!!layoutZoomInElements);
