@@ -140,7 +140,7 @@ part_footer: `
                         </g>
                     </svg> -->
                     <svg id="yolan-baseline-sep" class="logo-anim-stroke" viewBox="0 0 268.37 77.96" data-scroll data-scroll-position="start,end" data-scroll-offset="-10%" data-scroll-repeat data-scroll-call="logo_anim_svg_stroke">
-                        <g class="stroke">
+                        <g class="stroke rounded">
                             <polygon data-letter="y1" points="32.95,67.14 18.68,67.14 0,22.04 14.27,22.04" />
                             <path data-letter="o2" d="M65.74,50.05c0-16.1,13.05-29.15,29.15-29.15s29.14,13.06,29.14,29.15c0,16.1-13.05,29.15-29.14,29.15S65.74,66.15,65.74,50.05z" />
                             <polygon data-letter="y2" points="51.63,22.04 65.9,22.04 33.61,100 19.34,100" />

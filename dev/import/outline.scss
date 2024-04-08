@@ -722,9 +722,15 @@ footer-contact {
     }
 
     .logo {
+        grid-column: 1 / 6;
+
         @media (max-width: $doc-phone) {
             padding-bottom: var(--spacing-mega);
             grid-column: 1 / -2 !important;
+        }
+
+        svg {
+            --stroke-width: 1px;
         }
     }
 
@@ -742,5 +748,17 @@ footer-contact {
         .tip-hover-bottom {
             user-select: none;
         }
+    }
+}
+
+.logo-anim-stroke {
+    g {
+        fill: transparent;
+    }
+    * {
+        transition: fill 1s ease;
+    }
+    [data-letter*="-h"] {
+        fill: var(--bg);
     }
 }
