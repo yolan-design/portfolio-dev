@@ -87,6 +87,7 @@ html {
 
 
 // HIERARCHY
+ggrid { z-index: 99999; }
 nav-bar { z-index: 9900; }
 nav-menu { z-index: 9900; }
 [boom-main-container] { z-index: 9700; }
@@ -1522,7 +1523,6 @@ ggrid {
 
 
 ggrid {
-    z-index: 99999;
     position: fixed;
     box-sizing: border-box;
     top: 0;

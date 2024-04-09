@@ -6,9 +6,14 @@ import "./main.scss"
 
 
 // LIBRARIES
+import Swup from 'swup';
+import SwupScrollPlugin from '@swup/scroll-plugin';
+// import SwupParallelPlugin from '@swup/parallel-plugin';
+import SwupPreloadPlugin from '@swup/preload-plugin';
 import LocomotiveScroll from "./import/dependencies/scroll/locomotive-scroll.js";
 import anime from 'animejs/lib/anime.es.js';
 import hotkeys from 'hotkeys-js';
+
 
 // GLOBAL VARIABLES
 const doc = document.documentElement,
@@ -16,6 +21,11 @@ const doc = document.documentElement,
 
 
 // HELPER FUNCTIONS
+
+/* make sure event doesn't already exist before assigning
+if (!el.onclick) { el.onclick = () => {
+}}
+*/
 
 // call function at end of css transition of element (no propagation, option to do it only once)
 function eventAtTransitionEnd(elem, func, {property = false, once = true, debug = false}) {
@@ -82,6 +92,15 @@ function getCenterOfEl(el) {
             elRect.top + (elRect.height / 2)]
 }
 
+// GET AGE
+function getAge(dateString) {
+    let today = new Date();
+    let birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { age--; }
+    return age;
+}
 
 // BOOM ANIM
 function boomAnimInit({boomOrigin, target, container, special, eventType = "mousedown"}) {
@@ -178,8 +197,12 @@ function boomAnim({
     if (eventType == "mousedown") {
         // if there is a target element, wait for these events
         if(target) {
-            target.addEventListener("mouseup", () => { boomRemove(); });
-            target.addEventListener("mouseleave", () => { boomRemove(); });
+            if (!target.onmouseup) { target.onmouseup = () => {
+                boomRemove();
+            }}
+            if (!target.onmouseleave) { target.onmouseleave = () => {
+                boomRemove();
+            }}
         }
         // else dismiss right away
         else { boomRemove(); }
@@ -192,11 +215,14 @@ function boomAnim({
 // RUN
 
 // CURRENT PAGE
-let pageID = window.location.pathname.split("/");
-if (pageID[pageID.length -1] == "") { pageID.pop(); }
-pageID = pageID[pageID.length -1];
-pageID = (pageID == "") ? "home" : pageID;
-doc.setAttribute("page", pageID);
+let pageID;
+function getPageID() {
+    pageID = window.location.pathname.split("/")
+    if (pageID[pageID.length -1] == "") { pageID.pop(); }
+    pageID = pageID[pageID.length -1];
+    pageID = (pageID == "") ? "home" : pageID;
+    doc.setAttribute("page", pageID);
+}
 
 
 // LANG
@@ -206,6 +232,7 @@ let LANG = {
     langCurrent : "",
     langList : ["en", "fr"],
 }
+let footerCTA_copiedNotif_alt;
 // set the current language / fallback to default language if not listed
 LANG.langCurrent = (LANG.langList.includes(LANG.langBrowser)) ? LANG.langBrowser : LANG.langList[0];
 function langGetInvert() { return LANG.langList[Math.abs(LANG.langList.indexOf(LANG.langCurrent) - 1)]; }
@@ -268,43 +295,51 @@ function translateElements({
     footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
 }
 
-// init content
-let footerCTA_copiedNotif_alt;
-translateElements({});
-
 // TRANSLATE SWITCHES
-const translateSwitches = doc.querySelectorAll("[translate-switch]");
-if(translateSwitches) {
-    translateSwitches.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            translateElements({langSwitch : true});
+let translateSwitches;
+function init_translateSwitches() {
+    translateSwitches = doc.querySelectorAll("[translate-switch]");
+    if(translateSwitches) {
+        function rgsstsh() {
+
+        }
+
+        translateSwitches.forEach((btn) => {
+            if (!btn.onclick) {
+                btn.onclick = () => {
+                    translateElements({langSwitch : true});
+                }
+                boomAnimInit({boomOrigin : false, target : btn, special : "btn-translate", eventType : "click"});
+            }
         })
-        boomAnimInit({boomOrigin : false, target : btn, special : "btn-translate", eventType : "click"});
-    })
+    }
 }
 
 
 // SMOOTH SCROLL
-const ScrollMain = new LocomotiveScroll({
-    lenisOptions: {
-        smoothWheel: true,
-        smoothTouch: false,
-        wheelMultiplier: 0.8,
-        duration: 1.25,
-        easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6.1 * x)), // https://www.desmos.com/calculator/brs54l4xou
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
+const scrollMain_options = {
+    global: {
+        lenisOptions: {
+            smoothWheel: true,
+            smoothTouch: false,
+            wheelMultiplier: 0.8,
+            duration: 1.25,
+            easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6.1 * x)), // https://www.desmos.com/calculator/brs54l4xou
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+        },
+        triggerRootMargin: '-1px -1px -1px -1px', // inview elements
+        rafRootMargin: '100% 100% 100% 100%', // scroll elements
+        autoResize: true,
+        scrollCallback: ScrollMain_onScroll,
     },
-    triggerRootMargin: '-1px -1px -1px -1px', // inview elements
-    rafRootMargin: '100% 100% 100% 100%', // scroll elements
-    autoResize: true,
-    scrollCallback: ScrollMain_onScroll,
-});
-const scrollToOptions = {
-    duration: 1.4,
-    lock: false,
-    easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
+    scrollTo: {
+        duration: 1.4,
+        lock: false,
+        easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
+    }
 }
+let ScrollMain;
 
 
 // TRANSITION BG-DYNAMIC
@@ -390,15 +425,19 @@ function dynamicColorUpdate(el) {
 
 
 // NAV ANCHORS
-const pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]"),
-      check_pageAnchorsSections = (!!pageAnchorsSections),
-      // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]"),
-      anchorLinks = document.querySelectorAll("[nav-anchor-link]");
+let pageAnchorsSections, check_pageAnchorsSections, anchorLinks;
 
-if (check_pageAnchorsSections) {
-    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
-    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
-    elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-accent", defaultFromAttribute : "dynamic_color-fill", defaultColorFallback : DYNAMIC_COLORS.default.accent});
+function init_navAnchors() {
+    pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]");
+    check_pageAnchorsSections = (!!pageAnchorsSections);
+    // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]");
+    anchorLinks = document.querySelectorAll("[nav-anchor-link]");
+
+    if (check_pageAnchorsSections) {
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-accent", defaultFromAttribute : "dynamic_color-fill", defaultColorFallback : DYNAMIC_COLORS.default.accent});
+    }
 }
 
 function onScroll_PageAnchorsSections() {
@@ -418,50 +457,52 @@ function onScroll_PageAnchorsSections() {
 
 
 // NAV ANCHORS SCROLL TO
-if (anchorLinks) {
-    anchorLinks.forEach((anchorLink) => {
-        anchorLink.addEventListener("click", () => {
-            const anchorID = anchorLink.getAttribute("nav-anchor-link"),
-                  scrollToTarget = document.querySelector("[nav-anchor-scroll='"+ anchorID +"']");
+function navAnchors_ScrollTo() {
+    if (anchorLinks) {
+        anchorLinks.forEach((anchorLink) => {
+            if (!anchorLink.onclick) { anchorLink.onclick = () => {
+                const anchorID = anchorLink.getAttribute("nav-anchor-link"),
+                        scrollToTarget = document.querySelector("[nav-anchor-scroll='"+ anchorID +"']");
 
-            if (scrollToTarget) {
-                if (anchorID == "contact") {
-                    ScrollMain.scrollTo("bottom", {
-                        ...scrollToOptions,
-                        offset : 0
-                    })
-                } else {
-                    ScrollMain.scrollTo(scrollToTarget, {
-                        ...scrollToOptions,
-                        offset : doc.clientHeight * -0.15 //-150
-                    })
-                }
+                if (scrollToTarget) {
+                    if (anchorID == "contact") {
+                        ScrollMain.scrollTo("bottom", {
+                            ...scrollMain_options.scrollTo,
+                            offset : 0
+                        })
+                    } else {
+                        ScrollMain.scrollTo(scrollToTarget, {
+                            ...scrollMain_options.scrollTo,
+                            offset : doc.clientHeight * -0.15 //-150
+                        })
+                    }
 
-                // hide active nav-anchor-link during the scrollTo
-                setTimeout(() => {
-                    document.querySelector("nav-anchors").classList.add("active-pause");
+                    // hide active nav-anchor-link during the scrollTo
                     setTimeout(() => {
-                        document.querySelector("nav-anchors").classList.remove("active-pause");
-                    }, scrollToOptions.duration * 550);
-                }, scrollToOptions.duration * 300);
+                        document.querySelector("nav-anchors").classList.add("active-pause");
+                        setTimeout(() => {
+                            document.querySelector("nav-anchors").classList.remove("active-pause");
+                        }, scrollMain_options.scrollTo.duration * 550);
+                    }, scrollMain_options.scrollTo.duration * 300);
 
-                // close menu if mobile
-                if (doc.clientWidth < docSizePhone) {
-                    doc.classList.remove("nav-menu-open");
+                    // close menu if mobile
+                    if (doc.clientWidth < docSizePhone) {
+                        doc.classList.remove("nav-menu-open");
+                    }
                 }
-            }
+            }}
         })
-    })
-};
+    };
+}
 
 
 // NAV MENU TOGGLE
 const navMenuButton = document.querySelectorAll("nav-bar #nav-btn-toggle-menu");
 if (navMenuButton) {
     navMenuButton.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        if (!btn.onclick) { btn.onclick = () => {
             doc.classList.toggle("nav-menu-open");
-        })
+        }}
     })
 }
 
@@ -479,59 +520,64 @@ if (ggridDisplay) {
 
 
 // FOOTER BUTTON EMAIL COPY
-const footerCTA = document.querySelector("footer-cta button");
-if (footerCTA) {
+let footerCTA;
 
-    const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span");
+function init_footer() {
+    footerCTA = document.querySelector("footer-cta button")
 
-    let footerCTA_copiedRandom = 0,
-    footerCTA_copiedComboCooldownStatus = 0;
+    if (footerCTA) {
+        const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span");
 
-    function footerCTA_copiedComboCooldown() {
-        setTimeout(() => {
-            footerCTA_copiedComboCooldownStatus -= 1;
+        let footerCTA_copiedRandom = 0,
+        footerCTA_copiedComboCooldownStatus = 0;
 
-            if (footerCTA_copiedComboCooldownStatus >= 1) {
-                footerCTA_copiedComboCooldown();
-            }
-        }, 500);
+        function footerCTA_copiedComboCooldown() {
+            setTimeout(() => {
+                footerCTA_copiedComboCooldownStatus -= 1;
+
+                if (footerCTA_copiedComboCooldownStatus >= 1) {
+                    footerCTA_copiedComboCooldown();
+                }
+            }, 500);
+        }
+
+
+        if (!footerCTA.onclick) { footerCTA.onclick = () => {
+            navigator.clipboard.writeText("hello@yolan.design").then(() => { // success
+                footerCTA.classList.add("copied");
+                footerCTA.style.setProperty('--random-rotate', randomIntFromIntervalAlternate(5, 45) +"deg");
+
+                // funny copy combo
+                if (footerCTA_copiedComboCooldownStatus == 0) { footerCTA_copiedComboCooldown(); }
+                footerCTA_copiedComboCooldownStatus += 1;
+
+                if (footerCTA_copiedComboCooldownStatus >= 6) {
+                    footerCTA_copiedComboCooldownStatus = 6; // max
+
+                    const rand = randomIntFromInterval(1, footerCTA_copiedNotif_alt.length - 1);
+                    footerCTA_copiedRandom = (rand == footerCTA_copiedRandom) ? rand - 1 : rand; // always different, worst case it will select "0"
+
+                    footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[footerCTA_copiedRandom];
+                } else {
+                    footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
+                }
+            },
+            () => { // failed to copy
+                location.href = "mailto:hello@yolan.design";
+                //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
+            });
+
+            // bounce
+            footerCTA.classList.add("copied-anim-bounce");
+            setTimeout(() => {
+                footerCTA.classList.remove("copied-anim-bounce");
+            }, 180);
+        }}
+        if (!footerCTA.onmouseenter) { footerCTA.onmouseenter = () => {
+            footerCTA.classList.remove("copied");
+            footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
+        }}
     }
-
-    footerCTA.addEventListener("click", () => {
-        navigator.clipboard.writeText("hello@yolan.design").then(() => { // success
-            footerCTA.classList.add("copied");
-            footerCTA.style.setProperty('--random-rotate', randomIntFromIntervalAlternate(5, 45) +"deg");
-
-            // funny copy combo
-            if (footerCTA_copiedComboCooldownStatus == 0) { footerCTA_copiedComboCooldown(); }
-            footerCTA_copiedComboCooldownStatus += 1;
-
-            if (footerCTA_copiedComboCooldownStatus >= 6) {
-                footerCTA_copiedComboCooldownStatus = 6; // max
-
-                const rand = randomIntFromInterval(1, footerCTA_copiedNotif_alt.length - 1);
-                footerCTA_copiedRandom = (rand == footerCTA_copiedRandom) ? rand - 1 : rand; // always different, worst case it will select "0"
-
-                footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[footerCTA_copiedRandom];
-            } else {
-                footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
-            }
-        },
-        () => { // failed to copy
-            location.href = "mailto:hello@yolan.design";
-            //TOFIX le texte reste "cliquez pour copier", ce serait bien de pouvoir changer avant même le clique pour "cliquez pour me contacter"
-        });
-
-        // bounce
-        footerCTA.classList.add("copied-anim-bounce");
-        setTimeout(() => {
-            footerCTA.classList.remove("copied-anim-bounce");
-        }, 180);
-    })
-    footerCTA.addEventListener("mouseenter", () => {
-        footerCTA.classList.remove("copied");
-        footerCTA_copiedNotif.innerText = footerCTA_copiedNotif_alt[0];
-    })
 }
 
 
@@ -577,21 +623,24 @@ window.addEventListener('logo_anim_svg_stroke', (e) => {
 
 
 // ON SCOLL ZOOM IN REVEAL
-const layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]"),
-      check_ZoomInElements = (!!layoutZoomInElements);
+let layoutZoomInElements, check_ZoomInElements;
+function init_zoomIn() {
+    layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
+    check_ZoomInElements = (!!layoutZoomInElements);
 
-if (check_ZoomInElements) {
-    layoutZoomInElements.forEach((el) => {
-        /* el.setAttribute("data-scroll", "");
-        el.setAttribute("data-scroll-css-progress", "");
-        el.setAttribute("data-scroll-position", "start,start"); */
-        el.setAttribute("data-scroll-offset", "0");
-        el.setAttribute("onscroll-zoom_in--fraction",
-            (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2);
-        el.setAttribute("onscroll-zoom_in--strength",
-            (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.92);
-        el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
-    })
+    if (check_ZoomInElements) {
+        layoutZoomInElements.forEach((el) => {
+            /* el.setAttribute("data-scroll", "");
+            el.setAttribute("data-scroll-css-progress", "");
+            el.setAttribute("data-scroll-position", "start,start"); */
+            el.setAttribute("data-scroll-offset", "0");
+            el.setAttribute("onscroll-zoom_in--fraction",
+                (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2);
+            el.setAttribute("onscroll-zoom_in--strength",
+                (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.92);
+            el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
+        })
+    }
 }
 function onScroll_ZoomInElements() {
     layoutZoomInElements.forEach((el) => {
@@ -615,3 +664,77 @@ function ScrollMain_onScroll(/* { scroll, limit, velocity, direction, progress }
     if (check_FooterContactReveal) { onScroll_FooterContactReveal(); }
     if (check_pageAnchorsSections) { onScroll_PageAnchorsSections(); }
 }
+
+
+// SWUP
+const swup = new Swup({
+    animationSelector: '[class*="swup_transition-"]',
+    containers: ['#swup', "nav-anchors"],
+    cache: true,
+    animateHistoryBrowsing: true,
+
+    plugins: [
+        new SwupScrollPlugin({
+            doScrollingRightAway: true,
+            animateScroll: {
+                betweenPages: false,
+                samePageWithHash: false,
+                samePage: false,
+            },
+        }),
+        new SwupPreloadPlugin({
+            preloadHoveredLinks: true,
+        }),
+        /* new SwupParallelPlugin({
+            keep: { 'main[portfolio]': 1 }
+        }), */
+    ],
+});
+/* TODO
+ * loading screen
+ * remember scroll position of portfolio page when opening project page
+*/
+
+
+// when clicking on page link : scroll to top if page is the same
+swup.hooks.on('link:self', () => {
+    ScrollMain.scrollTo("top", {
+        ...scrollMain_options.scrollTo,
+        offset : 0
+    })
+});
+
+// close menu when clicking on page link
+swup.hooks.on('visit:start', () => {
+    doc.classList.remove("nav-menu-open");
+});
+
+
+// -- INIT
+function init() {
+    getPageID();
+
+    translateElements({});
+    init_translateSwitches();
+    init_navAnchors();
+    navAnchors_ScrollTo();
+    init_footer();
+    init_zoomIn();
+
+    ScrollMain = new LocomotiveScroll(scrollMain_options.global);
+
+    if (pageID == "about") {
+        // age
+        document.documentElement.querySelectorAll('.yolan-age').forEach((el) => { el.innerText = getAge('2002/07/26'); });
+    }
+}
+// Run once when page loads
+if (document.readyState === 'complete') { init(); } else { document.addEventListener('DOMContentLoaded', () => init()); }
+// Run after every additional navigation by swup
+swup.hooks.on('page:view', () => init());
+
+
+// -- CLEANUP at unload
+swup.hooks.before('content:replace', () => {
+    ScrollMain.destroy();
+});

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="">
 <head>
     <%= htmlWebpackPlugin.options.head_settings %>
     <title>Accueil&nbsp;&nbsp;·&nbsp;&nbsp;yolan.design</title>
@@ -25,7 +25,7 @@
     <%= htmlWebpackPlugin.options.part_nav %>
 
 
-    <main>
+    <main id="swup" class="swup_transition-fade">
 
         <section nav-anchor-section="landing" class="doc-margin-p">
             <div>
@@ -173,10 +173,9 @@
             </div>
         </section>
 
+
+        <%= htmlWebpackPlugin.options.part_footer %>
     </main>
-
-
-    <%= htmlWebpackPlugin.options.part_footer %>
 
     <%= htmlWebpackPlugin.options.part_ggrid %>
 
