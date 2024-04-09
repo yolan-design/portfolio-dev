@@ -8,7 +8,6 @@ import "./main.scss"
 // LIBRARIES
 import Swup from 'swup';
 import SwupScrollPlugin from '@swup/scroll-plugin';
-// import SwupParallelPlugin from '@swup/parallel-plugin';
 import SwupPreloadPlugin from '@swup/preload-plugin';
 import LocomotiveScroll from "./import/dependencies/scroll/locomotive-scroll.js";
 import anime from 'animejs/lib/anime.es.js';
@@ -659,6 +658,10 @@ function ScrollMain_onScroll(/* { scroll, limit, velocity, direction, progress }
 }
 
 
+// LOADING SCREEN
+// TODO
+
+
 // SWUP
 const swup = new Swup({
     animationSelector: '[class*="swup_transition-"]',
@@ -678,29 +681,30 @@ const swup = new Swup({
         new SwupPreloadPlugin({
             preloadHoveredLinks: true,
         }),
-        /* new SwupParallelPlugin({
-            keep: { 'main[portfolio]': 1 }
-        }), */
     ],
 });
-/* TODO
- * loading screen
- * remember scroll position of portfolio page when opening project page
-*/
 
 
-// when clicking on page link : scroll to top if page is the same
 swup.hooks.on('link:self', () => {
+    // when clicking on page link : scroll to top if page is the same
     ScrollMain.scrollTo("top", {
         ...scrollMain_options.scrollTo,
         offset : 0
     })
 });
 
-// close menu when clicking on page link
 swup.hooks.on('visit:start', () => {
+    // close menu when clicking on page link
     doc.classList.remove("nav-menu-open");
 });
+
+/* swup.hooks.on('content:remove', () => {
+    // update scroll tied effects
+    setTimeout(() => {
+        ScrollMain.resize();
+        ScrollMain_onScroll();
+    }, 100);
+}); */
 
 
 // -- INIT
@@ -714,6 +718,7 @@ function init() {
     init_footer();
     init_zoomIn();
 
+    if (ScrollMain) { ScrollMain.destroy(); } // reset
     ScrollMain = new LocomotiveScroll(scrollMain_options.global);
 
     if (pageID == "about") {
@@ -728,6 +733,5 @@ swup.hooks.on('page:view', () => init());
 
 
 // -- CLEANUP at unload
-swup.hooks.before('content:replace', () => {
-    ScrollMain.destroy();
-});
+/* swup.hooks.before('content:replace', () => {
+}); */

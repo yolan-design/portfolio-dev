@@ -509,6 +509,10 @@ section[nav-anchor-section="landing"] {
 
 
 // ELEMENTS
+section[nav-anchor-section^="landing"] + * {
+    padding-top: var(--spacing-section-medium-large);
+}
+
 *[onscroll-zoom_in] {
     transform: scale(var(--zoom-factor, 1));
 
