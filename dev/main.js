@@ -599,8 +599,6 @@ function onScroll_FooterContactReveal() {
 window.addEventListener('logo_anim_svg_stroke', (e) => {
     const { target, way, from } = e.detail;
     if (way == "enter" && from == "start") {
-        console.log(`target: ${target}`, `way: ${way}`, `from: ${from}`);
-
         anime({
             targets: target.querySelectorAll("g > *"),
             strokeDashoffset: [anime.setDashoffset, 0],
@@ -609,15 +607,10 @@ window.addEventListener('logo_anim_svg_stroke', (e) => {
             loop: false,
             delay: function(el, i) { return i * 150 },
             update: function(anim) {
-                console.log(anim.progress);
-                if (anim.progress > 60) {
-                    target.querySelector("g").classList.add("fill-i");
-                } else {
-                    target.querySelector("g").classList.remove("fill-i");
-                }
+                if (anim.progress > 60) { target.querySelector("g").classList.add("fill-i");
+                } else { target.querySelector("g").classList.remove("fill-i"); }
             }
         });
-
     }
 });
 
