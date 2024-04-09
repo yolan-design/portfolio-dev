@@ -672,6 +672,12 @@ function ScrollMain_onScroll(/* { scroll, limit, velocity, direction, progress }
 // TODO
 
 
+// log CREDITS
+console.log(
+    "\n%cwebsite made by yolan.design",
+    "font-size: 1.2em; font-weight: 500; font-family: Work Sans, sans-serif; background-color:#180c0f; color: #fff; border-radius: 1em; padding: 0.75em 1.5em; margin: 0em auto 1em auto;"
+);
+
 // SWUP
 const swup = new Swup({
     animationSelector: '[class*="swup_transition-"]',
