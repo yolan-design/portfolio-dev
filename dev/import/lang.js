@@ -267,7 +267,7 @@ const translations = { // lang / page / id
                 </div>`,
             "experiences_pro-table-bm2023-experience--html" : `
                 <p>Designed a contest e-mail (mock-up, then production) in compliance with the client's complex identity guidelines and the constraints associated with the medium, while proposing a number of creative solutions. Animation of 3D icons to illustrate products in category, and web development using WordPress Elementor. Mock-up of a website that meets AAA accessibility standards and design of assistive reading aids.</p>
-                <div class="keywords high lift-high2"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
+                <div class="keywords high lift"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
 
             "experiences_pro-table-o2023-details--html" : `
                 <span>Internship of 8 weeks</span>
@@ -283,7 +283,7 @@ const translations = { // lang / page / id
                 </div>`,
             "experiences_pro-table-o2023-experience--html" : `
                 <p>Creation of animated media and mock-ups to enhance clients' identities (animations of logos, icons, promotional videos and splash screens). Website layouts and front-end integrations on Wix.</p>
-                <div class="keywords high lift-high2"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Graphic design</span></div>`,
+                <div class="keywords high lift"><span>Motion design</span><span>Branding</span><span>Web design</span><span>Graphic design</span></div>`,
 
             "experiences_pro-table-freelance-details--html" : `
                 <span>Since 2021</span>`,

@@ -344,11 +344,13 @@ let ScrollMain;
 // TRANSITION BG-DYNAMIC
 let DYNAMIC_COLORS = {
     default : {
+        lift : getComputedStyle(doc).getPropertyValue("--rgb-main-lift"),
         accent : getComputedStyle(doc).getPropertyValue("--rgb-main-fill"),
         fill : getComputedStyle(doc).getPropertyValue("--rgb-main-fill"),
         bg : getComputedStyle(doc).getPropertyValue("--rgb-main-bg"),
     },
     current : {
+        lift : "",
         accent : "",
         fill : "",
         bg : "",
@@ -356,6 +358,7 @@ let DYNAMIC_COLORS = {
     applied : {}
 }
 DYNAMIC_COLORS.applied = {
+    lift : DYNAMIC_COLORS.default.lift,
     accent : DYNAMIC_COLORS.default.accent,
     fill : DYNAMIC_COLORS.default.fill,
     bg : DYNAMIC_COLORS.default.bg,
@@ -385,16 +388,19 @@ function elSetDefaultDynamicColor({targets, attribute, defaultColor, defaultFrom
 
 function dynamicColorUpdate(el) {
     if ( // only run if new color
-           DYNAMIC_COLORS.current.accent != el.getAttribute("dynamic_color-accent")
+           DYNAMIC_COLORS.current.lift != el.getAttribute("dynamic_color-lift")
+        || DYNAMIC_COLORS.current.accent != el.getAttribute("dynamic_color-accent")
         || DYNAMIC_COLORS.current.fill != el.getAttribute("dynamic_color-fill")
         || DYNAMIC_COLORS.current.bg != el.getAttribute("dynamic_color-bg")
         ) {
 
+        DYNAMIC_COLORS.current.lift = el.getAttribute("dynamic_color-lift");
         DYNAMIC_COLORS.current.accent = el.getAttribute("dynamic_color-accent");
         DYNAMIC_COLORS.current.fill = el.getAttribute("dynamic_color-fill");
         DYNAMIC_COLORS.current.bg = el.getAttribute("dynamic_color-bg");
 
         const colorsVar = {
+            dynamicLift: DYNAMIC_COLORS.applied.lift,
             dynamicAccent: DYNAMIC_COLORS.applied.accent,
             dynamicFill: DYNAMIC_COLORS.applied.fill,
             dynamicBg: DYNAMIC_COLORS.applied.bg,
@@ -405,15 +411,18 @@ function dynamicColorUpdate(el) {
             duration: 2000,
             round: 100,
 
+            dynamicLift: [DYNAMIC_COLORS.applied.lift, el.getAttribute("dynamic_color-lift")],
             dynamicAccent: [DYNAMIC_COLORS.applied.accent, el.getAttribute("dynamic_color-accent")],
             dynamicFill: [DYNAMIC_COLORS.applied.fill, el.getAttribute("dynamic_color-fill")],
             dynamicBg: [DYNAMIC_COLORS.applied.bg, el.getAttribute("dynamic_color-bg")],
 
             update: () => {
+                doc.style.setProperty('--dynamic-lift', colorsVar.dynamicLift);
                 doc.style.setProperty('--dynamic-accent', colorsVar.dynamicAccent);
                 doc.style.setProperty('--dynamic-fill', colorsVar.dynamicFill);
                 doc.style.setProperty('--dynamic-bg', colorsVar.dynamicBg);
 
+                DYNAMIC_COLORS.applied.lift = colorsVar.dynamicLift;
                 DYNAMIC_COLORS.applied.accent = colorsVar.dynamicAccent;
                 DYNAMIC_COLORS.applied.fill = colorsVar.dynamicFill;
                 DYNAMIC_COLORS.applied.bg = colorsVar.dynamicBg;
@@ -433,9 +442,10 @@ function init_navAnchors() {
     anchorLinks = document.querySelectorAll("[nav-anchor-link]");
 
     if (check_pageAnchorsSections) {
-        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
-        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-lift", defaultColor : DYNAMIC_COLORS.default.lift});
         elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-accent", defaultFromAttribute : "dynamic_color-fill", defaultColorFallback : DYNAMIC_COLORS.default.accent});
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-fill", defaultColor : DYNAMIC_COLORS.default.fill});
+        elSetDefaultDynamicColor({targets : pageAnchorsSections, attribute : "dynamic_color-bg", defaultColor : DYNAMIC_COLORS.default.bg});
     }
 }
 

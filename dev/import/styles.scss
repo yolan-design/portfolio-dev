@@ -7,6 +7,7 @@ $doc-tablet-m: ($doc-tablet + 0.1);
 $doc-half-m: ($doc-half + 0.1);
 
 :root {
+    --rgb-main-lift: 235, 220, 210;
     --rgb-main-accent: var(--rgb-main-fill);
     --rgb-main-fill: 24, 12, 15;
     --rgb-main-bg: 253, 245, 241;
@@ -764,7 +765,7 @@ nav-anchors {
 .stroke-accent {
     @include stroke-accent;
 }
-.stroke-no, .lift-high, .lift-high2 {
+.stroke-no, .lift-high, .lift-high2, .lift {
     border-color: transparent !important;
 }
 
@@ -778,26 +779,31 @@ nav-anchors {
     background-color: var(--bg-default-50) !important;
 }
 .bg_color-fill {
-    background-color: var(--bg-fill) !important;
+    background-color: var(--fill) !important;
 }
 .bg_color-accent {
-    background-color: var(--bg-accent) !important;
+    background-color: var(--accent) !important;
     color: var(--bg) !important;
 }
+
+.lift, .lift-bg {
+    background-color: var(--lift) !important;
+}
+
 
 .filter-strong {
     filter: saturate(1.6) brightness(1.1) contrast(1);
 }
-.filter-saturate-high, .lift-high2 {
+.filter-saturate-high, .lift-filter2 {
     filter: saturate(1.3) brightness(0.975) contrast(1.5);
 }
-.filter-saturate, .lift-high {
+.filter-saturate, .lift-filter {
     filter: saturate(1.3) brightness(0.94) contrast(1.5);
 }
 .filter-saturate-low {
     filter: saturate(1.2) brightness(0.89) contrast(1.55);
 }
-.filter-lift {
+.filter-bright {
     filter: saturate(1.3) brightness(1.15) contrast(0.9);
 }
 .filter-darker {

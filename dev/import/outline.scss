@@ -4,11 +4,13 @@
     --hover-o: 0.7;
     --hover-o-dark: 0.8;
 
+    --lift-default: rgb(var(--rgb-main-lift));
     --accent-default: rgb(var(--rgb-main-accent));
     --fill-default: rgb(var(--rgb-main-fill));
     --bg-default: rgb(var(--rgb-main-bg));
     --bg-default-50: rgba(var(--rgb-main-bg), 0.5);
 
+    --lift-rgb: var(--dynamic-lift, var(--rgb-main-lift));
     --accent-rgb: var(--dynamic-accent, var(--rgb-main-accent));
     --fill-rgb: var(--dynamic-fill, var(--rgb-main-fill));
     --bg-rgb: var(--dynamic-bg, var(--rgb-main-bg));
@@ -16,10 +18,12 @@
     --fill-invert: #ffffff;
     --nav-fill: var(--fill);
 
+    --lift: rgb(var(--lift-rgb));
     --accent: rgb(var(--accent-rgb));
     --fill: rgb(var(--fill-rgb));
     --bg: rgb(var(--bg-rgb));
 
+    --lift-low: rgba(var(--lift-rgb), var(--low-fill-o));
     --accent-low: rgba(var(--accent-rgb), var(--low-fill-o));
     --fill-low: rgba(var(--fill-rgb), var(--low-fill-o));
     --bg-low: rgba(var(--bg-rgb), var(--low-bg-o));
@@ -56,6 +60,7 @@
 }
 
 html {
+    --dynamic-lift: var(--rgb-main-lift);
     --dynamic-accent: var(--rgb-main-accent);
     --dynamic-fill: var(--rgb-main-fill);
     --dynamic-bg: var(--rgb-main-bg);

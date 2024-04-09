@@ -10,6 +10,8 @@ html.is-changing/*loading*/ {
         transition-delay: 0s;
     }
 }
+
+
 html.is-animating/*unloading*/ {
     .swup_transition-page {
         opacity: 0;
