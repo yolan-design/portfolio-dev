@@ -474,6 +474,7 @@ html.nav-menu-open {
             opacity: 0 !important;
             transition-duration: 0.4s !important;
             transition-delay: 0s !important;
+            transition-property: opacity !important;
         }
     }
 
