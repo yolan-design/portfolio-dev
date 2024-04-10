@@ -748,6 +748,10 @@ if (document.readyState === 'complete') { init(); } else { document.addEventList
 swup.hooks.on('page:view', () => init());
 
 
+swup.hooks.before('visit:start', () => {
+    if (ScrollMain) { ScrollMain.destroy(); }
+});
+
 // -- CLEANUP at unload
 /* swup.hooks.before('content:replace', () => {
 }); */

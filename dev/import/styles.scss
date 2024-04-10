@@ -89,10 +89,12 @@ html {
 
 // HIERARCHY
 ggrid { z-index: 99999; }
+page-transition-blocker { z-index: 9990; }
 nav-bar { z-index: 9900; }
 nav-menu { z-index: 9900; }
 [boom-main-container] { z-index: 9700; }
 nav-anchors { z-index: 9600; }
+page-transition-anim { z-index: 8000; }
 main { z-index: 100; }
 
 

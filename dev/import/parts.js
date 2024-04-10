@@ -69,6 +69,11 @@ part_nav: `
 </nav-bar>
 `,
 
+part_page_transition: `
+<page-transition-blocker></page-transition-blocker>
+<page-transition-anim></page-transition-anim>
+`,
+
 part_footer: `
 <footer nav-anchor-section="contact" nav-anchor-scroll="contact">
 

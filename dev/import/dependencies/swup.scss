@@ -1,25 +1,100 @@
-html.is-changing/*loading*/ {
-    .swup_transition-page {
-        transition: opacity 0.25s;
-        opacity: 1;
-    }
-
-    nav-anchors {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-        transition-delay: 0s;
+:root {
+    --swup-page_tr-transform: 1s cubic-bezier(0.5, 0.1, 0.1, 0.9);
+    --swup-page_tr-filter: 0.7s 0.15s ease;
+}
+@media (max-width: $doc-phone) {
+    :root {
+        --swup-page_tr-transform: 1s 0.2s cubic-bezier(0.5, 0.1, 0.1, 0.9);
+        --swup-page_tr-filter: 0.5s 0.35s ease;
     }
 }
 
+page-transition-blocker,
+page-transition-anim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    pointer-events: none;
+}
+page-transition-blocker {
+    opacity: 0;
+}
+page-transition-anim {
+    background-color: var(--bg);
+    transform: translate3d(0, 101%, 0);
+    opacity: 0;
+    transition: 0s;
+}
+
+.swup_transition-page {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: brightness(1);
+    transition: opacity 0.7s,
+                transform 0.7s cubic-bezier(0.3, 0.5, 0.2, 0.95),
+                filter 0s;
+}
+
+
+html.is-changing/*loading*/ {
+    .swup_transition-page {
+        transform: translate3d(0, 0, 0);
+        filter: brightness(1);
+    }
+
+    page-transition-anim {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+        transition: opacity 0.8s ease, transform var(--swup-page_tr-transform);
+    }
+
+
+    @media (min-width: $doc-phone-m) {
+        nav-anchors {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transition-delay: 0s;
+        }
+    }
+}
 
 html.is-animating/*unloading*/ {
     .swup_transition-page {
-        opacity: 0;
+        transform: translate3d(0, -9rem, 0);
+        filter: brightness(0.6);
+        transition: transform var(--swup-page_tr-transform),
+                    filter var(--swup-page_tr-filter);
     }
 
-    nav-anchors {
+    page-transition-blocker {
+        cursor: wait;
+        pointer-events: all;
+    }
+    page-transition-anim {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: opacity 0s, transform var(--swup-page_tr-transform);
+    }
+
+    @media (min-width: $doc-phone-m) {
+        nav-anchors {
+            opacity: 0;
+            transform: translate3d(0, 0.75em, 0);
+            transition-delay: 0s;
+        }
+    }
+}
+
+html.is-animating.is-rendering/*before loading*/ {
+    .swup_transition-page {
         opacity: 0;
-        transform: translate3d(0, 0.75em, 0);
-        transition-delay: 0s;
+        transform: translate3d(0, 6rem, 0);
+        filter: brightness(1);
+        transition: opacity 0s,
+                    transform 0s,
+                    filter 0s;
     }
 }
