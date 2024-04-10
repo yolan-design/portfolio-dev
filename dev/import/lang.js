@@ -291,7 +291,7 @@ const translations = { // lang / page / id
                     <div class="keywords"><span>Branding</span><span>Marketing</span><span>Events</span><span>Graphic design</span><span>Web design</span><span>Print</span></div>
                 </div>`,
             "experiences_pro-table-bm2023-experience--html" : `
-                <p>Designed a contest e-mail (mock-up, then production) in compliance with the client's complex identity guidelines and the constraints associated with the medium, while proposing a number of creative solutions. Animation of 3D icons to illustrate products in category, and web development using WordPress Elementor. Mock-up of a website that meets AAA accessibility standards and design of assistive reading aids.</p>
+                <p>Designed a contest e-mail (mock-up, then production) in compliance with the client's complex identity guidelines and the constraints associated with the medium, while proposing a number of creative solutions. Animation of 3D icons to illustrate categories of products, and web development using WordPress Elementor. Mock-up of a website that meets AAA accessibility standards and design of assistive reading aids.</p>
                 <div class="keywords high lift"><span>Emailing</span><span>Web design</span><span>Motion design</span><span>Graphic design</span></div>`,
 
             "experiences_pro-table-o2023-details--html" : `
