@@ -615,7 +615,7 @@ window.addEventListener('logo_anim_svg_stroke', (e) => {
         anime({
             targets: target.querySelectorAll("g > *"),
             strokeDashoffset: [anime.setDashoffset, 0],
-            easing: 'cubicBezier(0.4, 0.6, 0.3, 1)',
+            easing: 'cubicBezier(0.4, 0.6, 0.4, 0.95)',
             duration: function(el, i) { return (el.hasAttribute("anim-duration")) ? parseInt(el.getAttribute("anim-duration")) : 2500 },
             loop: false,
             delay: function(el, i) { return i * 150 },
