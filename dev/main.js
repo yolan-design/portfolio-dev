@@ -274,6 +274,11 @@ function translateElements({
         LANG.langCurrent = langGetInvert();
     }
 
+    // page title
+    document.title = ((pageID != "home")
+        ? translateGet({id : "nav-page-"+ pageID, getPage : "_general"}) + "\u205f\u205f·\u205f\u205f" : ""
+        ) + "yolan.design";
+
     // css
     doc.setAttribute("translate-lang-current", LANG.langCurrent);
 
