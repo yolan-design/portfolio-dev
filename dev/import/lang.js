@@ -41,7 +41,7 @@ const translations = { // lang / page / id
             "approche-btn": "Travaillons ensemble !",
             "approche-card-1-title--html" : "Donner de<br>l’intention",
             "approche-card-1-content" : "Chaque choix est intentionnel et donne sens au message que vous souhaitez transmettre en tenant compte de la sémantique de votre identité.",
-            "approche-card-2-title--html" : "Une solution<br>percutante",
+            "approche-card-2-title--html" : "Des solutions<br>percutantes",
             "approche-card-2-content" : "On analyse ensemble les besoins de votre cible pour trouver ce qui convient à faire évoluer votre image et vous démarquer.",
             "approche-card-3-title--html" : "Nous sommes<br>partenaires",
             "approche-card-3-content" : "Chaque projet est différent, c’est pourquoi je m’applique à concevoir le meilleur pour vos besoins. Transformons chaque défi complexe en une collaboration unique !",
@@ -182,11 +182,36 @@ const translations = { // lang / page / id
             "footer-note" : "Website designed and coded by myself.",
             "footer-ggrid-tip--html" : "(Press the keys <key>SHIFT</key> + <key>G</key> to display the grid)",
 
+            "transition-about-title" : "I shape to share",
+            "transition-about-desc" : "I'm always looking for new techniques and tools, I'm committed to constantly renew and improve my workflow. I have turned my passion into my work: bringing together the form and the message to create media that speak louder than words and leave a lasting impression.",
+            "transition-about-btn" : "Learn more about me",
+
             "transition-portfolio-title" : "Bring your message to life",
             "transition-portfolio-btn" : "See all projects",
         },
 
         "home": {
+            "anchor-approche": "Approach",
+            "anchor-portfolio": "Portfolio",
+            "anchor-about": "About",
+
+            "landing-txt-top-title--html": `<span>I am</span><span>Yolan</span>`,
+            "landing-txt-top-subtitle--html": `<span>at your disposal to help your ideas<br>become unique experiences</span>`,
+            "landing-txt-bottom-keyword1": "Thoughtful",
+            "landing-txt-bottom-keyword2": "Design",
+
+            "showreel-title": "Powered by the desire to always improve",
+            "showreel-video-txt": "Showreel (2024)",
+
+            // "approche-title": "The right strategy for your message",
+            "approche-title": "Powered by the desire to always exceed expectations",
+            "approche-btn": "Let's work together !",
+            "approche-card-1-title--html" : "Giving intent",
+            "approche-card-1-content" : "Each decision is taken with great care and gives meaning to what you want to convey, all the while maintaining the semantics of your identity.",
+            "approche-card-2-title--html" : "Effective solutions",
+            "approche-card-2-content" : "I will work with you to identify your target audience's needs and find the right solutions to enhance your image and make you stand out.",
+            "approche-card-3-title--html" : "We are partners",
+            "approche-card-3-content" : "Each project is different, which is why I strive to design the best for your needs. Working together, we will turn every complex challenge into a unique opportunity!",
         },
 
         "about": {
