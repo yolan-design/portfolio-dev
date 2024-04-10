@@ -529,10 +529,12 @@ if (ggridDisplay) {
 
 
 // FOOTER BUTTON EMAIL COPY
-let footerCTA;
+let footerCTA, footerContactWrapper, check_FooterContactReveal;
 
 function init_footer() {
-    footerCTA = document.querySelector("footer-cta button")
+    footerCTA = document.querySelector("footer-cta button");
+    footerContactWrapper = doc.querySelector("footer-contact > wrapper");
+    check_FooterContactReveal = (!!footerContactWrapper);
 
     if (footerCTA) {
         const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span");
@@ -591,9 +593,6 @@ function init_footer() {
 
 
 // FOOTER SCROLL REVEAL
-const footerContactWrapper = doc.querySelector("footer-contact > wrapper"),
-      check_FooterContactReveal = (!!footerContactWrapper);
-
 function onScroll_FooterContactReveal() {
     // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
     const elParentRect = footerContactWrapper.parentElement.getBoundingClientRect(),
