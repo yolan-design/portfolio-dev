@@ -612,10 +612,26 @@ svg {
         stroke-linecap: round;
     }
 }
+
+@keyframes scroll-down-notice {
+    0%   { transform: translate3d(0, -120%, 0) rotateZ(90deg); }
+    25%  { transform: translate3d(0, 0%, 0) rotateZ(90deg); }
+    80%  { transform: translate3d(0, 0%, 0) rotateZ(90deg); }
+    100% { transform: translate3d(0, 120%, 0) rotateZ(90deg); }
+}
 .scroll-down-notice {
     display: flex;
+
     svg {
         transform: rotateZ(90deg);
+    }
+
+    .btn-interaction {
+        overflow: hidden;
+
+        svg {
+            animation: scroll-down-notice 3.5s cubic-bezier(0.35, 0.4, 0.25, 1) infinite;
+        }
     }
 }
 
