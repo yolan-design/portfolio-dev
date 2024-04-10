@@ -483,12 +483,12 @@ function navAnchors_ScrollTo() {
                         ScrollMain.scrollTo("bottom", {
                             ...scrollMain_options.scrollTo,
                             offset : 0
-                        })
+                        });
                     } else {
                         ScrollMain.scrollTo(scrollToTarget, {
                             ...scrollMain_options.scrollTo,
                             offset : doc.clientHeight * -0.15 //-150
-                        })
+                        });
                     }
 
                     // hide active nav-anchor-link during the scrollTo
@@ -709,7 +709,7 @@ swup.hooks.on('link:self', () => {
     // when clicking on page link : scroll to top if page is the same
     ScrollMain.scrollTo("top", {
         ...scrollMain_options.scrollTo,
-        offset : 0
+        offset: 0,
     })
 });
 
@@ -718,13 +718,6 @@ swup.hooks.on('visit:start', () => {
     doc.classList.remove("nav-menu-open");
 });
 
-/* swup.hooks.on('content:remove', () => {
-    // update scroll tied effects
-    setTimeout(() => {
-        ScrollMain.resize();
-        ScrollMain_onScroll();
-    }, 100);
-}); */
 
 
 // -- INIT
@@ -738,7 +731,6 @@ function init() {
     init_footer();
     init_zoomIn();
 
-    if (ScrollMain) { ScrollMain.destroy(); } // reset
     ScrollMain = new LocomotiveScroll(scrollMain_options.global);
 
     if (pageID == "about") {
@@ -757,5 +749,6 @@ swup.hooks.before('visit:start', () => {
 });
 
 // -- CLEANUP at unload
-/* swup.hooks.before('content:replace', () => {
-}); */
+swup.hooks.before('content:replace', () => {
+    ScrollMain.destroy();
+});
