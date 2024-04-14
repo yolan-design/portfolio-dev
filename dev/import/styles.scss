@@ -515,6 +515,10 @@ section[nav-anchor-section="landing"] {
 section[nav-anchor-section^="landing"] + * {
     padding-top: var(--spacing-section-medium-large);
 }
+.section-head {
+    margin-bottom: var(--spacing-section-small);
+    row-gap: var(--spacing-super);
+}
 
 *[onscroll-zoom_in] {
     transform: scale(var(--zoom-factor, 1));

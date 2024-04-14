@@ -224,9 +224,6 @@ section[nav-anchor-section="approche"] {
     padding-bottom: var(--spacing-section-medium-large);
 
     .section-head {
-        padding-bottom: var(--spacing-section-small);
-        row-gap: var(--spacing-super);
-
         .anchor-title {
             grid-column: 2 / 3;
         }
@@ -290,6 +287,61 @@ section[nav-anchor-section="approche"] {
                 &:nth-child(2n + 1) {
                     margin-left: calc(var(--doc-col-width) / 2 + var(--doc-gutter));
                 }
+            }
+        }
+    }
+}
+
+
+section[nav-anchor-section="portfolio"] {
+    padding-bottom: var(--spacing-section-medium-large);
+
+    .section-head {
+        .anchor-title {
+            grid-column: -5 / -2;
+        }
+
+        h2 {
+            grid-column: 1 / -5;
+        }
+
+        @media (max-width: $doc-half) {
+            .anchor-title {
+                grid-column: -3 / -1;
+            }
+
+            h2 {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+        }
+    }
+
+    .projects-list {
+
+    }
+
+    .cta-portfolio {
+        > wrapper {
+            border-radius: 0;
+            border-top-right-radius:var(--doc-corner-items);
+            border-bottom-right-radius:var(--doc-corner-items);
+            border-left: 0;
+            padding: var(--spacing-mega) _;
+
+            *:nth-child(1) {
+                grid-column: 1 / 2;
+
+                size: 100%;
+                --stroke-width: 4px;
+            }
+
+            *:nth-child(2) {
+                grid-column: 2 / 7;
+            }
+
+            *:nth-child(3) {
+                grid-column: 7 / -1;
             }
         }
     }

@@ -45,6 +45,8 @@ const translations = { // lang / page / id
             "approche-card-2-content" : "On analyse ensemble les besoins de votre cible pour trouver ce qui convient à faire évoluer votre image et vous démarquer.",
             "approche-card-3-title--html" : "Nous sommes<br>partenaires",
             "approche-card-3-content" : "Chaque projet est différent, c’est pourquoi je m’applique à concevoir le meilleur pour vos besoins. Transformons chaque défi complexe en une collaboration unique !",
+
+            "portfolio-title": "Sélection de projets",
         },
 
         "about": {

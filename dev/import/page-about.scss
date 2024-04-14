@@ -314,9 +314,6 @@ section[nav-anchor-section="mes_moyens"] {
     padding-bottom: var(--spacing-section-large);
 
     .section-head {
-        margin-bottom: var(--spacing-section-small);
-        row-gap: var(--spacing-super);
-
         .anchor-title {
             grid-column: -5 / -2;
             margin-left: var(--doc-col-width);
