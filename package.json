@@ -10,6 +10,7 @@
     "not dead"
   ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "webpack --config ./config/wp.build-prod.js",
     "watch": "webpack --config ./config/wp.build-prod.js --watch",
     "build-dev": "webpack --config ./config/wp.build-dev.js",
