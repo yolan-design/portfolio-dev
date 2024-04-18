@@ -323,11 +323,11 @@ section[nav-anchor-section="portfolio"] {
 
     .cta-portfolio {
         > wrapper {
-            border-radius: 0;
-            border-top-right-radius:var(--doc-corner-items);
-            border-bottom-right-radius:var(--doc-corner-items);
-            border-left: 0;
             padding: var(--spacing-mega) _;
+            border-radius: var(--doc-corner-items);
+            /* border-top-right-radius: var(--doc-corner-items);
+            border-bottom-right-radius: var(--doc-corner-items);
+            border-left: 0; */
 
             > *:nth-last-child(3) {
                 grid-column: 1 / 2;
