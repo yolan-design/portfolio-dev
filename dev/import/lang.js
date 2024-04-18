@@ -168,6 +168,14 @@ const translations = { // lang / page / id
             "experiences_pro-plus-card-albedia-content--html" : `
                 <p>Découverte du processus d’impression de livres et magazines ainsi que de mise en page et du traitement d’images avec la suite Adobe (InDesign, Photoshop).</p>`,
         },
+
+        "portfolio" : {
+            "anchor-p-motion": "Motion",
+            "anchor-p-branding": "Branding",
+            "anchor-p-print": "Éditorial",
+            "anchor-p-photo": "Prise de vue réelle",
+            "anchor-p-ux": "Expérience utilisateur",
+        }
     },
 
     "en": {
@@ -340,6 +348,14 @@ const translations = { // lang / page / id
             "experiences_pro-plus-card-albedia-content--html" : `
                 <p>Introduction to the printing process for books and magazines, as well as page layout and image processing with the Adobe suite (InDesign, Photoshop).</p>`,
         },
+
+        "portfolio" : {
+            "anchor-p-motion": "Motion",
+            "anchor-p-branding": "Branding",
+            "anchor-p-print": "Print",
+            "anchor-p-photo": "Camera shots",
+            "anchor-p-ux": "User experience",
+        }
     }
 }
 
