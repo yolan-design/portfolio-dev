@@ -47,6 +47,8 @@ const translations = { // lang / page / id
             "approche-card-3-content" : "Chaque projet est différent, c’est pourquoi je m’applique à concevoir le meilleur pour vos besoins. Transformons chaque défi complexe en une collaboration unique !",
 
             "portfolio-title": "Sélection de projets",
+            "portfolio-cta-txt": "Envie d'en voir d'autres ?",
+            "portfolio-cta-btn": "Voir tous les projets",
         },
 
         "about": {
@@ -214,6 +216,10 @@ const translations = { // lang / page / id
             "approche-card-2-content" : "I will work with you to identify your target audience's needs and find the right solutions to enhance your image and make you stand out.",
             "approche-card-3-title--html" : "We are partners",
             "approche-card-3-content" : "Each project is different, which is why I strive to design the best for your needs. Working together, we will turn every complex challenge into a unique opportunity!",
+
+            "portfolio-title": "Selected works",
+            "portfolio-cta-txt": "Interested in seeing more?",
+            "portfolio-cta-btn": "See all projects",
         },
 
         "about": {
