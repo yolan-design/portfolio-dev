@@ -16,6 +16,7 @@ $doc-half-m: ($doc-half + 0.1);
 
     --svg-stroke-w-default: 5px;
     --stroke-w: 2px;
+    --stroke-w-big: calc(var(--stroke-width) + 1px);
     --stroke: var(--stroke-w) solid var(--fill);
 
     --txt-body-size: 2.1rem;
@@ -53,6 +54,12 @@ $doc-half-m: ($doc-half + 0.1);
         --spacing-section-large: 18rem;
     }
 }
+@media (max-width: $doc-half) {
+    :root {
+        --stroke-w-big: var(--stroke-w);
+    }
+}
+
 ::selection {
     color: var(--bg);
     background-color: var(--accent);

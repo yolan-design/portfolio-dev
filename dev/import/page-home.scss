@@ -370,10 +370,7 @@ section[nav-anchor-section="portfolio"] {
                         --ico-stroke-width: 6px;
 
                         border-bottom: var(--stroke);
-
-                        @media (min-width: $doc-half-m) {
-                            border-bottom-width: calc(var(--stroke-width) + 1px);
-                        }
+                        border-bottom-width: var(--stroke-w-big);
                     }
                     &:hover > *:first-child {
                         border-bottom-style: dotted;

@@ -607,6 +607,7 @@ footer-cta {
             padding-bottom: 0.125em;
             color: var(--fill);
             border-bottom: var(--stroke);
+            border-bottom-width: var(--stroke-w-big);
             transform: translateY(0);
             transition: transform 0.4s cubic-bezier(0.3, 0.6, 0, 1);
 
@@ -691,7 +692,7 @@ footer-contact {
                 @include txt-normal(var(--txt-size-ggrid));
 
                 span {
-                    font-size: 0.9em;
+                    font-size: 0.85em;
                 }
                 .footer-copyright {
                     grid-column: 7 / 10;
