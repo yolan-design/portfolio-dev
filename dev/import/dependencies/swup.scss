@@ -1,6 +1,6 @@
 :root {
-    --swup-page_tr-transform: 1s cubic-bezier(0.5, 0.1, 0.1, 0.9);
-    --swup-page_tr-filter: 0.7s 0.15s ease;
+    --swup-page_tr-transform: 0.85s cubic-bezier(0.65, 0, 0.3, 1);
+    --swup-page_tr-filter: 0.8s cubic-bezier(0.6, 0, 0.4, 0.9);
 }
 @media (max-width: $doc-phone) {
     :root {
@@ -82,7 +82,7 @@ html.is-animating/*unloading*/ {
     @media (min-width: $doc-phone-m) {
         nav-anchors {
             opacity: 0;
-            transform: translate3d(0, 0.75em, 0);
+            transform: translate3d(0, -0.85em, 0);
             transition-delay: 0s;
         }
     }
@@ -96,5 +96,14 @@ html.is-animating.is-rendering/*before loading*/ {
         transition: opacity 0s,
                     transform 0s,
                     filter 0s;
+    }
+
+    @media (min-width: $doc-phone-m) {
+        nav-anchors {
+            opacity: 0;
+            transform: translate3d(0, 0.85em, 0);
+            transition-duration: 0s;
+            transition-delay: 0s;
+        }
     }
 }
