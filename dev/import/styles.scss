@@ -372,13 +372,6 @@ h-subtitle {
     color: inherit;
 }
 
-section[nav-anchor-section] {
-    width: 100%;
-}
-section[nav-anchor-section="landing"] {
-    min-height: 100vh;
-}
-
 .sep {
     display: block;
     position: relative;
@@ -520,9 +513,17 @@ section[nav-anchor-section="landing"] {
 
 
 // ELEMENTS
-section[nav-anchor-section^="landing"] + * {
-    padding-top: var(--spacing-section-medium-large);
+section[nav-anchor-section] {
+    width: 100%;
 }
+section[nav-anchor-section^="landing"] {
+    min-height: 100vh;
+
+    + section {
+        padding-top: var(--spacing-section-medium-large);
+    }
+}
+
 .section-head {
     margin-bottom: var(--spacing-section-small);
     row-gap: var(--spacing-super);
