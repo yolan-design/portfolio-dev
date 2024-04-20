@@ -1374,10 +1374,8 @@ p key {
                 }
             }
         }
-        @for $i from 1 through 3 {
-            .slider-items-group:nth-child(#{$i * 2}) {
-                color: #f00;
-            }
+        .slider-items-group:nth-child(2) {
+            color: #f00;
         }
     }
 }
