@@ -1320,18 +1320,20 @@ p key {
 *[y-slider-infinite] {
     position: relative;
     width: 100%;
-    height: calc(15vw + 35vh);
+    height: calc(20vw + 40vh);
     min-height: 40rem;
-    max-height: 65vh;
+    max-height: 70vh;
 
     user-select: none;
-    /* cursor: grab;
-    &:active { cursor: grabbing; } */
+    cursor: grab;
+    &:active { cursor: grabbing; }
+    * { pointer-events: none !important; } // prevent bubbling
 
     > wrapper {
         position: absolute;
         top: 0;
         left: 0;
+        padding: var(--spacing-medium-large) _;
 
         &,
         .slider-items-group {

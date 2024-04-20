@@ -681,17 +681,28 @@ function zoomInScroll_onScroll() {
 
 
 // SLIDER INFINITE
-let sliderInfiniteElements, sliderInfiniteInstances, check_sliderInfinite,
-    sliderInfinite_idleLoop;
-function sliderInfinite_init() {
-    sliderInfiniteElements = doc.querySelectorAll("*[y-slider-infinite]");
-    check_sliderInfinite = (!!sliderInfiniteElements);
-    sliderInfiniteInstances = [];
+let SliderInfinite = {
+    elements: undefined,
+    check: undefined,
+    instances: [],
 
-    if (check_sliderInfinite) {
+    idleLoop: undefined,
+    drag: {
+        isDragging: false,
+        posPrevious: undefined,
+        posCurrent: undefined
+    }
+}
+
+function sliderInfinite_init() {
+    SliderInfinite.elements = doc.querySelectorAll("*[y-slider-infinite]");
+    SliderInfinite.check = (!!SliderInfinite.elements);
+    SliderInfinite.instances = [];
+
+    if (SliderInfinite.check) {
         let sliderInstanceIndex = 0;
 
-        sliderInfiniteElements.forEach(targetSlider => {
+        SliderInfinite.elements.forEach(targetSlider => {
             targetSlider.setAttribute("data-scroll", "");
             targetSlider.setAttribute("data-scroll-repeat", "");
             targetSlider.setAttribute("data-scroll-position", "start,end");
@@ -703,16 +714,23 @@ function sliderInfinite_init() {
                   itemsGroupClone = itemsGroup.cloneNode(true);
             itemsGroup.parentNode.appendChild(itemsGroupClone);
 
-            sliderInfiniteInstances.push([
+            SliderInfinite.instances.push([
                 -100, // init position of each slider in order
                 0, 0, 0, 0, 0 // init values / updated in [sliderInfinite_updateSizes]
             ]);
 
             sliderInfinite_idle(targetSlider, sliderInstanceIndex);
 
+            // drag interactions
+            if (!targetSlider.onmousemove) { targetSlider.onmousedown = (e) => sliderInfinite_dragToggleDown(e) };
+            if (!targetSlider.onmousemove) { targetSlider.onmouseup = (e) => sliderInfinite_dragToggleUp(e) };
+            if (!targetSlider.onmousemove) { targetSlider.onmouseout = (e) => sliderInfinite_dragToggleUp(e) };
+            if (!targetSlider.onmousemove) { targetSlider.onmousemove = (e) => sliderInfinite_dragMove(e) };
+
             sliderInstanceIndex++
         });
 
+        // global updates init
         sliderInfinite_updateSizes();
         if (!eventListeners.resize__sliderInfinite_updateSizes) {
             eventListeners.resize__sliderInfinite_updateSizes = window.addEventListener("resize", sliderInfinite_updateSizes);
@@ -720,8 +738,8 @@ function sliderInfinite_init() {
     }
 }
 function sliderInfinite_clear() {
-    if (sliderInfinite_idleLoop) {
-        sliderInfinite_idleLoop = false;
+    if (SliderInfinite.idleLoop) {
+        SliderInfinite.idleLoop = false;
     }
 
     if (eventListeners.resize__sliderInfinite_updateSizes) {
@@ -731,7 +749,7 @@ function sliderInfinite_clear() {
 }
 
 function sliderInfinite_updateSizes() {
-    sliderInfiniteElements.forEach(targetSlider => {
+    SliderInfinite.elements.forEach(targetSlider => {
         const index = targetSlider.getAttribute("y-slider-infinite-id"),
               itemWidth = targetSlider.querySelector(".slider-item").getBoundingClientRect().width,
               itemsToScreenProportion = doc.clientWidth / itemWidth,
@@ -740,50 +758,83 @@ function sliderInfinite_updateSizes() {
               itemOffScreenPx = itemWidth * -itemOffScreenPercent,
               endOfLoop = -targetSlider.querySelector(".slider-items-group").getBoundingClientRect().width; // + ((itemWidth * itemsNb) - itemOffScreenPx)
 
-        sliderInfiniteInstances[index][1] = itemWidth;
-        sliderInfiniteInstances[index][2] = itemsNb;
-        sliderInfiniteInstances[index][3] = itemOffScreenPercent;
-        sliderInfiniteInstances[index][4] = itemOffScreenPx;
-        sliderInfiniteInstances[index][5] = endOfLoop;
+        SliderInfinite.instances[index][1] = itemWidth;
+        SliderInfinite.instances[index][2] = itemsNb;
+        SliderInfinite.instances[index][3] = itemOffScreenPercent;
+        SliderInfinite.instances[index][4] = itemOffScreenPx;
+        SliderInfinite.instances[index][5] = endOfLoop;
     });
 }
 
 function sliderInfinite_apply(targetSlider, index, move) {
     // checks
-    let newPos = sliderInfiniteInstances[index][0] + move;
-    if (newPos < sliderInfiniteInstances[index][5]) { // loop
+    let newPos = SliderInfinite.instances[index][0] + move;
+    if (newPos > 0) { // loop start
+        sliderInfinite_updateSizes();
+        newPos = SliderInfinite.instances[index][5];
+    } else if (newPos < SliderInfinite.instances[index][5]) { // loop end
         sliderInfinite_updateSizes();
         newPos = 0;
     }
 
     // apply
-    sliderInfiniteInstances[index][0] = newPos;
+    SliderInfinite.instances[index][0] = newPos;
     targetSlider.children[0].style.transform = "translate3D("+ newPos +"px, 0, 0)";
 }
+
 function sliderInfinite_idle(targetSlider, index) {
-    if (!sliderInfinite_idleLoop) {
-        function idle() {
-            if (sliderInfinite_idleLoop) {
-                if (targetSlider.classList.contains("is-inview") && !sliderInfiniteIsDragging) {
-                    sliderInfinite_apply(targetSlider, index, -0.8);
+    if (!SliderInfinite.idleLoop) {
+
+        function apply(i = index) {
+            if (SliderInfinite.drag.isDragging) {
+                // dragging
+                const move = SliderInfinite.drag.posCurrent - SliderInfinite.drag.posPrevious;
+                sliderInfinite_apply(targetSlider, index, move);
+                SliderInfinite.drag.posPrevious = SliderInfinite.drag.posCurrent;
+            }
+            else {
+                // normal idle
+                sliderInfinite_apply(targetSlider, index, -0.8);
+            }
+        }
+
+        function loop() {
+            if (SliderInfinite.idleLoop) {
+                if (targetSlider.classList.contains("is-inview")) {
+                    apply();
                 }
-                // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
-                else if(ScrollMain.lenisInstance.targetScroll < 5) {
-                    sliderInfinite_apply(targetSlider, 0, -0.8); // only on the first slider because performances
+                else if(ScrollMain.lenisInstance.targetScroll < 5) { // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
+                    apply(0); // [index = 0] : only on the first slider because performances
                 }
 
-                sliderInfinite_idleLoop = requestAnimationFrame(idle);
+                SliderInfinite.idleLoop = requestAnimationFrame(loop);
             }
         };
 
-        sliderInfinite_idleLoop = true;
-        sliderInfinite_idleLoop = requestAnimationFrame(idle);
+        SliderInfinite.idleLoop = true;
+        SliderInfinite.idleLoop = requestAnimationFrame(loop);
     }
 }
+
+function sliderInfinite_dragToggleDown(e) {
+    SliderInfinite.drag.posCurrent = e.clientX;
+    SliderInfinite.drag.posPrevious = SliderInfinite.drag.posCurrent;
+    SliderInfinite.drag.isDragging = true;
+}
+function sliderInfinite_dragToggleUp(e) {
+    e.stopPropagation();
+    SliderInfinite.drag.isDragging = false;
+}
+function sliderInfinite_dragMove(e) {
+    if (SliderInfinite.drag.isDragging) {
+        SliderInfinite.drag.posCurrent = e.clientX;
+    }
+}
+
 function sliderInfinite_onScroll(velocity) {
-    sliderInfiniteElements.forEach(targetSlider => {
-        if (targetSlider.classList.contains("is-inview") && !targetSlider.classList.contains("is-dragging")) {
-            sliderInfinite_apply(targetSlider, targetSlider.getAttribute("y-slider-infinite-id"), (Math.abs(velocity) / -1));
+    SliderInfinite.elements.forEach(targetSlider => {
+        if (targetSlider.classList.contains("is-inview") && !SliderInfinite.drag.isDragging) {
+            sliderInfinite_apply(targetSlider, targetSlider.getAttribute("y-slider-infinite-id"), (Math.abs(velocity) * -0.6));
         }
     });
 }
@@ -794,7 +845,7 @@ function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
     if (check_zoomInScroll) { zoomInScroll_onScroll(); }
     if (check_footerContactReveal) { footerContactReveal_onScroll(); }
     if (check_pageAnchorsSections) { pageAnchorsSections_onScroll(); }
-    if (check_sliderInfinite) { sliderInfinite_onScroll(velocity); }
+    if (SliderInfinite.check) { sliderInfinite_onScroll(velocity); }
 }
 
 
