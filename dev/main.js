@@ -758,6 +758,10 @@ function sliderInfinite_idle(targetSlider, index) {
             if (targetSlider.classList.contains("is-inview")) {
                 sliderInfinite_apply(targetSlider, index, -0.8);
             }
+            // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
+            else if(ScrollMain.lenisInstance.targetScroll < 5) {
+                sliderInfinite_apply(targetSlider, 0, -0.8); // only on the first slider because performances
+            }
         }, 1);
     }
 }
