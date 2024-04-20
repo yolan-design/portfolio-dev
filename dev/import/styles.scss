@@ -402,6 +402,16 @@ h-subtitle {
         margin-right: $sp;
     }
 }
+@mixin spacing-h-siblings-p($sp : 1em) {
+    &:not(:last-child) {
+        padding-right: $sp;
+    }
+}
+@mixin spacing-h-children-p($sp : 1em) {
+    > *:not(:last-child) {
+        padding-right: $sp;
+    }
+}
 @mixin spacing-h-siblings-reverse($sp : 1em) {
     &:not(:first-child) {
         margin-left: $sp;
@@ -421,6 +431,16 @@ h-subtitle {
 @mixin spacing-v-children($sp : 1em) {
     > *:not(:last-child) {
         margin-bottom: $sp;
+    }
+}
+@mixin spacing-v-siblings-p($sp : 1em) {
+    &:not(:last-child) {
+        padding-bottom: $sp;
+    }
+}
+@mixin spacing-v-children-p($sp : 1em) {
+    > *:not(:last-child) {
+        padding-bottom: $sp;
     }
 }
 @mixin spacing-v-siblings-reverse($sp : 1em) {
@@ -1285,6 +1305,75 @@ p key {
         }
     }
 }
+
+
+// SLIDER INFINITE
+*[y-slider-infinite] {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 40rem;
+
+    user-select: none;
+    /* cursor: grab;
+    &:active { cursor: grabbing; } */
+
+    > wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &,
+        .slider-items-group {
+            width: auto;
+            height: 100%;
+
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 0; // remove whitespace
+
+
+        }
+    }
+
+    .slider-item {
+        position: relative;
+        display: inline-block;
+
+        aspect-ratio: 4 / 3;
+        height: 100%;
+        padding-right: var(--spacing-medium-large);
+        box-sizing: content-box;
+
+        transform: rotateZ(0.01deg); // anti-aliasing
+        > * {
+            size: 100%;
+        }
+    }
+
+    &.debug {
+        .slider-item {
+            &::after {
+                font-size: 20rem;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            @for $i from 1 through 10 {
+                &:nth-child(#{$i})::after {
+                    content: "#{$i}";
+                }
+            }
+        }
+        @for $i from 1 through 3 {
+            .slider-items-group:nth-child(#{$i * 2}) {
+                color: #f00;
+            }
+        }
+    }
+}
+
 
 // SIDE TO SIDE
 .section-side_to_side,

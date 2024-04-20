@@ -2,7 +2,8 @@ section[nav-anchor-section="landing-portfolio"] {
     padding-top: var(--nav-height-min);
 
     .landing-head {
-        padding: var(--spacing-mega) _;
+        padding-top: var(--spacing-mega);
+        padding-bottom: var(--spacing-section-medium);
         align-items: center;
         row-gap: var(--spacing-super);
 
@@ -48,4 +49,13 @@ section[nav-anchor-section="landing-portfolio"] {
             }
         }
     }
+
+
+    *[y-slider-infinite] {
+    }
+}
+
+
+section.test {
+    height: 150vh;
 }

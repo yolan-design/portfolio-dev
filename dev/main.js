@@ -19,12 +19,20 @@ const doc = document.documentElement,
       docSizePhone = 700;
 
 
-// HELPER FUNCTIONS
-
-/* make sure event doesn't already exist before assigning
+// EVENT LISTENERS HANDLING
+var eventListeners = {};
+/*
+if (!eventListeners.event__func) {
+    eventListeners.event__func = el.addEventListener("event", () => func());
+}
+*/
+/*
 if (!el.onclick) { el.onclick = () => {
 }}
 */
+
+
+// HELPER FUNCTIONS
 
 // call function at end of css transition of element (no propagation, option to do it only once)
 function eventAtTransitionEnd(elem, func, {property = false, once = true, debug = false}) {
@@ -609,7 +617,7 @@ function onScroll_FooterContactReveal() {
 
 
 // ANIM STROKE ON SCROLL
-window.addEventListener('logo_anim_svg_stroke', (e) => {
+function logoAnimSVG(e) {
     const { target, way, from } = e.detail;
     if (way == "enter" && from == "start") {
         anime({
@@ -625,7 +633,8 @@ window.addEventListener('logo_anim_svg_stroke', (e) => {
             }
         });
     }
-});
+};
+window.addEventListener('logo_anim_svg_stroke', (e) => logoAnimSVG(e));
 
 
 // ON SCOLL ZOOM IN REVEAL
@@ -664,11 +673,109 @@ function onScroll_ZoomInElements() {
 }
 
 
+// SLIDER INFINITE
+let sliderInfiniteElements, sliderInfiniteInstances, check_SliderInfinite,
+    sliderInfinite_idleInterval;
+function sliderInfinite_init() {
+    sliderInfiniteElements = doc.querySelectorAll("*[y-slider-infinite]");
+    check_SliderInfinite = (!!sliderInfiniteElements);
+    sliderInfiniteInstances = [];
+
+    if (check_SliderInfinite) {
+        let sliderInstanceIndex = 0;
+
+        sliderInfiniteElements.forEach(targetSlider => {
+            targetSlider.setAttribute("data-scroll", "");
+            targetSlider.setAttribute("data-scroll-repeat", "");
+            targetSlider.setAttribute("data-scroll-position", "start,end");
+            targetSlider.setAttribute("data-scroll-offset", "25%,-25%");
+            targetSlider.setAttribute("y-slider-infinite-id", sliderInstanceIndex);
+
+            // duplicate slider-items-group
+            const itemsGroup = targetSlider.querySelector(".slider-items-group"),
+                  itemsGroupClone = itemsGroup.cloneNode(true);
+            itemsGroup.parentNode.appendChild(itemsGroupClone);
+
+            sliderInfiniteInstances.push([
+                -100, // init position of each slider in order
+                0, 0, 0, 0, 0 // init values / updated in [sliderInfinite_updateSizes]
+            ]);
+
+            sliderInfinite_idle(targetSlider, sliderInstanceIndex);
+
+            sliderInstanceIndex++
+        });
+
+        sliderInfinite_updateSizes();
+        if (!eventListeners.resize__sliderInfinite_updateSizes) {
+            eventListeners.resize__sliderInfinite_updateSizes = window.addEventListener("resize", sliderInfinite_updateSizes);
+        }
+    }
+}
+function sliderInfinite_clear() {
+    clearInterval(sliderInfinite_idleInterval);
+    sliderInfinite_idleInterval = undefined;
+
+    if (eventListeners.resize__sliderInfinite_updateSizes) {
+        window.removeEventListener("resize", sliderInfinite_updateSizes);
+        eventListeners.resize__sliderInfinite_updateSizes.remove();
+    }
+}
+
+function sliderInfinite_updateSizes() {
+    sliderInfiniteElements.forEach(targetSlider => {
+        const index = targetSlider.getAttribute("y-slider-infinite-id"),
+              itemWidth = targetSlider.querySelector(".slider-item").getBoundingClientRect().width,
+              itemsToScreenProportion = doc.clientWidth / itemWidth,
+              itemsNb = Math.ceil(itemsToScreenProportion),
+              itemOffScreenPercent = itemsNb - itemsToScreenProportion,
+              itemOffScreenPx = itemWidth * -itemOffScreenPercent,
+              endOfLoop = -targetSlider.querySelector(".slider-items-group").getBoundingClientRect().width; // + ((itemWidth * itemsNb) - itemOffScreenPx)
+
+        sliderInfiniteInstances[index][1] = itemWidth;
+        sliderInfiniteInstances[index][2] = itemsNb;
+        sliderInfiniteInstances[index][3] = itemOffScreenPercent;
+        sliderInfiniteInstances[index][4] = itemOffScreenPx;
+        sliderInfiniteInstances[index][5] = endOfLoop;
+    });
+}
+
+function sliderInfinite_apply(targetSlider, index, move) {
+    // checks
+    let newPos = sliderInfiniteInstances[index][0] + move;
+    if (newPos < sliderInfiniteInstances[index][5]) { // loop
+        sliderInfinite_updateSizes();
+        newPos = 0;
+    }
+
+    // apply
+    sliderInfiniteInstances[index][0] = newPos;
+    targetSlider.children[0].style.transform = "translate3D("+ newPos +"px, 0, 0)";
+}
+function sliderInfinite_idle(targetSlider, index) {
+    if (!sliderInfinite_idleInterval) {
+        sliderInfinite_idleInterval = setInterval(() => {
+            if (targetSlider.classList.contains("is-inview")) {
+                sliderInfinite_apply(targetSlider, index, -0.8);
+            }
+        }, 1);
+    }
+}
+function sliderInfinite_onScroll(velocity) {
+    sliderInfiniteElements.forEach(targetSlider => {
+        if (targetSlider.classList.contains("is-inview") && !targetSlider.classList.contains("is-dragging")) {
+            sliderInfinite_apply(targetSlider, targetSlider.getAttribute("y-slider-infinite-id"), (Math.abs(velocity) / -1));
+        }
+    });
+}
+
+
 // SCROLL CALLBACKS
-function ScrollMain_onScroll(/* { scroll, limit, velocity, direction, progress } */) {
+function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
     if (check_ZoomInElements) { onScroll_ZoomInElements(); }
     if (check_FooterContactReveal) { onScroll_FooterContactReveal(); }
     if (check_pageAnchorsSections) { onScroll_PageAnchorsSections(); }
+    if (check_SliderInfinite) { sliderInfinite_onScroll(velocity); }
 }
 
 
@@ -730,6 +837,7 @@ function init() {
     navAnchors_ScrollTo();
     init_footer();
     init_zoomIn();
+    sliderInfinite_init();
 
     ScrollMain = new LocomotiveScroll(scrollMain_options.global);
 
@@ -750,5 +858,6 @@ swup.hooks.before('visit:start', () => {
 
 // -- CLEANUP at unload
 swup.hooks.before('content:replace', () => {
+    sliderInfinite_clear();
     ScrollMain.destroy();
 });
