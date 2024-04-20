@@ -1,9 +1,18 @@
 section[nav-anchor-section="landing-portfolio"] {
     padding-top: var(--nav-height-min);
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    @include flex-static-children;
+
+    height: 120vh;
+    @media (max-width: $doc-half) { height: 110vh; }
+
     .landing-head {
-        padding-top: var(--spacing-mega);
-        padding-bottom: var(--spacing-section-medium);
+        height: auto;
+        padding: var(--spacing-mega) _;
         align-items: center;
         row-gap: var(--spacing-super);
 

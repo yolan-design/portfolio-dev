@@ -111,8 +111,7 @@ main {
 
 // NAV
 .nav-btn-big {
-    flex-shrink: 0;
-    flex-grow: 0;
+    @include flex-static-self;
     position: relative;
     min-width: var(--doc-col-width);
     min-height: 3.5rem;

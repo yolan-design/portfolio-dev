@@ -21,8 +21,7 @@ section[nav-anchor-section="landing-home"] {
         height: 100%;
 
         > * {
-            flex-grow: 0;
-            flex-shrink: 0;
+            @include flex-static-self;
             height: auto;
         }
     }

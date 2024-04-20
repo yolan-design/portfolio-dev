@@ -202,8 +202,7 @@ section[nav-anchor-section="formations"] {
                 }
 
                 > * {
-                    flex-grow: 0;
-                    flex-shrink: 0;
+                    @include flex-static-self;
                 }
                 > *:last-child {
                     flex-grow: 1;
