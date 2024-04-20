@@ -688,7 +688,7 @@ function sliderInfinite_init() {
             targetSlider.setAttribute("data-scroll", "");
             targetSlider.setAttribute("data-scroll-repeat", "");
             targetSlider.setAttribute("data-scroll-position", "start,end");
-            targetSlider.setAttribute("data-scroll-offset", "25%,-25%");
+            targetSlider.setAttribute("data-scroll-offset", "5%,-5%");
             targetSlider.setAttribute("y-slider-infinite-id", sliderInstanceIndex);
 
             // duplicate slider-items-group
