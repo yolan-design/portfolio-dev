@@ -1353,7 +1353,7 @@ p key {
         padding-right: var(--spacing-medium-large);
         box-sizing: content-box;
 
-        transform: rotateZ(0.01deg); // anti-aliasing
+        transform: rotateZ(0.05deg); // anti-aliasing
         > * {
             size: 100%;
         }
