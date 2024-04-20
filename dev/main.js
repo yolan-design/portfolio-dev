@@ -34,6 +34,13 @@ if (!el.onclick) { el.onclick = () => {
 
 // HELPER FUNCTIONS
 
+const requestAnimationFrame = window.requestAnimationFrame
+  || window.mozRequestAnimationFrame
+  || window.webkitRequestAnimationFrame
+  || window.msRequestAnimationFrame;
+const cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+
 // call function at end of css transition of element (no propagation, option to do it only once)
 function eventAtTransitionEnd(elem, func, {property = false, once = true, debug = false}) {
     if (!property) { // will check for all css properties
@@ -675,7 +682,7 @@ function zoomInScroll_onScroll() {
 
 // SLIDER INFINITE
 let sliderInfiniteElements, sliderInfiniteInstances, check_sliderInfinite,
-    sliderInfinite_idleInterval;
+    sliderInfinite_idleLoop;
 function sliderInfinite_init() {
     sliderInfiniteElements = doc.querySelectorAll("*[y-slider-infinite]");
     check_sliderInfinite = (!!sliderInfiniteElements);
@@ -713,8 +720,9 @@ function sliderInfinite_init() {
     }
 }
 function sliderInfinite_clear() {
-    clearInterval(sliderInfinite_idleInterval);
-    sliderInfinite_idleInterval = undefined;
+    if (sliderInfinite_idleLoop) {
+        sliderInfinite_idleLoop = false;
+    }
 
     if (eventListeners.resize__sliderInfinite_updateSizes) {
         window.removeEventListener("resize", sliderInfinite_updateSizes);
@@ -753,16 +761,23 @@ function sliderInfinite_apply(targetSlider, index, move) {
     targetSlider.children[0].style.transform = "translate3D("+ newPos +"px, 0, 0)";
 }
 function sliderInfinite_idle(targetSlider, index) {
-    if (!sliderInfinite_idleInterval) {
-        sliderInfinite_idleInterval = setInterval(() => {
-            if (targetSlider.classList.contains("is-inview")) {
-                sliderInfinite_apply(targetSlider, index, -0.8);
+    if (!sliderInfinite_idleLoop) {
+        function idle() {
+            if (sliderInfinite_idleLoop) {
+                if (targetSlider.classList.contains("is-inview") && !sliderInfiniteIsDragging) {
+                    sliderInfinite_apply(targetSlider, index, -0.8);
+                }
+                // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
+                else if(ScrollMain.lenisInstance.targetScroll < 5) {
+                    sliderInfinite_apply(targetSlider, 0, -0.8); // only on the first slider because performances
+                }
+
+                sliderInfinite_idleLoop = requestAnimationFrame(idle);
             }
-            // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
-            else if(ScrollMain.lenisInstance.targetScroll < 5) {
-                sliderInfinite_apply(targetSlider, 0, -0.8); // only on the first slider because performances
-            }
-        }, 1);
+        };
+
+        sliderInfinite_idleLoop = true;
+        sliderInfinite_idleLoop = requestAnimationFrame(idle);
     }
 }
 function sliderInfinite_onScroll(velocity) {
