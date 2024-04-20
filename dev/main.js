@@ -110,7 +110,7 @@ function getAge(dateString) {
 }
 
 // BOOM ANIM
-function boomAnimInit({boomOrigin, target, container, special, eventType = "mousedown"}) {
+function boomAnim_init({boomOrigin, target, container, special, eventType = "mousedown"}) {
     target.addEventListener(eventType, (ev) => { boomAnim({boomOrigin : (boomOrigin != undefined) ? boomOrigin : ev, target : target, container : container, special : special, eventType : eventType}); });
 }
 
@@ -309,7 +309,7 @@ function translateElements({
 
 // TRANSLATE SWITCHES
 let translateSwitches;
-function init_translateSwitches() {
+function translateSwitches_init() {
     translateSwitches = doc.querySelectorAll("[translate-switch]");
     if(translateSwitches) {
         function rgsstsh() {
@@ -321,7 +321,7 @@ function init_translateSwitches() {
                 btn.onclick = () => {
                     translateElements({langSwitch : true});
                 }
-                boomAnimInit({boomOrigin : false, target : btn, special : "btn-translate", eventType : "click"});
+                boomAnim_init({boomOrigin : false, target : btn, special : "btn-translate", eventType : "click"});
             }
         })
     }
@@ -329,7 +329,7 @@ function init_translateSwitches() {
 
 
 // SMOOTH SCROLL
-const scrollMain_options = {
+const ScrollMain_options = {
     global: {
         lenisOptions: {
             smoothWheel: true,
@@ -448,7 +448,7 @@ function dynamicColorUpdate(el) {
 // NAV ANCHORS
 let pageAnchorsSections, check_pageAnchorsSections, anchorLinks;
 
-function init_navAnchors() {
+function navAnchors_init() {
     pageAnchorsSections = document.querySelectorAll("[nav-anchor-section]");
     check_pageAnchorsSections = (!!pageAnchorsSections);
     // pageAnchorsScrolls = document.querySelectorAll("[nav-anchor-scoll]");
@@ -462,7 +462,7 @@ function init_navAnchors() {
     }
 }
 
-function onScroll_PageAnchorsSections() {
+function pageAnchorsSections_onScroll() {
     pageAnchorsSections.forEach((anchorSection) => {
         const anchorSectionRect = anchorSection.getBoundingClientRect(),
               anchorLink = document.querySelector("[nav-anchor-link='"+ anchorSection.getAttribute("nav-anchor-section") +"']"),
@@ -479,7 +479,7 @@ function onScroll_PageAnchorsSections() {
 
 
 // NAV ANCHORS SCROLL TO
-function navAnchors_ScrollTo() {
+function navAnchors_scrollTo() {
     if (anchorLinks) {
         anchorLinks.forEach((anchorLink) => {
             if (!anchorLink.onclick) { anchorLink.onclick = () => {
@@ -489,12 +489,12 @@ function navAnchors_ScrollTo() {
                 if (scrollToTarget) {
                     if (anchorID == "contact") {
                         ScrollMain.scrollTo("bottom", {
-                            ...scrollMain_options.scrollTo,
+                            ...ScrollMain_options.scrollTo,
                             offset : 0
                         });
                     } else {
                         ScrollMain.scrollTo(scrollToTarget, {
-                            ...scrollMain_options.scrollTo,
+                            ...ScrollMain_options.scrollTo,
                             offset : doc.clientHeight * -0.15 //-150
                         });
                     }
@@ -504,8 +504,8 @@ function navAnchors_ScrollTo() {
                         document.querySelector("nav-anchors").classList.add("active-pause");
                         setTimeout(() => {
                             document.querySelector("nav-anchors").classList.remove("active-pause");
-                        }, scrollMain_options.scrollTo.duration * 550);
-                    }, scrollMain_options.scrollTo.duration * 300);
+                        }, ScrollMain_options.scrollTo.duration * 550);
+                    }, ScrollMain_options.scrollTo.duration * 300);
 
                     // close menu if mobile
                     if (doc.clientWidth < docSizePhone) {
@@ -542,12 +542,12 @@ if (ggridDisplay) {
 
 
 // FOOTER BUTTON EMAIL COPY
-let footerCTA, footerContactWrapper, check_FooterContactReveal;
+let footerCTA, footerContactWrapper, check_footerContactReveal;
 
-function init_footer() {
+function footer_init() {
     footerCTA = document.querySelector("footer-cta button");
     footerContactWrapper = doc.querySelector("footer-contact > wrapper");
-    check_FooterContactReveal = (!!footerContactWrapper);
+    check_footerContactReveal = (!!footerContactWrapper);
 
     if (footerCTA) {
         const footerCTA_copiedNotif = footerCTA.querySelector(".tip.copied-notif span");
@@ -606,7 +606,7 @@ function init_footer() {
 
 
 // FOOTER SCROLL REVEAL
-function onScroll_FooterContactReveal() {
+function footerContactReveal_onScroll() {
     // const progress = Math.min((doc.clientHeight / args.currentElements['footer-contact'].el.getBoundingClientRect().bottom) + 0.0015, 1);
     const elParentRect = footerContactWrapper.parentElement.getBoundingClientRect(),
           progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.05), 0, elParentRect.height, 0, 1);
@@ -638,13 +638,13 @@ window.addEventListener('logo_anim_svg_stroke', (e) => logoAnimSVG(e));
 
 
 // ON SCOLL ZOOM IN REVEAL
-let layoutZoomInElements, check_ZoomInElements;
-function init_zoomIn() {
-    layoutZoomInElements = doc.querySelectorAll("[y-onscroll-zoom-in]");
-    check_ZoomInElements = (!!layoutZoomInElements);
+let zoomInScrollElements, check_zoomInScroll;
+function zoomInScroll_init() {
+    zoomInScrollElements = doc.querySelectorAll("[y-onscroll-zoom-in]");
+    check_zoomInScroll = (!!zoomInScrollElements);
 
-    if (check_ZoomInElements) {
-        layoutZoomInElements.forEach((el) => {
+    if (check_zoomInScroll) {
+        zoomInScrollElements.forEach((el) => {
             /* el.setAttribute("data-scroll", "");
             el.setAttribute("data-scroll-css-progress", "");
             el.setAttribute("data-scroll-position", "start,start"); */
@@ -657,8 +657,8 @@ function init_zoomIn() {
         })
     }
 }
-function onScroll_ZoomInElements() {
-    layoutZoomInElements.forEach((el) => {
+function zoomInScroll_onScroll() {
+    zoomInScrollElements.forEach((el) => {
         const elRect = el.getBoundingClientRect(),
               progressFactor = mapRangeClamp(
                     (doc.clientHeight - elRect.top),
@@ -674,14 +674,14 @@ function onScroll_ZoomInElements() {
 
 
 // SLIDER INFINITE
-let sliderInfiniteElements, sliderInfiniteInstances, check_SliderInfinite,
+let sliderInfiniteElements, sliderInfiniteInstances, check_sliderInfinite,
     sliderInfinite_idleInterval;
 function sliderInfinite_init() {
     sliderInfiniteElements = doc.querySelectorAll("*[y-slider-infinite]");
-    check_SliderInfinite = (!!sliderInfiniteElements);
+    check_sliderInfinite = (!!sliderInfiniteElements);
     sliderInfiniteInstances = [];
 
-    if (check_SliderInfinite) {
+    if (check_sliderInfinite) {
         let sliderInstanceIndex = 0;
 
         sliderInfiniteElements.forEach(targetSlider => {
@@ -772,10 +772,10 @@ function sliderInfinite_onScroll(velocity) {
 
 // SCROLL CALLBACKS
 function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
-    if (check_ZoomInElements) { onScroll_ZoomInElements(); }
-    if (check_FooterContactReveal) { onScroll_FooterContactReveal(); }
-    if (check_pageAnchorsSections) { onScroll_PageAnchorsSections(); }
-    if (check_SliderInfinite) { sliderInfinite_onScroll(velocity); }
+    if (check_zoomInScroll) { zoomInScroll_onScroll(); }
+    if (check_footerContactReveal) { footerContactReveal_onScroll(); }
+    if (check_pageAnchorsSections) { pageAnchorsSections_onScroll(); }
+    if (check_sliderInfinite) { sliderInfinite_onScroll(velocity); }
 }
 
 
@@ -815,7 +815,7 @@ const swup = new Swup({
 swup.hooks.on('link:self', () => {
     // when clicking on page link : scroll to top if page is the same
     ScrollMain.scrollTo("top", {
-        ...scrollMain_options.scrollTo,
+        ...ScrollMain_options.scrollTo,
         offset: 0,
     })
 });
@@ -832,14 +832,14 @@ function init() {
     getPageID();
 
     translateElements({});
-    init_translateSwitches();
-    init_navAnchors();
-    navAnchors_ScrollTo();
-    init_footer();
-    init_zoomIn();
+    translateSwitches_init();
+    navAnchors_init();
+    navAnchors_scrollTo();
+    footer_init();
+    zoomInScroll_init();
     sliderInfinite_init();
 
-    ScrollMain = new LocomotiveScroll(scrollMain_options.global);
+    ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
 
     if (pageID == "about") {
         // age
