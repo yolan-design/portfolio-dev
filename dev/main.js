@@ -631,7 +631,7 @@ window.addEventListener('logo_anim_svg_stroke', (e) => {
 // ON SCOLL ZOOM IN REVEAL
 let layoutZoomInElements, check_ZoomInElements;
 function init_zoomIn() {
-    layoutZoomInElements = doc.querySelectorAll("[onscroll-zoom_in]");
+    layoutZoomInElements = doc.querySelectorAll("[y-onscroll-zoom-in]");
     check_ZoomInElements = (!!layoutZoomInElements);
 
     if (check_ZoomInElements) {
@@ -640,11 +640,11 @@ function init_zoomIn() {
             el.setAttribute("data-scroll-css-progress", "");
             el.setAttribute("data-scroll-position", "start,start"); */
             el.setAttribute("data-scroll-offset", "0");
-            el.setAttribute("onscroll-zoom_in--fraction",
-                (el.getAttribute("onscroll-zoom_in--fraction")) ? el.getAttribute("onscroll-zoom_in--fraction") : 2);
-            el.setAttribute("onscroll-zoom_in--strength",
-                (el.getAttribute("onscroll-zoom_in--strength")) ? el.getAttribute("onscroll-zoom_in--strength") : 0.92);
-            el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("onscroll-zoom_in--strength")));
+            el.setAttribute("y-onscroll-zoom-in--fraction",
+                (el.getAttribute("y-onscroll-zoom-in--fraction")) ? el.getAttribute("y-onscroll-zoom-in--fraction") : 2);
+            el.setAttribute("y-onscroll-zoom-in--strength",
+                (el.getAttribute("y-onscroll-zoom-in--strength")) ? el.getAttribute("y-onscroll-zoom-in--strength") : 0.92);
+            el.style.setProperty("--zoom-factor", parseFloat(el.getAttribute("y-onscroll-zoom-in--strength")));
         })
     }
 }
@@ -654,8 +654,8 @@ function onScroll_ZoomInElements() {
               progressFactor = mapRangeClamp(
                     (doc.clientHeight - elRect.top),
                     0,
-                    doc.clientHeight / parseFloat(el.getAttribute("onscroll-zoom_in--fraction")),
-                    parseFloat(el.getAttribute("onscroll-zoom_in--strength")),
+                    doc.clientHeight / parseFloat(el.getAttribute("y-onscroll-zoom-in--fraction")),
+                    parseFloat(el.getAttribute("y-onscroll-zoom-in--strength")),
                     1
               );
 

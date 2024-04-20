@@ -529,14 +529,14 @@ section[nav-anchor-section^="landing"] {
     row-gap: var(--spacing-super);
 }
 
-*[onscroll-zoom_in] {
+*[y-onscroll-zoom-in] {
     transform: scale(var(--zoom-factor, 1));
 
-    *[onscroll-zoom_in--in] {
+    *[y-onscroll-zoom-in--in] {
         transform: scale(calc((1 - var(--zoom-factor, 1)) + 1));
     }
 }
-*[onscroll-zoom_in], *[onscroll-zoom_in--in] {
+*[y-onscroll-zoom-in], *[y-onscroll-zoom-in--in] {
     transition: transform var(--onscroll-transition);
 }
 
