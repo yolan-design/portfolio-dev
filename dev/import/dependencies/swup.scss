@@ -4,8 +4,8 @@
 }
 @media (max-width: $doc-phone) {
     :root {
-        --swup-page_tr-transform: 1s 0.2s cubic-bezier(0.5, 0.1, 0.1, 0.9);
-        --swup-page_tr-filter: 0.5s 0.35s ease;
+        --swup-page_tr-transform: 0.95s 0.05s cubic-bezier(0.75, 0, 0.3, 1);
+        --swup-page_tr-filter: 0.55s 0.3s ease;
     }
 }
 
