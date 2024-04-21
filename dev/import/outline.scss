@@ -173,7 +173,7 @@ main {
 
             --spacing-bars: 0.8rem;
             --rotate-bars: 0deg;
-            transition: margin 0.3s 0.2s ease, transform 0.35s ease;
+            transition: margin 0.25s 0.225s ease, transform 0.35s ease;
 
             &:first-child {
                 margin: 0 0 var(--spacing-bars) 0;
