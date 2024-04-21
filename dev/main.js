@@ -682,16 +682,29 @@ function zoomInScroll_onScroll() {
 
 // SLIDER INFINITE
 let SliderInfinite = {
+    idleLoop: undefined,
     elements: undefined,
     check: undefined,
     instances: [],
 
-    idleLoop: undefined,
-    drag: {
-        isDragging: false,
-        posPrevious: undefined,
-        posCurrent: undefined
-    }
+    properties: {
+        idle: {
+            move: -0.8, // px per frame
+        },
+        scroll:{
+            strength: -0.6, // velocity multiplicator
+        },
+        drag: {
+            isDragging: false,
+            strength: 2.5, // multiplicator
+            mousePrevious: undefined,
+            mouseCurrent: undefined,
+
+            posFrom: 0,
+            posAnimated: 0,
+            posTo: 0,
+        },
+    },
 }
 
 function sliderInfinite_init() {
@@ -785,26 +798,42 @@ function sliderInfinite_apply(targetSlider, index, move) {
 function sliderInfinite_idle(targetSlider, index) {
     if (!SliderInfinite.idleLoop) {
 
-        function apply(i = index) {
-            if (SliderInfinite.drag.isDragging) {
-                // dragging
-                const move = SliderInfinite.drag.posCurrent - SliderInfinite.drag.posPrevious;
-                sliderInfinite_apply(targetSlider, index, move);
-                SliderInfinite.drag.posPrevious = SliderInfinite.drag.posCurrent;
+        function animate(index) {
+            if (SliderInfinite.properties.drag.isDragging) {
+                SliderInfinite.properties.drag.posFrom = (SliderInfinite.properties.drag.mouseCurrent - SliderInfinite.properties.drag.mousePrevious) * SliderInfinite.properties.drag.strength;
+                SliderInfinite.properties.drag.mousePrevious = SliderInfinite.properties.drag.mouseCurrent;
             }
-            else {
-                // normal idle
-                sliderInfinite_apply(targetSlider, index, -0.8);
+
+            // animate
+            if (SliderInfinite.properties.drag.posFrom != SliderInfinite.properties.drag.posTo) {
+                SliderInfinite.properties.drag.posTo = SliderInfinite.properties.drag.posFrom; // only run if new pos
+
+                const posVar = {
+                    move: SliderInfinite.properties.drag.posAnimated,
+                }
+                anime({
+                    targets: posVar,
+                    easing: "easeOutExpo",
+                    duration: 1350,
+
+                    move: [SliderInfinite.properties.drag.posAnimated, SliderInfinite.properties.drag.posFrom],
+
+                    update: () => {
+                        SliderInfinite.properties.drag.posAnimated = posVar.move;
+                    },
+                });
             }
+
+            sliderInfinite_apply(targetSlider, index, SliderInfinite.properties.drag.posAnimated + SliderInfinite.properties.idle.move);
         }
 
         function loop() {
             if (SliderInfinite.idleLoop) {
                 if (targetSlider.classList.contains("is-inview")) {
-                    apply();
+                    animate(index);
                 }
                 else if(ScrollMain.lenisInstance.targetScroll < 5) { // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
-                    apply(0); // [index = 0] : only on the first slider because performances
+                    animate(0); // [index = 0] : only on the first slider because performances
                 }
 
                 SliderInfinite.idleLoop = requestAnimationFrame(loop);
@@ -816,27 +845,30 @@ function sliderInfinite_idle(targetSlider, index) {
     }
 }
 
-function sliderInfinite_dragToggleDown(e) {
-    SliderInfinite.drag.posCurrent = e.clientX;
-    SliderInfinite.drag.posPrevious = SliderInfinite.drag.posCurrent;
-    SliderInfinite.drag.isDragging = true;
-}
-function sliderInfinite_dragToggleUp(e) {
-    e.stopPropagation();
-    SliderInfinite.drag.isDragging = false;
-}
-function sliderInfinite_dragMove(e) {
-    if (SliderInfinite.drag.isDragging) {
-        SliderInfinite.drag.posCurrent = e.clientX;
-    }
-}
-
 function sliderInfinite_onScroll(velocity) {
     SliderInfinite.elements.forEach(targetSlider => {
-        if (targetSlider.classList.contains("is-inview") && !SliderInfinite.drag.isDragging) {
-            sliderInfinite_apply(targetSlider, targetSlider.getAttribute("y-slider-infinite-id"), (Math.abs(velocity) * -0.6));
+        if (targetSlider.classList.contains("is-inview")) {
+            sliderInfinite_apply(targetSlider, targetSlider.getAttribute("y-slider-infinite-id"), (Math.abs(velocity) * SliderInfinite.properties.scroll.strength));
         }
     });
+}
+
+function sliderInfinite_dragToggleDown(e) {
+    SliderInfinite.properties.drag.mouseCurrent = e.clientX;
+    SliderInfinite.properties.drag.mousePrevious = SliderInfinite.properties.drag.mouseCurrent;
+    SliderInfinite.properties.drag.isDragging = true;
+}
+function sliderInfinite_dragToggleUp(e) {
+    e.stopPropagation(); // dunno if this works
+    SliderInfinite.properties.drag.mouseCurrent = 0;
+    SliderInfinite.properties.drag.mousePrevious = 0;
+    SliderInfinite.properties.drag.posFrom = 0;
+    SliderInfinite.properties.drag.isDragging = false;
+}
+function sliderInfinite_dragMove(e) {
+    if (SliderInfinite.properties.drag.isDragging) {
+        SliderInfinite.properties.drag.mouseCurrent = e.clientX;
+    }
 }
 
 
