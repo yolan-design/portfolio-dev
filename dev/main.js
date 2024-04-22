@@ -988,7 +988,7 @@ function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
     if (check_zoomInScroll) { zoomInScroll_onScroll(); }
     if (check_footerContactReveal) { footerContactReveal_onScroll(); }
     if (check_pageAnchorsSections) { pageAnchorsSections_onScroll(); }
-    if (SliderInfinite.check) { sliderInfinite_onScroll(velocity); }
+    if (SliderInfinite.check && velocity) { sliderInfinite_onScroll(velocity); }
 }
 
 
@@ -1054,6 +1054,7 @@ function init() {
 
     setTimeout(() => {
         ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
+        ScrollMain_onScroll({});
     }, 50);
 
     if (pageID == "about") {
