@@ -1,0 +1,5 @@
+https://stackoverflow.com/a/74061288
+
+[error UNABLE_TO_VERIFY_LEAF_SIGNATURE]: npm config set strict-ssl false
+
+[to install]: pnpm add <>
