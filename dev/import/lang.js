@@ -264,7 +264,6 @@ const translations = { // lang / page / id
             "formations-diploma-bac1-keywords--html" : "<span>Mathematics</span><span>Reasoning</span><span>Rigor</span><span>Observation</span>",
 
             "mes_moyens-title" : "I use all the means necessary for my projects",
-            "mes_moyens-title--html" : "I use all the <anim-u>means necessary</anim-u> for my projects",
             "mes_moyens-mat-perso-title" : "My personal gear",
             "mes_moyens-mat-outils-title" : "My skills and digital tools",
 

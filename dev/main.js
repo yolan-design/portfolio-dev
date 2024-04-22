@@ -11,6 +11,7 @@ import SwupScrollPlugin from '@swup/scroll-plugin';
 import SwupPreloadPlugin from '@swup/preload-plugin';
 import LocomotiveScroll from "./import/dependencies/scroll/locomotive-scroll.js";
 import anime from 'animejs/lib/anime.es.js';
+import SplitType from 'split-type';
 import hotkeys from 'hotkeys-js';
 
 
@@ -104,6 +105,12 @@ function getCenterOfEl(el) {
     const elRect = el.getBoundingClientRect();
     return [elRect.left + (elRect.width / 2),
             elRect.top + (elRect.height / 2)]
+}
+
+// remove all classes starting with [prefix] from element
+function removeClassStartingWith(el, prefix) {
+    const classes = el.className.split(" ").filter(c => !c.startsWith(prefix));
+    el.className = classes.join(" ").trim();
 }
 
 // GET AGE
@@ -308,10 +315,13 @@ function translateElements({
             } else {
                 el.innerText = translation;
             }
+            console.log("t");
         })
     }
 
     footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
+
+    animOnView_init();
 }
 
 // TRANSLATE SWITCHES
@@ -872,6 +882,107 @@ function sliderInfinite_dragMove(e) {
 }
 
 
+// ANIMATE ON VIEW
+// TOFIX home approche cards dynamic color transition not smooth
+function animOnView_init() {
+    const ELEMENTS = {
+        perWord: [
+            ...doc.querySelectorAll("*[y-animonview--id='per-word']"),
+            ...doc.querySelectorAll("h2:not([y-animonview--ignore])"),
+            ...doc.querySelectorAll("h3:not([y-animonview--ignore])"),
+        ],
+        fadeIn:  [
+            ...doc.querySelectorAll("*[y-animonview--id='fade-in']"),
+            ...doc.querySelectorAll(".section-side_to_side .content-container:not([y-animonview--ignore-children]) .content"),
+            ...doc.querySelectorAll("*[nav-anchor-section^='transition-'] .content-container:not([y-animonview--ignore-children]) .content"),
+        ],
+    }
+
+    // per word
+    if (ELEMENTS.perWord) {
+        ELEMENTS.perWord.forEach((el) => {
+            if (!el.classList.contains("is-inview")) { // not if already animated
+                el.setAttribute("y-animonview", "true");
+                el.setAttribute("y-animonview-splittxt", "");
+                el.setAttribute("y-animonview-state", "");
+
+                el.setAttribute("data-scroll", "");
+                el.setAttribute("data-scroll-offset", "22.5%,0");
+                el.setAttribute("data-scroll-call", "animOnView_perWord");
+
+                SplitType.clearData();
+                SplitType.create(el, {
+                    types: "words",
+                    tagName: "span",
+                });
+
+                // init anim
+                setTimeout(() => {
+                    [...el.children].forEach((elSplit) => {
+                        elSplit.style.opacity = 0;
+                    })
+                }, 5);
+            }
+        })
+    }
+
+    // fade in
+    if (ELEMENTS.fadeIn) {
+        ELEMENTS.fadeIn.forEach((el) => {
+            if (el.getAttribute("y-animonview") != "true") { // not if already set
+                el.setAttribute("y-animonview", "true");
+
+                el.setAttribute("data-scroll", "");
+                el.setAttribute("data-scroll-offset", "15%,0");
+                el.setAttribute("data-scroll-call", "animOnView_fadeIn");
+
+                // init anim
+                el.style.opacity = 0;
+            }
+        })
+    }
+}
+
+function animOnView_txt_revertSplit(target) {
+    target.setAttribute("y-animonview-state", "finished");
+    SplitType.revert(target); console.log("t");
+}
+
+window.addEventListener('animOnView_perWord', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = ((splitCount > 7) ? 135 : 300) * splitCount,
+          animStagger  = ((splitCount > 7) ? 115 : (splitCount > 4) ? 150 : 200);
+
+    anime({
+        targets: target.children,
+        easing: "easeOutExpo",
+        duration: animDuration,
+        // delay: (el, i) => ( 100 * i * ((i == splitCount - 1) ? 1.1 : 1) ),
+        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+
+        translateY: ["35%", "0%"],
+        rotateZ: 0.03,
+        opacity: {
+            value : [0, 1],
+            duration : animDuration * 1.2,
+        },
+        update: (anim) => { if (anim.progress == 100) { animOnView_txt_revertSplit(target); } },
+    });
+});
+window.addEventListener('animOnView_fadeIn', (e) => {
+    const { target } = e.detail;
+
+    anime({
+        targets: target,
+        easing: "easeInOutQuad",
+        duration: 800,
+        delay: 150,
+
+        opacity: [0, 1],
+    });
+});
+
 // SCROLL CALLBACKS
 function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
     if (check_zoomInScroll) { zoomInScroll_onScroll(); }
@@ -941,7 +1052,9 @@ function init() {
     zoomInScroll_init();
     sliderInfinite_init();
 
-    ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
+    setTimeout(() => {
+        ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
+    }, 50);
 
     if (pageID == "about") {
         // age
@@ -952,11 +1065,6 @@ function init() {
 if (document.readyState === 'complete') { init(); } else { document.addEventListener('DOMContentLoaded', () => init()); }
 // Run after every additional navigation by swup
 swup.hooks.on('page:view', () => init());
-
-
-swup.hooks.before('visit:start', () => {
-    if (ScrollMain) { ScrollMain.destroy(); }
-});
 
 // -- CLEANUP at unload
 swup.hooks.before('content:replace', () => {

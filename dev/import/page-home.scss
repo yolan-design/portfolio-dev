@@ -239,7 +239,7 @@ section[nav-anchor-section="approche"] {
         }
     }
     .section-side_to_side {
-        wrapper {
+        .content-container > wrapper {
             margin: var(--spacing-section-small) _ ;
         }
 
@@ -260,7 +260,7 @@ section[nav-anchor-section="approche"] {
             @media (max-width: $doc-phone) {
                 padding-left: calc(var(--doc-col-width) / 2);
 
-                wrapper {
+                > wrapper {
                     padding-left: var(--offset-grid);
                 }
             }

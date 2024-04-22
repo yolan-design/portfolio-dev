@@ -201,7 +201,8 @@ body {
     @include txt-normal;
     @include txt-w-450;
 }
-span, p, button, .txt-inherit {
+span, p, button, .txt-inherit,
+animtxt-split {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
@@ -1016,6 +1017,25 @@ p key {
 }
 
 
+// ANIMATE TEXT
+html:not(.lenis) { // fallback
+    *[y-animonview="true"] {
+        opacity: 1 !important;
+        transform: translate(0, 0) !important;
+    }
+}
+*[y-animonview-splittxt]:not([y-animonview-state="finished"]) {
+    position: relative;
+    display: inline-block;
+    // font-kerning: none;
+
+    > * {
+        position: relative;
+        display: inline-block;
+    }
+}
+
+
 // BUTTON PILL
 .btn-pill {
     @include flex-static-self;
@@ -1121,7 +1141,6 @@ p key {
 // CONTENT CARDS
 .card-content {
     box-sizing: border-box;
-    display: flex;
     width: 100%;
     height: auto;
 
@@ -1148,31 +1167,36 @@ p key {
     }
 
 
-    flex-direction: column;
-    @include spacing-v-children(var(--spacing-medium));
-
-    @media (min-width: $doc-half-m) {
-        &.inline {
-            flex-direction: row;
-            @include spacing-h-children(var(--spacing-medium-large));
-
-            > * {
-                width: auto;
-                flex-grow: 1;
-                flex-shrink: 1;
-                margin-bottom: 0;
-            }
-        }
-    }
-
-    > * {
+    & > *,
+    wrapper > * {
         display: block;
         width: 100%;
         height: auto;
     }
 
+    &, > wrapper {
+        display: flex;
+        flex-direction: column;
+        @include spacing-v-children(var(--spacing-medium));
+
+        @media (min-width: $doc-half-m) {
+            &.inline {
+                flex-direction: row;
+                @include spacing-h-children(var(--spacing-medium-large));
+
+                > * {
+                    width: auto;
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
     // center
-    &:not(.mini) {
+    &:not(.mini),
+    &:not(.mini) > wrapper {
         align-items: center;
         justify-content: center;
 
@@ -1181,6 +1205,7 @@ p key {
             flex-grow: 0;
         }
     }
+
 
     .head {
         display: flex;
@@ -1244,7 +1269,9 @@ p key {
         }
     }
     &.medium-large {
-        @include spacing-v-children(var(--spacing-small));
+        &, > wrapper  {
+            @include spacing-v-children(var(--spacing-small));
+        }
 
         .head {
             @include spacing-h-children(var(--spacing-small-medium));
@@ -1259,7 +1286,9 @@ p key {
         }
     }
     &.large {
-        @include spacing-v-children(var(--spacing-medium-large));
+        &, > wrapper  {
+            @include spacing-v-children(var(--spacing-medium-large));
+        }
 
         @media (min-width: $doc-half-m) {
             padding: var(--spacing-large-super);
@@ -1355,7 +1384,7 @@ p key {
         padding-right: var(--spacing-medium-large);
         box-sizing: content-box;
 
-        transform: rotateZ(0.05deg); // anti-aliasing
+        transform: rotateZ(0.03deg); // anti-aliasing
         > * {
             size: 100%;
         }
@@ -1436,7 +1465,7 @@ p key {
         @media (max-width: $doc-phone) {
             padding-left: calc(var(--doc-col-width) / 2);
 
-            wrapper {
+            > wrapper {
                 padding-left: var(--offset-grid);
             }
         }
@@ -1452,7 +1481,7 @@ p key {
         @media (max-width: $doc-phone) {
             padding-right: calc(var(--doc-col-width) / 2);
 
-            wrapper {
+            > wrapper {
                 padding-right: var(--offset-grid);
             }
         }
