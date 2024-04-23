@@ -842,7 +842,7 @@ function sliderInfinite_idle(targetSlider, index) {
                 if (targetSlider.classList.contains("is-inview")) {
                     animate(index);
                 }
-                else if(ScrollMain.lenisInstance.targetScroll < 5) { // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
+                else if(ScrollMain && ScrollMain.lenisInstance.targetScroll < 5) { // hotfix : locomotive bug? : class [is-inview] is removed at [scroll-position = 0]
                     animate(0); // [index = 0] : only on the first slider because performances
                 }
 
@@ -991,7 +991,7 @@ function animOnView_initTxt() {
 }
 function animOnView_txt_revertSplit(target) {
     target.setAttribute("y-animonview-state", "finished");
-    SplitType.revert(target);
+    SplitType.revert(target); // TOFIX
 }
 window.addEventListener('animOnView-perWord', (e) => {
     const { target } = e.detail,
@@ -1087,6 +1087,13 @@ function animOnView_initElements() {
         "slideInStaggerEach": {
             offsetView: animOnView.animations.slideIn.offsetView,
             each: animOnView.staggerEachDefault,
+        },
+        "y-sliderInfinite": {
+            elements: [
+                ...doc.querySelectorAll("*[y-slider-infinite] .slider-items-group:first-child"),
+            ],
+            offsetView: animOnView.animations.slideIn.offsetView,
+            initAnim: "children",
         },
     };
 
@@ -1188,7 +1195,7 @@ window.addEventListener('animOnView-glideInStagger', (e) => {
     anime({
         targets: target.children,
         duration: animDuration,
-        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+        delay: anime.stagger(animStagger, { easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)' }),
         easing: animOnView.slideEasing,
 
         ...animOnView.animations.glideIn.animProperties,
@@ -1239,7 +1246,7 @@ window.addEventListener('animOnView-slideInStagger', (e) => {
     anime({
         targets: target.children,
         duration: animDuration,
-        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+        delay: anime.stagger(animStagger, { easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)' }),
         easing: animOnView.slideEasing,
 
         ...animOnView.animations.slideIn.animProperties,
@@ -1301,6 +1308,22 @@ window.addEventListener('animOnView-slideInStaggerEach', (e) => {
         ...animOnView.animations.slideIn.animProperties,
     });
 });
+window.addEventListener('animOnView-y-sliderInfinite', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = 300 * splitCount,
+          animStagger  = 150;
+
+    anime({
+        targets: target.children,
+        duration: animDuration,
+        delay: anime.stagger(animStagger, { start: 200, easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)' }),
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.slideIn.animProperties,
+    });
+});
+
 
 // SCROLL CALLBACKS
 function ScrollMain_onScroll({ scroll, limit, velocity, direction, progress }) {
@@ -1370,11 +1393,11 @@ function init() {
     footer_init();
     zoomInScroll_init();
     animOnView_initElements();
+    sliderInfinite_init();
 
-    ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
     setTimeout(() => {
+        ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
         ScrollMain_onScroll({});
-        sliderInfinite_init();
     }, 50);
 
     if (pageID == "about") {
