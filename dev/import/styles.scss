@@ -1024,7 +1024,7 @@ html:not(.lenis) { // fallback
         transform: translate(0, 0) !important;
     }
 }
-*[y-animonview-splittxt]:not([y-animonview-state="finished"]) {
+*[y-animonview-splittxt]:not([y-animonview-state="finished"]) { // only when animating
     position: relative;
     display: inline-block;
     // font-kerning: none;
@@ -1140,6 +1140,7 @@ html:not(.lenis) { // fallback
 
 // CONTENT CARDS
 .card-content {
+    position: relative;
     box-sizing: border-box;
     width: 100%;
     height: auto;

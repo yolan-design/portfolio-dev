@@ -15,6 +15,11 @@ import SplitType from 'split-type';
 import hotkeys from 'hotkeys-js';
 
 
+SplitType.setDefaults({
+    tagName: "span",
+});
+
+
 // GLOBAL VARIABLES
 const doc = document.documentElement,
       docSizePhone = 700;
@@ -315,13 +320,12 @@ function translateElements({
             } else {
                 el.innerText = translation;
             }
-            console.log("t");
         })
     }
 
     footerCTA_copiedNotif_alt = translateGet({id : "footer-cta-email-click-notif--array", getPage : "_general"});
 
-    animOnView_init();
+    animOnView_initTxt();
 }
 
 // TRANSLATE SWITCHES
@@ -329,10 +333,6 @@ let translateSwitches;
 function translateSwitches_init() {
     translateSwitches = doc.querySelectorAll("[translate-switch]");
     if(translateSwitches) {
-        function rgsstsh() {
-
-        }
-
         translateSwitches.forEach((btn) => {
             if (!btn.onclick) {
                 btn.onclick = () => {
@@ -884,82 +884,126 @@ function sliderInfinite_dragMove(e) {
 
 // ANIMATE ON VIEW
 // TOFIX home approche cards dynamic color transition not smooth
-function animOnView_init() {
-    const ELEMENTS = {
-        perWord: [
-            ...doc.querySelectorAll("*[y-animonview--id='per-word']"),
-            ...doc.querySelectorAll("h2:not([y-animonview--ignore])"),
-            ...doc.querySelectorAll("h3:not([y-animonview--ignore])"),
-        ],
-        fadeIn:  [
-            ...doc.querySelectorAll("*[y-animonview--id='fade-in']"),
-            ...doc.querySelectorAll(".section-side_to_side .content-container:not([y-animonview--ignore-children]) .content"),
-            ...doc.querySelectorAll("*[nav-anchor-section^='transition-'] .content-container:not([y-animonview--ignore-children]) .content"),
-        ],
+function animOnView_initApply(A_GROUPS, isSplitTxt) {
+    // apply functions
+    function initAnim(elInitAnim, check) {
+        if (check == "self") {
+            elInitAnim.style.opacity = 0;
+        }
+        if (check == "children") {
+            const gr = (elInitAnim.hasAttribute("y-animonview--target")) ? elInitAnim.querySelectorAll(elInitAnim.getAttribute("y-animonview--target")) : elInitAnim.children;
+            [...gr].forEach((elInitAnimChild) => {
+                elInitAnimChild.style.opacity = 0;
+            })
+        }
+    }
+    function initAttributes(elInitAttr, elGroupName) {
+        elInitAttr.setAttribute("data-scroll", "");
+        elInitAttr.setAttribute("data-scroll-offset", ((A_GROUPS[elGroupName].offsetView != undefined) ? (A_GROUPS[elGroupName].offsetView).toString() : "0") +",0");
+        elInitAttr.setAttribute("data-scroll-call", "animOnView-"+ elGroupName);
+
+        if (isSplitTxt) {
+            elInitAttr.setAttribute("y-animonview-splittxt", "");
+            elInitAttr.setAttribute("y-animonview-state", "");
+        }
     }
 
-    // per word
-    if (ELEMENTS.perWord) {
-        ELEMENTS.perWord.forEach((el) => {
-            if (!el.classList.contains("is-inview")) { // not if already animated
-                el.setAttribute("y-animonview", "true");
-                el.setAttribute("y-animonview-splittxt", "");
-                el.setAttribute("y-animonview-state", "");
+    // logic
+    Object.keys(A_GROUPS).forEach((elGroupName) => {
+        A_GROUPS[elGroupName].elements.forEach((el) => {
+            // split txt
+            if (isSplitTxt) {
+                if (!el.classList.contains("is-inview")) { // ignore if already animated
+                    initAttributes(el, elGroupName);
 
-                el.setAttribute("data-scroll", "");
-                el.setAttribute("data-scroll-offset", "22.5%,0");
-                el.setAttribute("data-scroll-call", "animOnView_perWord");
+                    SplitType.clearData();
+                    SplitType.create(el, {
+                        types: (A_GROUPS[elGroupName].splitTxt != undefined) ? A_GROUPS[elGroupName].splitTxt : "words",
+                    });
 
-                SplitType.clearData();
-                SplitType.create(el, {
-                    types: "words",
-                    tagName: "span",
-                });
+                    setTimeout(() => {
+                        initAnim(el, (A_GROUPS[elGroupName].initAnim != undefined) ? A_GROUPS[elGroupName].initAnim : "children");
+                    }, 5);
+                }
+            }
 
-                // init anim
-                setTimeout(() => {
-                    [...el.children].forEach((elSplit) => {
-                        elSplit.style.opacity = 0;
-                    })
-                }, 5);
+            // other elements
+            else {
+                if (!el.hasAttribute("y-animonview")) { // ignore if already set
+                    el.setAttribute("y-animonview", "true");
+
+                    const each = (A_GROUPS[elGroupName].each != undefined) ? A_GROUPS[elGroupName].each : false;
+                    if (!each) {
+                        initAttributes(el, elGroupName);
+                        initAnim(el, (A_GROUPS[elGroupName].initAnim != undefined) ? A_GROUPS[elGroupName].initAnim : "self");
+                    }
+                    else {
+                        let delay = 0;
+                        [...el.children].forEach((elChild) => {
+                            initAttributes(el, elGroupName);
+                            initAnim(elChild, "self");
+
+                            elChild.setAttribute("y-animonview-stagger-delay", delay);
+                            delay += each;
+                        })
+                    }
+                }
             }
         })
-    }
-
-    // fade in
-    if (ELEMENTS.fadeIn) {
-        ELEMENTS.fadeIn.forEach((el) => {
-            if (el.getAttribute("y-animonview") != "true") { // not if already set
-                el.setAttribute("y-animonview", "true");
-
-                el.setAttribute("data-scroll", "");
-                el.setAttribute("data-scroll-offset", "15%,0");
-                el.setAttribute("data-scroll-call", "animOnView_fadeIn");
-
-                // init anim
-                el.style.opacity = 0;
-            }
-        })
-    }
+    })
 }
 
+let animOnView = {}
+
+function animOnView_initTxt() {
+    let ANIM_GROUPS = {
+        "perWord": {
+            elements: [
+                ...doc.querySelectorAll("h2:not([y-animonview--ignore])"),
+                ...doc.querySelectorAll("h3:not([y-animonview--ignore])"),
+            ],
+            offsetView: "25%",
+            splitTxt: "words",
+        },
+    };
+
+    // set up [elements] array if not already existing
+    Object.keys(ANIM_GROUPS).forEach((elGroupName) => {
+        if (!ANIM_GROUPS[elGroupName].elements) {
+            ANIM_GROUPS[elGroupName].elements = [];
+        }
+    })
+
+    // automatically add elements with id specified
+    doc.querySelectorAll("*[y-animonview--id-txt]").forEach((elAnimOnView) => {
+        ANIM_GROUPS[elAnimOnView.getAttribute("y-animonview--id-txt")].elements.push(elAnimOnView);
+    })
+
+    // apply init
+    animOnView_initApply(ANIM_GROUPS, true);
+
+    /* if (ANIM_GROUPS["perWord"]) {
+        ANIM_GROUPS["perWord"].forEach((el) => {
+            if (!el.classList.contains("is-inview")) {
+            }
+        })
+    }; */
+}
 function animOnView_txt_revertSplit(target) {
     target.setAttribute("y-animonview-state", "finished");
-    SplitType.revert(target); console.log("t");
+    SplitType.revert(target);
 }
-
-window.addEventListener('animOnView_perWord', (e) => {
+window.addEventListener('animOnView-perWord', (e) => {
     const { target } = e.detail,
           splitCount = target.children.length,
-          animDuration = ((splitCount > 7) ? 135 : 300) * splitCount,
-          animStagger  = ((splitCount > 7) ? 115 : (splitCount > 4) ? 150 : 200);
+          animDuration = ((splitCount > 7) ? 140 : ((splitCount > 3) ? 275 : 335)) * splitCount,
+          animStagger  = ((splitCount > 7) ? 110 : ((splitCount > 3) ? 220 : 235));
 
     anime({
         targets: target.children,
-        easing: "easeOutExpo",
         duration: animDuration,
-        // delay: (el, i) => ( 100 * i * ((i == splitCount - 1) ? 1.1 : 1) ),
-        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}), // delay: (el, i) => ( 100 * i * ((i == splitCount - 1) ? 1.1 : 1) ),
+        easing: "cubicBezier(0.25, 0.8, 0, 1)",
 
         translateY: ["35%", "0%"],
         rotateZ: 0.03,
@@ -967,19 +1011,294 @@ window.addEventListener('animOnView_perWord', (e) => {
             value : [0, 1],
             duration : animDuration * 1.2,
         },
+
         update: (anim) => { if (anim.progress == 100) { animOnView_txt_revertSplit(target); } },
     });
 });
-window.addEventListener('animOnView_fadeIn', (e) => {
+
+animOnView.slideEasing = "cubicBezier(0.2, 0.7, 0.15, 1)";
+animOnView.fadeEasing = "cubicBezier(0.45, 0.3, 0.1, 0.95)";
+animOnView.staggerEachDefault = 100;
+
+animOnView.animations = {};
+    animOnView.animations.fadeIn = {};
+        animOnView.animations.fadeIn.offsetView = "20%";
+    animOnView.animations.glideIn = {};
+        animOnView.animations.glideIn.offsetView = 175;
+        animOnView.animations.glideIn.animProperties = {
+            translateY: [animOnView.animations.glideIn.offsetView, "0"],
+            opacity: {
+                value: [0, 1],
+                duration: 800,
+            },
+        };
+    animOnView.animations.slideIn = {};
+        animOnView.animations.slideIn.offsetView = "25%";
+        animOnView.animations.slideIn.offsetView2 = "30%";
+        animOnView.animations.slideIn.animProperties = {
+            translateY: ["12rem", "0"],
+            opacity: {
+                value: [0, 1],
+                duration: 1300,
+            },
+        };
+function animOnView_initElements() {
+    let ANIM_GROUPS = {
+        "fadeIn": {
+            elements: [
+                ...doc.querySelectorAll(".section-side_to_side .content-container:not([y-animonview--ignore-children]) .content"),
+                ...doc.querySelectorAll("*[nav-anchor-section^='transition-'] .content-container:not([y-animonview--ignore-children]) .content"),
+            ],
+            offsetView: animOnView.animations.fadeIn.offsetView,
+        },
+        "fadeInStagger": {
+            offsetView: animOnView.animations.fadeIn.offsetView,
+            initAnim: "children",
+        },
+        "fadeInStagger2": {
+            offsetView: animOnView.animations.fadeIn.offsetView,
+            initAnim: "children",
+        },
+        "glideIn": {
+            offsetView: animOnView.animations.glideIn.offsetView,
+        },
+        "glideInStagger": {
+            offsetView: animOnView.animations.glideIn.offsetView,
+            initAnim: "children",
+        },
+        "glideInStaggerEach": {
+            offsetView: animOnView.animations.glideIn.offsetView,
+            each: animOnView.staggerEachDefault,
+        },
+        "glideInDirectional": {
+            offsetView: animOnView.animations.glideIn.offsetView,
+        },
+        "slideIn": {
+            offsetView: animOnView.animations.slideIn.offsetView,
+        },
+        "slideInStagger": {
+            offsetView: animOnView.animations.slideIn.offsetView,
+            initAnim: "children",
+        },
+        "slideInStagger2": {
+            offsetView: animOnView.animations.slideIn.offsetView2,
+            initAnim: "children",
+        },
+        "slideInStaggerEach": {
+            offsetView: animOnView.animations.slideIn.offsetView,
+            each: animOnView.staggerEachDefault,
+        },
+    };
+
+    // set up [elements] array if not already existing
+    Object.keys(ANIM_GROUPS).forEach((elGroupName) => {
+        if (!ANIM_GROUPS[elGroupName].elements) {
+            ANIM_GROUPS[elGroupName].elements = [];
+        }
+    })
+
+    // automatically add elements with id specified
+    doc.querySelectorAll("*[y-animonview--id]").forEach((elAnimOnView) => {
+        ANIM_GROUPS[elAnimOnView.getAttribute("y-animonview--id")].elements.push(elAnimOnView);
+    })
+    doc.querySelectorAll("*[y-animonview--id-children]").forEach((elAnimOnView) => {
+        ANIM_GROUPS[elAnimOnView.getAttribute("y-animonview--id-children")].elements.push(...elAnimOnView.children);
+    })
+    doc.querySelectorAll("*[y-animonview--id-children-wrapper]").forEach((elAnimOnView) => {
+        ANIM_GROUPS[elAnimOnView.getAttribute("y-animonview--id-children-wrapper")].elements.push(...elAnimOnView.children.querySelector("wrapper"));
+    })
+
+    // apply init
+    animOnView_initApply(ANIM_GROUPS);
+}
+window.addEventListener('animOnView-fadeIn', (e) => {
     const { target } = e.detail;
 
     anime({
         targets: target,
-        easing: "easeInOutQuad",
-        duration: 800,
+        duration: 1000,
         delay: 150,
+        easing: animOnView.fadeEasing,
 
         opacity: [0, 1],
+    });
+});
+window.addEventListener('animOnView-fadeInStagger', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = 200 * splitCount,
+          animStagger  = 200;
+
+    anime({
+        targets: target.children,
+        duration: animDuration,
+        delay: anime.stagger(animStagger, { start: 200 }),
+        easing: animOnView.fadeEasing,
+
+        opacity: [0, 1],
+    });
+});
+window.addEventListener('animOnView-fadeInStagger2', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = 175 * splitCount,
+          animStagger  = 275;
+
+    let targetSortCount = 0,
+        target1 = [],
+        target2 = [];
+    [...target.children].forEach((child) => {
+        if (targetSortCount % 2) { target1.push(child); } else { target2.push(child); }
+        targetSortCount++
+    });
+
+    const animationSettings = {
+        duration: animDuration,
+        delay: anime.stagger(animStagger, { start: 200 }),
+        easing: animOnView.fadeEasing,
+
+        opacity: [0, 1],
+    }
+    anime({
+        targets: target1,
+        ...animationSettings,
+    });
+    anime({
+        targets: target2,
+        ...animationSettings,
+    });
+});
+window.addEventListener('animOnView-glideIn', (e) => {
+    const { target } = e.detail;
+
+    anime({
+        targets: target,
+        duration: 1000,
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.glideIn.animProperties,
+    });
+});
+window.addEventListener('animOnView-glideInStagger', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = 300 * splitCount,
+          animStagger  = 115;
+
+    anime({
+        targets: target.children,
+        duration: animDuration,
+        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.glideIn.animProperties,
+    });
+});
+window.addEventListener('animOnView-glideInStaggerEach', (e) => {
+    const { target } = e.detail;
+
+    anime({
+        targets: target,
+        duration: 1000,
+        delay: parseInt(target.getAttribute("y-animonview-stagger-delay")),
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.glideIn.animProperties,
+    });
+});
+window.addEventListener('animOnView-glideInDirectional', (e) => { // TODO
+    const { target } = e.detail,
+          translate = animOnView.animations.glideIn.offsetView * ((getCenterOfEl(target)[1] > doc.clientWidth / 2) ? -1 : 1);
+
+    anime({
+        targets: target,
+        duration: 1000,
+        easing: animOnView.slideEasing,
+
+        translateX: [translate, 0],
+        opacity : animOnView.animations.glideIn.animProperties.opacity,
+    });
+});
+window.addEventListener('animOnView-slideIn', (e) => {
+    const { target } = e.detail;
+
+    anime({
+        targets: target,
+        duration: 1000,
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.slideIn.animProperties,
+    });
+});
+window.addEventListener('animOnView-slideInStagger', (e) => {
+    const { target } = e.detail,
+          splitCount = target.children.length,
+          animDuration = 300 * splitCount,
+          animStagger  = 115;
+
+    anime({
+        targets: target.children,
+        duration: animDuration,
+        delay: anime.stagger(animStagger, {easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)'}),
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.slideIn.animProperties,
+    });
+});
+window.addEventListener('animOnView-slideInStagger2', (e) => {
+    const { target } = e.detail,
+          targetGroup = (target.hasAttribute("y-animonview--target")) ? target.querySelectorAll(target.getAttribute("y-animonview--target")) : target.children,
+          splitCount = targetGroup.length,
+          animDuration = 200 * splitCount,
+          animStagger  = 200;
+
+    let targetSortCount = 1,
+        target1 = [],
+        target2 = [];
+    [...targetGroup].forEach((child) => {
+        if (targetSortCount % 2) { target1.push(child); } else { target2.push(child); }
+        targetSortCount++
+    });
+
+    const animationSettings = {
+        duration: animDuration,
+        delay: anime.stagger(animStagger),
+        easing: animOnView.slideEasing,
+
+        opacity : {
+            ...animOnView.animations.slideIn.animProperties.opacity,
+            delay: anime.stagger(animStagger, { start: 100 }),
+        },
+    };
+
+    let animationSettingsTranslateAlt;
+    if (target.hasAttribute("y-animonview--anim-alt")) {
+        animationSettingsTranslateAlt = [{ left: ["-12rem", 0] }, { right: ["-12rem", 0] }];
+    } else {
+        animationSettingsTranslateAlt = [{ translateX: ["-12rem", 0] }, { translateX: ["12rem", 0] }];
+    };
+
+    anime({
+        targets: target1,
+        ...animationSettings,
+        ...animationSettingsTranslateAlt[0],
+    });
+    anime({
+        targets: target2,
+        ...animationSettings,
+        ...animationSettingsTranslateAlt[1],
+    });
+});
+window.addEventListener('animOnView-slideInStaggerEach', (e) => {
+    const { target } = e.detail;
+
+    anime({
+        targets: target,
+        duration: 1000,
+        delay: parseInt(target.getAttribute("y-animonview-stagger-delay")),
+        easing: animOnView.slideEasing,
+
+        ...animOnView.animations.slideIn.animProperties,
     });
 });
 
@@ -1040,7 +1359,6 @@ swup.hooks.on('visit:start', () => {
 });
 
 
-
 // -- INIT
 function init() {
     getPageID();
@@ -1051,11 +1369,12 @@ function init() {
     navAnchors_scrollTo();
     footer_init();
     zoomInScroll_init();
-    sliderInfinite_init();
+    animOnView_initElements();
 
+    ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
     setTimeout(() => {
-        ScrollMain = new LocomotiveScroll(ScrollMain_options.global);
         ScrollMain_onScroll({});
+        sliderInfinite_init();
     }, 50);
 
     if (pageID == "about") {
@@ -1067,6 +1386,7 @@ function init() {
 if (document.readyState === 'complete') { init(); } else { document.addEventListener('DOMContentLoaded', () => init()); }
 // Run after every additional navigation by swup
 swup.hooks.on('page:view', () => init());
+
 
 // -- CLEANUP at unload
 swup.hooks.before('content:replace', () => {
