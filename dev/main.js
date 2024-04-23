@@ -883,17 +883,16 @@ function sliderInfinite_dragMove(e) {
 
 
 // ANIMATE ON VIEW
-// TOFIX home approche cards dynamic color transition not smooth
 function animOnView_initApply(A_GROUPS, isSplitTxt) {
     // apply functions
     function initAnim(elInitAnim, check) {
         if (check == "self") {
-            elInitAnim.style.opacity = 0;
+            elInitAnim.style.opacity = 0.001;
         }
         if (check == "children") {
             const gr = (elInitAnim.hasAttribute("y-animonview--target")) ? elInitAnim.querySelectorAll(elInitAnim.getAttribute("y-animonview--target")) : elInitAnim.children;
             [...gr].forEach((elInitAnimChild) => {
-                elInitAnimChild.style.opacity = 0;
+                elInitAnimChild.style.opacity = 0.001;
             })
         }
     }
