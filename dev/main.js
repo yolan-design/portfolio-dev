@@ -628,7 +628,7 @@ function footerContactReveal_onScroll() {
     const elParentRect = footerContactWrapper.parentElement.getBoundingClientRect(),
           progressFactor = mapRangeClamp(((elParentRect.top - doc.clientHeight) * -1.05), 0, elParentRect.height, 0, 1);
 
-    footerContactWrapper.style.opacity = progressFactor;
+    doc.style.setProperty("--footer-reveal-progress", progressFactor);
     footerContactWrapper.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
 }
 
