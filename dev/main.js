@@ -900,6 +900,7 @@ function animOnView_initApply(A_GROUPS, isSplitTxt) {
         elInitAttr.setAttribute("data-scroll", "");
         elInitAttr.setAttribute("data-scroll-offset", ((A_GROUPS[elGroupName].offsetView != undefined) ? (A_GROUPS[elGroupName].offsetView).toString() : "0") +",0");
         elInitAttr.setAttribute("data-scroll-call", "animOnView-"+ elGroupName);
+        if (A_GROUPS[elGroupName].repeat) { elInitAttr.setAttribute("data-scroll-repeat", ""); }
 
         if (isSplitTxt) {
             elInitAttr.setAttribute("y-animonview-splittxt", "");
@@ -1043,6 +1044,15 @@ animOnView.animations = {};
         };
 function animOnView_initElements() {
     let ANIM_GROUPS = {
+        /*
+            elements: [
+                ...doc.querySelectorAll(""),
+            ],
+            offsetView: 0,
+            initAnim: "children",
+            each: animOnView.staggerEachDefault,
+            repeat: true,
+        */
         "fadeIn": {
             elements: [
                 ...doc.querySelectorAll(".section-side_to_side .content-container:not([y-animonview--ignore-children]) .content"),
