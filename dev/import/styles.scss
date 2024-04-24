@@ -1454,6 +1454,10 @@ html:not(.lenis) { // fallback
 
         @media (max-width: $doc-phone) {
             grid-column: 1 / -2;
+
+            width: 100%;
+            width: calc(100% + var(--doc-margin2));
+            margin-left: var(--doc-margin2);
         }
     }
     > .content-container:nth-child(2) {
@@ -1492,6 +1496,9 @@ html:not(.lenis) { // fallback
 
         @media (max-width: $doc-phone) {
             grid-column: 2 / -1;
+
+            width: 100%;
+            width: calc(100% + var(--doc-margin2));
         }
     }
 

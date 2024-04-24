@@ -33,6 +33,7 @@
     --doc-txt-size-mobile: 7.25px;
     --doc-grid-nb: 12;
     --doc-margin: 8rem;
+    --doc-margin2: calc(var(--doc-margin) / 2);
     --doc-margin-small: 3rem;
     --doc-margin-small-offset: calc(var(--doc-margin) - var(--doc-margin-small));
     --doc-margin-small-offset-i: calc(var(--doc-margin-small-offset) * -1);
