@@ -268,7 +268,7 @@ let components = {
         <span %translate%></span>
     </a>
 </div>`
-       ,"y-component.icon-arrow" : `<svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>`
+       ,"y-component.icon-arrow" : `<svg %attributes% viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>`
     }
 }
 
@@ -278,7 +278,8 @@ function components_init() {
 
         // replace
         elements.forEach((el) => {
-            let elAttributes = el.attributes,
+            let newComponentHTML = sel[1],
+                elAttributes = el.attributes,
                 elAttributesA = "",
                 elAttributesYC = [];
 
@@ -308,11 +309,17 @@ function components_init() {
                 }
             })
 
-            sel[1] = sel[1].replace("%attributes%", elAttributesA);
+            // apply attributes
+            newComponentHTML = newComponentHTML.replace("%attributes%", elAttributesA);
             elAttributesYC.forEach((attrYC) => {
-                sel[1] = sel[1].replace(`%${attrYC[0]}%`, attrYC[1]);
-            })
-            el.outerHTML = sel[1];
+                newComponentHTML = newComponentHTML.replace(`%${attrYC[0]}%`, attrYC[1]);
+            });
+
+            // cleanup
+            newComponentHTML = newComponentHTML.replace(/\%(\w\S*?)\%/, "");
+
+            //import
+            el.outerHTML = newComponentHTML;
         });
     });
 }
