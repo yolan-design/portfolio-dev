@@ -753,7 +753,7 @@ footer-contact {
         }
     }
 
-    &::before {
+    /* &::before { // not needed anymore bc footer-reveal : section:last has border-bottom
         content: "";
         position: absolute;
         bottom: 99%;
@@ -762,7 +762,7 @@ footer-contact {
         // height: calc(var(--doc-corner-big) + 2%);
         height: 50vh;
         background-color: var(--bg);
-    }
+    } */
 
     @media (max-width: $doc-phone) {
         .tip-hover-bottom {
@@ -784,7 +784,7 @@ footer-contact {
 }
 
 // footer reveal
-section:last-of-type,
+section:last-of-type, .footer-reveal-animate-shift,
 footer-cta,
 footer-cta wrapper {
     /* transition: transform var(--onscroll-transition);
@@ -792,7 +792,7 @@ footer-cta wrapper {
     transition-delay: 0s; */
     transition: none;
 }
-section:last-of-type,
+section:last-of-type, .footer-reveal-animate-shift,
 footer-cta {
     --footer-reveal-scale-section: calc(0.05 * var(--footer-reveal-progress, 0));
     @media (max-width: $doc-phone) {
@@ -806,27 +806,28 @@ footer-cta wrapper {
     transform-origin: top;
 }
 
-section:last-of-type {
+section:last-of-type, .footer-reveal-animate-shift {
     transform-origin: bottom;
     background-color: var(--bg);
 
     &::before { // footer fill behind
         content: "";
-        z-index: -1;
+        z-index: -2;
         position: absolute;
         top: 0;
-        left: -50px;
         width: 100%;
         height: 100%;
-
         background-color: transparent;
-        border: 50px solid var(--fill);
+
+        left: -500rem;
+        border: 500rem solid var(--fill);
         border-top-width: 0;
         box-sizing: content-box;
         pointer-events: none;
     }
     &::after { // between
         content: "";
+        z-index: -1;
         position: absolute;
         top: 99%;
         left: 0;
