@@ -251,6 +251,73 @@ function getPageID() {
 }
 
 
+// COMPONENTS
+let components = {
+    selectors : {
+        "y-component.btn-pill[yc-type--button]" : `
+<div %attributes%>
+    <button class="btn-interaction" %action%>
+        <y-component class="icon-arrow"></y-component>
+        <span %translate%></span>
+    </button>
+</div>`
+       ,"y-component.btn-pill[yc-type--a]" : `
+<div %attributes%>
+    <a class="btn-interaction" %action%>
+        <y-component class="icon-arrow"></y-component>
+        <span %translate%></span>
+    </a>
+</div>`
+       ,"y-component.icon-arrow" : `<svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>`
+    }
+}
+
+function components_init() {
+    Object.entries(components.selectors).forEach((sel) => {
+        const elements = doc.querySelectorAll(sel[0]);
+
+        // replace
+        elements.forEach((el) => {
+            let elAttributes = el.attributes,
+                elAttributesA = "",
+                elAttributesYC = [];
+
+            Object.entries(elAttributes).forEach((attr) => {
+                if (attr[1].name.match(/^(yc-attr--)/)) {
+                    const replaceID = attr[1].name.match(/(yc-attr--)(.*?)(--)/)[2],
+                          newAttr = ` ${attr[1].name.replace(/(yc-attr--)[\s\S]*?(--)/, "")}="${attr[1].value}"`;
+
+                    // check if need to group attributes to go at the same place
+                    let checkAlreadyExist = false;
+                    // for (const attrYC of elAttributesYC) { if (attrYC[0] == replaceID) { checkAlreadyExist = true; break; } };
+                    for (let i = 0; i < elAttributesYC.length; i++) {
+                        if (elAttributesYC[i][0] == replaceID) {
+                            checkAlreadyExist = i; // set index of already existing replaceID
+                            break;
+                        }
+                    };
+
+                    if (checkAlreadyExist) { // group
+                        elAttributesYC[checkAlreadyExist][1] += newAttr;
+                    } else { // new replaceID
+                        elAttributesYC.push([replaceID, newAttr]);
+                    }
+                }
+                else if (!attr[1].name.match(/^(yc-type--)/)) {
+                    elAttributesA += ` ${attr[1].name}="${attr[1].value}"`
+                }
+            })
+
+            sel[1] = sel[1].replace("%attributes%", elAttributesA);
+            elAttributesYC.forEach((attrYC) => {
+                sel[1] = sel[1].replace(`%${attrYC[0]}%`, attrYC[1]);
+            })
+            el.outerHTML = sel[1];
+        });
+    });
+}
+
+
 // LANG
 let LANG = {
     translations : DATA_LANG.translations,
@@ -1395,6 +1462,7 @@ swup.hooks.on('visit:start', () => {
 function init() {
     getPageID();
 
+    components_init();
     translateElements({});
     translateSwitches_init();
     navAnchors_init();
