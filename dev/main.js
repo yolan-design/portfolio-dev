@@ -243,7 +243,7 @@ function boomAnim({
 // CURRENT PAGE
 let pageID;
 function getPageID() {
-    pageID = window.location.pathname.split("/")
+    pageID = window.location.pathname.split("/");
     if (pageID[pageID.length -1] == "") { pageID.pop(); }
     pageID = pageID[pageID.length -1];
     pageID = (pageID == "") ? "home" : pageID;
