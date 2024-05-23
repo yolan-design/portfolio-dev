@@ -13,7 +13,13 @@ fg.sync(["dev/**/*index.html"]).forEach(file => {
 })
 console.info("<->", pagesArray.length, "\u001b[1;32mpage"+((pagesArray.length>1) ? "s" : "") +"\u001b[0m");
 for (let i = 0; i < pagesArray.length; i++) {
-    console.log("<"+(i+1)+">", "\u001b[1;30m"+ pagesArray[i].join(' · ') +"\u001b[0m");
+    // console.log("<"+(i+1)+">", "\u001b[1;30m"+ pagesArray[i].join(' · ') +"\u001b[0m");
+    console.log(
+        "<"+(i+1)+">",
+        "\u001b[1;30m"+
+        pagesArray[i].join(' · ').replace(/(·)\s\d\s(·)/, "· \u001b[1;33m"+ pagesArray[i][1] +"\u001b[1;30m ·")
+        +"\u001b[0m"
+    );
 }
 console.info("\n");
 
