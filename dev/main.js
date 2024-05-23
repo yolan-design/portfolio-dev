@@ -425,9 +425,9 @@ const ScrollMain_options = {
         lenisOptions: {
             smoothWheel: true,
             smoothTouch: false,
-            wheelMultiplier: 0.95,
-            duration: 1.2,
-            easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6.1 * x)), // https://www.desmos.com/calculator/brs54l4xou
+            wheelMultiplier: 0.9,
+            duration: 1.025,
+            easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6 * x)), // https://www.desmos.com/calculator/brs54l4xou
             orientation: 'vertical',
             gestureOrientation: 'vertical',
         },
