@@ -512,8 +512,8 @@ function dynamicColorUpdate(el) {
         anime({
             targets: colorsVar,
             easing: 'easeInOutCubic',
-            duration: 2000,
-            round: 100,
+            duration: 1350,
+            round: 10,
 
             dynamicLift: [DYNAMIC_COLORS.applied.lift, el.getAttribute("dynamic_color-lift")],
             dynamicAccent: [DYNAMIC_COLORS.applied.accent, el.getAttribute("dynamic_color-accent")],
