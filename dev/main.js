@@ -704,6 +704,8 @@ function footerContactReveal_onScroll() {
 
     doc.style.setProperty("--footer-reveal-progress", progressFactor);
     footerContactWrapper.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
+
+    doc.style.scrollbarColor = (progressFactor > 0) ? "var(--bg) var(--fill)" : null;
 }
 
 
