@@ -1403,7 +1403,12 @@ window.addEventListener('animOnView-y-sliderInfinite', (e) => {
         delay: anime.stagger(animStagger, { start: 200, easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)' }),
         easing: animOnView.slideEasing,
 
-        ...animOnView.animations.slideIn.animProperties,
+        // ...animOnView.animations.slideIn.animProperties,
+        translateY: animOnView.animations.slideIn.animProperties.translateY,
+        opacity: {
+            ...animOnView.animations.slideIn.animProperties.opacity,
+            delay: anime.stagger(animStagger, { start: 200, easing: 'cubicBezier(0.5, 0.55, 0.7, 0.5)' }),
+        }
     });
 });
 
