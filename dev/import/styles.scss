@@ -657,7 +657,16 @@ svg {
         stroke-width: var(--stroke-width);
         stroke-linecap: round;
     }
+
+    &.animate {
+
+    }
 }
+button, a {
+    .icon-arrow.animate {
+
+    }
+} // TODO
 
 @keyframes scroll-down-notice {
     0%   { transform: translate3d(0, -120%, 0) rotateZ(90deg); }
