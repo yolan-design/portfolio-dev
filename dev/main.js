@@ -425,9 +425,9 @@ const ScrollMain_options = {
         lenisOptions: {
             smoothWheel: true,
             smoothTouch: false,
-            wheelMultiplier: 0.95,
-            duration: 1.2,
-            easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6.1 * x)), // https://www.desmos.com/calculator/brs54l4xou
+            wheelMultiplier: 0.9,
+            duration: 1.025,
+            easing: (x) => Math.min(1, 1.001 - Math.pow(5, -6 * x)), // https://www.desmos.com/calculator/brs54l4xou
             orientation: 'vertical',
             gestureOrientation: 'vertical',
         },
@@ -512,8 +512,8 @@ function dynamicColorUpdate(el) {
         anime({
             targets: colorsVar,
             easing: 'easeInOutCubic',
-            duration: 2000,
-            round: 100,
+            duration: 1350,
+            round: 10,
 
             dynamicLift: [DYNAMIC_COLORS.applied.lift, el.getAttribute("dynamic_color-lift")],
             dynamicAccent: [DYNAMIC_COLORS.applied.accent, el.getAttribute("dynamic_color-accent")],
@@ -704,6 +704,8 @@ function footerContactReveal_onScroll() {
 
     doc.style.setProperty("--footer-reveal-progress", progressFactor);
     footerContactWrapper.style.transform = "translate3d(0, "+ (-100 * (progressFactor - 1)) +"px, 0)"; // scale("+ (0.75 + progress / 4) +")
+
+    doc.style.scrollbarColor = (progressFactor > 0) ? "var(--bg) var(--fill)" : null;
 }
 
 
