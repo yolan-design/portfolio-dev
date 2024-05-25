@@ -891,6 +891,10 @@ nav-anchors {
     filter: saturate(1.6) brightness(0.9) contrast(1.3);
 }
 
+.opaque, .opaque-children > * {
+    background-color: var(--bg);
+}
+
 .high {
     display: inline-block;
     @include txt-normal;
@@ -1154,7 +1158,7 @@ html:not(.lenis) { // fallback
     width: 100%;
     height: auto;
 
-    background-color: transparent;
+    // background-color: transparent;
     &[data-scroll]:not(.no-border) {
         background-color: var(--bg);
     }
