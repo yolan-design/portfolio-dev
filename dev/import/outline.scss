@@ -70,7 +70,8 @@ html {
     --txt-size-morph: clamp(6px, 10px, var(--doc-scale-morph));
 
     font-size: var(--txt-size-morph);
-    scrollbar-color: var(--fill) var(--bg);
+    // scrollbar-color: var(--fill) var(--bg);
+    scrollbar-color: var(--accent) var(--lift);
 
     @media (max-width: $doc-phone) {
         --txt-size-ggrid: calc(var(--doc-txt-size-mobile) * 0.666 );
