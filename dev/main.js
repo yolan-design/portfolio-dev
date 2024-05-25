@@ -1072,7 +1072,7 @@ function animOnView_txt_revertSplit(target) {
 window.addEventListener('animOnView-perWord', (e) => {
     const { target } = e.detail,
           splitCount = target.children.length,
-          animDuration = ((splitCount > 7) ? 140 : ((splitCount > 3) ? 275 : 335)) * splitCount,
+          animDuration = ((splitCount > 7) ? 140 : ((splitCount > 3) ? 265 : 325)) * splitCount,
           animStagger  = ((splitCount > 7) ? 110 : ((splitCount > 3) ? 220 : 235));
 
     anime({
@@ -1085,7 +1085,7 @@ window.addEventListener('animOnView-perWord', (e) => {
         rotateZ: 0.03,
         opacity: {
             value : [0, 1],
-            duration : animDuration * 1.2,
+            duration : animDuration * 0.8,
         },
 
         update: (anim) => { if (anim.progress == 100) { animOnView_txt_revertSplit(target); } },
@@ -1098,7 +1098,7 @@ animOnView.staggerEachDefault = 100;
 
 animOnView.animations = {};
     animOnView.animations.fadeIn = {};
-        animOnView.animations.fadeIn.offsetView = "20%";
+        animOnView.animations.fadeIn.offsetView = "25%";
     animOnView.animations.glideIn = {};
         animOnView.animations.glideIn.offsetView = 175;
         animOnView.animations.glideIn.animProperties = {
@@ -1115,7 +1115,7 @@ animOnView.animations = {};
             translateY: ["12rem", "0"],
             opacity: {
                 value: [0, 1],
-                duration: 1300,
+                duration: 1000,
             },
         };
 function animOnView_initElements() {
@@ -1208,7 +1208,7 @@ window.addEventListener('animOnView-fadeIn', (e) => {
 
     anime({
         targets: target,
-        duration: 1000,
+        duration: 800,
         delay: 150,
         easing: animOnView.fadeEasing,
 
