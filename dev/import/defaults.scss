@@ -86,6 +86,13 @@ video {
     vertical-align: baseline;
 }
 
+textarea,
+input {
+    font: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+}
+
 button {
     background-color: transparent;
     border: none;
