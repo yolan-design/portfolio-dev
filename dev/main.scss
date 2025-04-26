@@ -1,17 +1,17 @@
-// @import './import/defaults.scss';
-// @import './import/fonts.scss';
-// @import './import/noscript-error.scss';
+@import './import/defaults.scss';
+@import './import/fonts.scss';
+@import './import/noscript-error.scss';
 
-// // DESIGN
-// @import './import/styles.scss';
-// @import './import/outline.scss';
+// DESIGN
+@import './import/styles.scss';
+@import './import/outline.scss';
 
-// // LIBRARIES
-// // @import './import/dependencies/loconative/loconative-scroll.css';
-// @import './import/dependencies/scroll/locomotive-scroll.css';
-// @import './import/dependencies/swup.scss';
+// LIBRARIES
+// @import './import/dependencies/loconative/loconative-scroll.css';
+@import './import/dependencies/scroll/locomotive-scroll.css';
+@import './import/dependencies/swup.scss';
 
-// // CONTENT
-// @import './import/page-home.scss';
-// @import './import/page-about.scss';
-// @import './import/page-portfolio.scss';
+// CONTENT
+@import './import/page-home.scss';
+@import './import/page-about.scss';
+@import './import/page-portfolio.scss';
