@@ -1,216 +1,210 @@
 <!DOCTYPE html>
-<html class="" translate="no" class="notranslate">
+<html>
 <head>
-    <%= htmlWebpackPlugin.options.head_settings %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+
+    <link rel="icon" type="image/svg+xml" href="/assets/favicons/yolan-favicon-theme.svg">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/assets/favicons/yolan-favicon-32.png">
     <title>yolan.design</title>
+
+    <style>
+        html {
+            --y-c-bg: hsl(25, 50%, 90%);
+            --y-c-fill: hsl(25, 15%, 15%);
+        }
+        @media (prefers-color-scheme: dark) {
+            html {
+                --y-c-bg: hsl(25, 25%, 5.5%);
+                --y-c-fill: hsl(25, 80%, 90%);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: "Parkinsans";
+            src: url('/assets/fonts/Parkinsans-VariableFont_wght.ttf');
+            font-weight: 1 999;
+        }
+        body {
+            background-color: var(--y-c-bg);
+            color: var(--y-c-fill);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100lvh;
+            margin: 0;
+            padding: 10em 1em;
+            font-family: "Parkinsans", sans-serif;
+        }
+        svg {
+            fill: var(--y-c-fill);
+            stroke: none;
+            overflow: visible;
+            user-select: none;
+        }
+        a svg {
+            width: 1.2em;
+            height: 1.2em;
+        }
+
+        .style-hidden {
+            opacity: 0;
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        a,
+        a:visited {
+            position: relative;
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5em;
+            user-select: none;
+            opacity: 0.85;
+
+            color: var(--y-c-fill);
+            text-decoration: none;
+        }
+        a::after {
+            content: "";
+            user-select: none;
+            pointer-events: none;
+            position: absolute;
+            top: 102%;
+            left: 0;
+            width: 100%;
+            height: 0px;
+            border: 0px dotted var(--y-c-fill);
+            border-bottom-width: 2px;
+            opacity: 0;
+        }
+        a:hover,
+        a:hover::after {
+            opacity: 1;
+        }
+        a:hover:active {
+            opacity: 0.65;
+        }
+        .links {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.65em;
+        }
+        .links a::after {
+            top: 120%;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1em;
+            width: 100%;
+            margin-top: 4em;
+        }
+        main > * {
+            position: relative;
+        }
+
+        .name {
+            flex-shrink: 1;
+            height: 5em;
+        }
+        .name svg {
+            max-width: 100%;
+            width: auto;
+            height: 100%;
+        }
+
+        section {
+            font-size: 15px;
+            margin-top: 8em;
+        }
+        section a {
+            opacity: 0.7;
+        }
+        section li + li {
+            margin-top: 1em;
+        }
+        section li > span {
+            margin-top: 0.35em;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                align-items: center;
+            }
+            .links {
+                flex-direction: column;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <%= htmlWebpackPlugin.options.noscript_error %>
 
-    <nav-anchors class="nav-menu--hide">
-        <div nav-anchor-link="approche" class="btn-interaction">
-            <span translate-id="anchor-approche"></span>
+    <main>
+        <div class="name">
+            <h1 class="style-hidden">yolan.design</h1>
+            <svg class="logo-yolan" viewBox="0 0 223.766 34.303">
+                <path data-name="a" d="M168.719,0h-8.668c-1.614,0-2.557,1.826-1.612,3.134.463.642.897,1.313,1.296,2.012.54.944.328,2.191-.591,2.772-.952.602-2.19.294-2.762-.649-3.093-5.546-8.71-9.254-15.125-9.254-9.755,0-17.663,8.571-17.663,19.144s7.908,19.144,17.663,19.144c6.43,0,12.056-3.725,15.145-9.291.577-.929,1.804-1.232,2.75-.629.916.584,1.126,1.829.588,2.773-.399.699-.831,1.37-1.293,2.012-.943,1.309,0,3.132,1.613,3.132h8.659c1.096,0,1.985-.889,1.985-1.985V1.985c0-1.096-.889-1.985-1.985-1.985ZM147.151,8.23c4.927,0,8.921,3.994,8.921,8.921s-3.994,8.921-8.921,8.921-8.921-3.994-8.921-8.921,3.994-8.921,8.921-8.921"/>
+                <path data-name="n" d="M200.21,8.23c4.927,0,8.921,3.994,8.921,8.921v15.167c0,1.096.889,1.985,1.985,1.985l10.666-.002c1.096,0,1.984-.889,1.984-1.985v-15.157c0-10.573-7.908-19.144-17.663-19.144-6.416,0-12.032,3.708-15.125,9.254-.572.942-1.809,1.251-2.761.649-.919-.581-1.131-1.829-.591-2.773.4-.699.833-1.37,1.296-2.011C189.867,1.826,188.924,0,187.31,0h-8.668c-1.096,0-1.985.889-1.985,1.985v30.331c0,1.096.888,1.984,1.984,1.985l10.662.003c1.096,0,1.985-.888,1.985-1.985v-15.167c0-4.927,3.994-8.921,8.921-8.921"/>
+                <path data-name="l" d="M125.427,46.195c-13.222,0-21.918-6.561-21.918-20.125V-7.911c0-1.096.889-1.985,1.985-1.985h8.855c1.096,0,1.985.889,1.985,1.985V26.07c0,6.948,6.097,8.031,10.01,8.2,1.06.046,1.891.921,1.891,1.981v7.96c0,1.096-.889,1.985-1.985,1.985h-.823Z"/>
+                <path data-name="o" d="M74.666-1.987c-13.009,0-23.555,8.571-23.555,19.144s10.546,19.144,23.555,19.144,23.554-8.571,23.554-19.144S87.674-1.987,74.666-1.987ZM74.667,8.227c4.927,0,8.921,3.994,8.921,8.921s-3.994,8.921-8.921,8.921-8.921-3.994-8.921-8.921,3.994-8.921,8.921-8.921"/>
+                <path data-name="y" d="M-.878,46.351c-.516.895-.267,2.045.587,2.627,4.871,3.324,10.659,5.126,16.621,5.126,11.924,0,29.49-7.305,29.49-29.49V1.981c0-1.096-.889-1.985-1.985-1.985h-14.264c-1.096,0-1.985.889-1.985,1.985v14.142c0,3.358-2.527,6.295-5.878,6.521-2.38.161-4.585-.981-5.822-2.985-1.16-1.879-1.262-4.179-.273-6.153l5.332-10.635C21.606,1.551,20.647-.004,19.171-.004H1.984C.888-.004,0,.885,0,1.981v14.926c0,6.222,2.12,11.012,5.967,13.977.042.03.082.061.121.093,2.879,2.171,6.706,3.337,11.32,3.337,9.602,0,17.415-7.816,17.408-17.42,0-1.091.894-1.97,1.985-1.97h0c1.108,0,1.986.909,1.984,2.017-.022,11.774-9.604,21.343-21.378,21.343-3.901,0-7.365-.717-10.309-2.068-.946-.434-2.063-.109-2.583.792L-.878,46.351Z"/>
+            </svg>
         </div>
-        <div nav-anchor-link="portfolio" class="btn-interaction">
-            <span translate-id="anchor-portfolio"></span>
+
+        <div class="links">
+            <a href="https://www.linkedin.com/in/yolan-design/" target="_blank" title="LinkedIn">
+                <svg data-name="linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+            </a>
+            <a href="https://www.instagram.com/yolan.design/" target="_blank" title="Instagram">
+                <svg data-name="instagram" viewBox="0 0 24 24"><path d="M7.03.08a8.76 8.76 0 0 0-2.91.57A5.7 5.7 0 0 0 2 2.05 5.88 5.88 0 0 0 .62 4.15c-.3.77-.5 1.64-.56 2.92A84.6 84.6 0 0 0 0 12.02c0 3.26.02 3.67.08 4.95.06 1.28.27 2.15.57 2.91.3.79.72 1.46 1.39 2.12a5.87 5.87 0 0 0 2.12 1.38c.77.3 1.64.5 2.92.56 1.27.05 1.69.06 4.94.06 3.26 0 3.67-.02 4.95-.08a8.78 8.78 0 0 0 2.91-.57A5.7 5.7 0 0 0 22 21.97a5.88 5.88 0 0 0 1.38-2.13c.3-.77.5-1.64.56-2.92.05-1.28.06-1.68.06-4.94 0-3.26-.02-3.67-.08-4.95a8.76 8.76 0 0 0-.57-2.91A5.9 5.9 0 0 0 21.97 2 5.86 5.86 0 0 0 19.84.62c-.77-.3-1.64-.5-2.92-.56A85.49 85.49 0 0 0 11.98 0C8.72 0 8.3.02 7.03.08m.14 21.7a6.66 6.66 0 0 1-2.23-.41 3.74 3.74 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.37 6.65 6.65 0 0 1-.42-2.23 84.83 84.83 0 0 1-.08-4.85c0-3.2 0-3.58.06-4.85a7.1 7.1 0 0 1 .4-2.23c.23-.56.49-.96.9-1.38a3.7 3.7 0 0 1 1.39-.9 6.65 6.65 0 0 1 2.22-.42c1.27-.06 1.65-.07 4.85-.07 3.2-.01 3.58 0 4.85.06 1.17.05 1.8.24 2.23.4.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.36 1.05.42 2.22.06 1.27.07 1.65.08 4.85 0 3.2 0 3.59-.06 4.85a6.66 6.66 0 0 1-.41 2.23c-.22.56-.48.96-.9 1.38a3.7 3.7 0 0 1-1.38.9c-.42.17-1.05.36-2.22.42a84.9 84.9 0 0 1-4.85.08c-3.2 0-3.58 0-4.85-.06m9.78-16.2a1.44 1.44 0 1 0 1.44-1.44 1.44 1.44 0 0 0-1.44 1.45M5.84 12a6.16 6.16 0 1 0 12.32 0 6.16 6.16 0 0 0-12.32 0M8 12a4 4 0 1 1 4 4 4 4 0 0 1-4-4" /></svg>
+            </a>
+            <a href="mailto:hello@yolan.design" target="_blank" title="Mail">
+                <svg data-name="mail" viewBox="0 0 64 64"><path d="M51.43,8.85H12.57c-4.96,0-9,4.04-9,9v28.3c0,4.96,4.04,9,9,9h38.87c4.96,0,9-4.04,9-9v-28.3c0-4.96-4.04-9-9-9ZM13.57,14.85h36.87c2.21,0,4,1.79,4,4v.94c0,.67-.33,1.29-.88,1.66l-20.45,13.75c-.67.45-1.56.45-2.23,0l-20.42-13.74c-.55-.37-.88-.99-.88-1.66v-.95c0-2.21,1.79-4,4-4ZM51.43,49.15H13.57c-2.21,0-4-1.79-4-4v-17.34l17.96,12.08c2.7,1.82,6.23,1.82,8.93,0l17.98-12.1v18.36c0,1.66-1.34,3-3,3Z" /></svg>
+            </a>
         </div>
-        <div nav-anchor-link="about" class="btn-interaction">
-            <span translate-id="anchor-about"></span>
-        </div>
-        <div nav-anchor-link="contact" class="btn-interaction">
-            <span translate-id="anchor-contact" translate-from="_general"></span>
-        </div>
-    </nav-anchors>
-
-    <%= htmlWebpackPlugin.options.part_nav %>
-    <%= htmlWebpackPlugin.options.part_page_transition %>
-
-
-    <main id="swup" class="swup_transition-page">
-
-        <section nav-anchor-section="landing-home" class="doc-margin-p">
-            <div>
-
-                <div class="top-container">
-                    <div class="img-container fill-to-margin-small--both">
-                        <img layout src="/assets/medias/placeholder.png">
-                    </div>
-
-                    <div class="content-txt-top">
-                        <div translate-id="landing-txt-top-title--html"></div>
-                        <div translate-id="landing-txt-top-subtitle--html"></div>
-                    </div>
-                </div>
-
-                <div class="content-txt-bottom ggrid">
-                    <h1 translate-id="landing-txt-bottom-keyword1"></h1>
-                    <h1 translate-id="landing-txt-bottom-keyword2"></h1>
-                    <div class="scroll-down-notice">
-                        <div class="btn-interaction" nav-anchor-link="approche">
-                            <y-component class="icon-arrow"></y-component>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- <section nav-anchor-section="showreel" class="doc-margin-p">
-            <div class="ggrid" nav-anchor-scroll="showreel">
-                <div class="showreel-container">
-                    <div class="showreel-in" layout y-onscroll-zoom-in>
-                        <video y-onscroll-zoom-in--in src="/assets/medias/placeholder.mp4" autoplay mute loop></video>
-                        <span class="invert-color" translate-id="showreel-video-txt"></span>
-                    </div>
-                </div>
-                <h2 data-scroll data-scroll-speed="0.16" translate-id="showreel-title"></h2>
-            </div>
-        </section> -->
-
-
-        <section nav-anchor-section="approche" dynamic_color-accent="rgb(42, 115, 240)">
-
-            <div class="section-head ggrid doc-margin-p">
-                <h2 translate-id="approche-title"></h2>
-                <div nav-anchor-scroll="approche" class="anchor-title expand-left align-right offset-h2-baseline"><span translate-id="anchor-approche"></span></div>
-            </div>
-
-            <div class="section-side_to_side m--bg-disect ggrid doc-margin-p">
-                <div class="media-container fill-to-margin-small--left" layout y-onscroll-zoom-in>
-                    <video y-onscroll-zoom-in--in src="/assets/medias/placeholder.mp4" autoplay mute loop></video>
-                </div>
-                <div class="content-container" y-animonview--ignore-children>
-                    <wrapper>
-
-                        <div class="card-content medium-large no-border svg-accent" data-scroll data-scroll-speed="0.2">
-                            <wrapper y-animonview--id="fadeIn">
-                                <div class="head">
-                                    <div class="icon">
-                                        <svg id="icon-star" viewBox="0 0 64 64">
-                                            <g>
-                                                <path class="stroke" d="M34,64h-4c0-16.57-13.43-30-30-30v-4C16.57,30,30,16.57,30,0h4c0,16.57,13.43,30,30,30v4c-16.57,0-30,13.43-30,30Z" />
-                                                <path class="fill" d="M32.99,39.49h-1.98c0-3.59-2.91-6.5-6.5-6.5v-1.98c3.59,0,6.5-2.91,6.5-6.5h1.98c0,3.59,2.91,6.5,6.5,6.5v1.98c-3.59,0-6.5,2.91-6.5,6.5Z"  class=""/>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <h3 class="title" y-animonview--ignore translate-id="approche-card-1-title--html"></h3>
-                                </div>
-                                <div class="content">
-                                    <span translate-id="approche-card-1-content"></span>
-                                </div>
-                            </wrapper>
-                        </div>
-
-                        <div class="card-content medium-large no-border svg-accent" data-scroll data-scroll-speed="0.175">
-                            <wrapper y-animonview--id="fadeIn">
-                                <div class="head">
-                                    <div class="icon">
-                                        <svg id="icon-precise" viewBox="0 0 64 64">
-                                            <g class="stroke">
-                                                <path d="M32,64C14.33,64,0,49.67,0,32S14.33,0,32,0,64,14.33,64,32" />
-                                                <path d="M32,52.61c-11.36,0-20.61-9.24-20.61-20.61s9.24-20.61,20.61-20.61,20.61,9.24,20.61,20.61" />
-                                                <polyline points="29.96 43.64 28 28 43.64 29.96" />
-                                                <line x1="28" y1="28" x2="64" y2="64" />
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <h3 class="title" y-animonview--ignore translate-id="approche-card-2-title--html"></h3>
-                                </div>
-                                <div class="content">
-                                    <span translate-id="approche-card-2-content"></span>
-                                </div>
-                            </wrapper>
-                        </div>
-
-                        <div class="card-content medium-large no-border svg-accent" data-scroll data-scroll-speed="0.135">
-                            <wrapper y-animonview--id="fadeIn">
-                                <div class="head">
-                                    <div class="icon">
-                                        <svg id="icon-partner" viewBox="0 0 64 64">
-                                            <g class="stroke">
-                                                <path d="M38.16,30.53c1.01-.9,2.48-1.22,3.84-.71l5.42,2.03c.47.17.95-.31.72-.77-.72-1.46-.85-3.22-.24-4.87,1.21-3.22,4.81-4.84,8.01-3.59,3.17,1.24,4.75,4.98,3.46,8.11-.64,1.55-1.85,2.71-3.31,3.32-.46.2-.42.87.05,1.04l5.42,2.03c1.97.74,2.96,2.92,2.23,4.88l-7.31,19.54c-.73,1.96-2.92,2.96-4.88,2.22l-19.53-7.3c-1.96-.74-2.96-2.92-2.23-4.88l2.03-5.43c.18-.48.86-.5,1.05-.04.61,1.45,1.77,2.65,3.32,3.3,3.13,1.3,6.87-.29,8.1-3.45,1.25-3.21-.37-6.81-3.58-8.01-.91-.34-1.84-.45-2.75-.37" />
-                                                <path d="M37.98,37.58c-.14.2-.3.39-.47.57-2.32,2.47-6.39,2.54-8.81.16-1.19-1.17-1.81-2.73-1.84-4.3-.01-.5-.64-.73-.98-.35l-3.92,4.27c-1.41,1.54-3.81,1.65-5.35.23l-4.28-3.91c-.37-.34-.15-.98.36-.99,1.57-.02,3.12-.64,4.3-1.84,2.38-2.42,2.3-6.48-.16-8.81-2.51-2.36-6.46-2.2-8.77.33-1.2,1.3-1.73,2.98-1.61,4.61.04.5-.58.78-.95.44l-4.27-3.92c-1.55-1.41-1.65-3.81-.24-5.35L15.08,3.34c1.42-1.55,3.82-1.65,5.36-.24l4.27,3.92c.38.34.99.06.95-.44-.11-1.57.37-3.17,1.46-4.45,2.2-2.58,6.26-2.86,8.79-.6,2.57,2.29,2.76,6.23.45,8.76-1.2,1.31-2.82,1.98-4.46,2-.5.01-.72.65-.35.99l4.27,3.91c1.54,1.42,1.65,3.82.23,5.36l-3.91,4.27c-.34.37-.07.99.44.95,1.63-.11,3.31.42,4.61,1.61.38.35.71.74.97,1.15,1.42,2.12,1.38,4.95-.18,7.05Z" />
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <h3 class="title" y-animonview--ignore translate-id="approche-card-3-title--html"></h3>
-                                </div>
-                                <div class="content">
-                                    <span translate-id="approche-card-3-content"></span>
-                                </div>
-                            </wrapper>
-                        </div>
-
-                        <y-component class="btn-pill fill_width" yc-type--button data-scroll data-scroll-speed="0.1" yc-attr--action--nav-anchor-link="contact" yc-attr--translate--translate-id="approche-btn"></y-component>
-
-                    </wrapper>
-                </div>
-            </div>
-
-        </section>
-
-
-        <section nav-anchor-section="portfolio">
-
-            <div class="section-head ggrid doc-margin-p">
-                <div nav-anchor-scroll="portfolio" class="anchor-title expand-right offset-h2-baseline"><span translate-id="anchor-portfolio"></span></div>
-                <h2 translate-id="portfolio-title"></h2>
-            </div>
-
-
-            <div class="projects-list">
-
-            </div>
-
-
-            <div class="cta-portfolio doc-margin-p">
-                <wrapper class="ggrid grid-center-v stroke-around lift">
-
-                    <!-- <y-component class="icon-arrow"></y-component> -->
-
-                    <span translate-id="portfolio-cta-txt"></span>
-
-                    <div>
-                        <a class="discrete btn-interaction" y-animonview--id="fadeIn" href="/portfolio">
-                            <div class="ico-txt">
-                                <y-component class="icon-arrow"></y-component>
-                                <span translate-id="portfolio-cta-btn"></span>
-                            </div>
-                            <span>22</span>
-                        </a>
-                    </div>
-
-                </wrapper>
-            </div>
-
-        </section>
-
-
-        <section nav-anchor-section="about" class="section-side_to_side section-transition ggrid doc-margin-p has-anchor">
-            <div class="content-container">
-                <wrapper>
-                    <h3 class="title" translate-id="transition-about-title" translate-from="_general"></h2>
-                    <div class="content">
-                        <p translate-id="transition-about-desc" translate-from="_general"></p>
-                        <y-component class="btn-pill" yc-type--a yc-attr--action--href="/about" yc-attr--translate--translate-id="transition-about-btn" yc-attr--translate--translate-from="_general"></y-component>
-                    </div>
-                </wrapper>
-            </div>
-            <div class="media-container fill-to-margin-small--right" layout y-onscroll-zoom-in>
-                <img y-onscroll-zoom-in--in src="/assets/medias/placeholder.png">
-            </div>
-
-            <div class="anchor-container ggrid doc-margin-p">
-                <div nav-anchor-scroll="about" class="anchor-title expand-left"><span translate-id="anchor-about"></span></div>
-            </div>
-        </section>
-
-
-        <%= htmlWebpackPlugin.options.part_footer %>
     </main>
 
-    <%= htmlWebpackPlugin.options.part_ggrid %>
+    <section>
+        <p>Portfolio toujours en construction.</p>
+        <ul>
+            <li>
+                <a href="/wip" target="_blank">
+                    <span>en cours</span>
+                    <svg data-name="link-out" viewBox="0 0 64 64">
+                        <path d="M52.89,44.32h2.5c.97,0,1.75.78,1.75,1.75v4.71c0,4.97-4.03,9-9,9H13.21c-4.97,0-9-4.03-9-9V15.86c0-4.97,4.03-9,9-9h4.71c.97,0,1.75.78,1.75,1.75v2.5c0,.97-.78,1.75-1.75,1.75h-3.71c-2.21,0-4,1.79-4,4v32.93c0,2.21,1.79,4,4,4h32.93c2.21,0,4-1.79,4-4v-3.71c0-.97.78-1.75,1.75-1.75ZM30.68,5.96v2.5c0,.97.78,1.75,1.75,1.75h17.12l-21.75,21.75c-.68.68-.68,1.79,0,2.47l1.77,1.77c.68.68,1.79.68,2.47,0l21.75-21.75v17.12c0,.97.78,1.75,1.75,1.75h2.5c.97,0,1.75-.78,1.75-1.75V7.21c0-1.66-1.34-3-3-3h-24.36c-.97,0-1.75.78-1.75,1.75Z"/>
+                    </svg>
+                </a>
+                <span>pas le temps de le continuer (mise à jour : juin 2024)</span>
+            </li>
+            <li>
+                <a href="https://yolan.art" target="_blank">
+                    <span>yolan.art</span>
+                    <svg data-name="link-out" viewBox="0 0 64 64">
+                        <path d="M52.89,44.32h2.5c.97,0,1.75.78,1.75,1.75v4.71c0,4.97-4.03,9-9,9H13.21c-4.97,0-9-4.03-9-9V15.86c0-4.97,4.03-9,9-9h4.71c.97,0,1.75.78,1.75,1.75v2.5c0,.97-.78,1.75-1.75,1.75h-3.71c-2.21,0-4,1.79-4,4v32.93c0,2.21,1.79,4,4,4h32.93c2.21,0,4-1.79,4-4v-3.71c0-.97.78-1.75,1.75-1.75ZM30.68,5.96v2.5c0,.97.78,1.75,1.75,1.75h17.12l-21.75,21.75c-.68.68-.68,1.79,0,2.47l1.77,1.77c.68.68,1.79.68,2.47,0l21.75-21.75v17.12c0,.97.78,1.75,1.75,1.75h2.5c.97,0,1.75-.78,1.75-1.75V7.21c0-1.66-1.34-3-3-3h-24.36c-.97,0-1.75.78-1.75,1.75Z"/>
+                    </svg></a>
+                <span>obsolète (mise à jour : mars 2023)</span>
+            </li>
+        </ul>
+    </section>
 
 </body>
 </html>

@@ -4,13 +4,13 @@ noscript_error: `<noscript><div class="ERROR" translate="yes"><div><span class="
 part_nav: `
 <nav-menu class="ggrid doc-margin-p">
     <div class="nav-pages">
-        <a id="nav-pagelink-home" class="btn-interaction" href="/">
+        <a id="nav-pagelink-home" class="btn-interaction" href="/wip">
             <span translate-id="nav-page-home" translate-from="_general"></span>
         </a>
-        <a id="nav-pagelink-portfolio" class="btn-interaction" href="/portfolio">
+        <a id="nav-pagelink-portfolio" class="btn-interaction" href="/wip/portfolio">
             <span translate-id="nav-page-portfolio" translate-from="_general"></span>
         </a>
-        <a id="nav-pagelink-about" class="btn-interaction" href="/about">
+        <a id="nav-pagelink-about" class="btn-interaction" href="/wip/about">
             <span translate-id="nav-page-about" translate-from="_general"></span>
         </a>
     </div>
@@ -33,7 +33,7 @@ part_nav: `
 
 <nav-bar class="ggrid doc-margin-p invert">
     <div class="logo align-center">
-        <a class="nav-menu--hide flex-center btn-interaction" href="/">
+        <a class="nav-menu--hide flex-center btn-interaction" href="/wip">
             <svg id="yolan-xcap" viewBox="0 0 268.37 55.92">
                 <g>
                     <path d="M133.04-22.04h13.19v77.96h-13.19V-22.04z M51.63,0h14.27L33.61,77.96H19.34L51.63,0z M32.95,45.1H18.68L0,0h14.27 L32.95,45.1z M124.03,28.01c0,16.1-13.05,29.14-29.14,29.14S65.74,44.11,65.74,28.01S78.79-1.13,94.89-1.13 S124.03,11.92,124.03,28.01z M94.89,10.93c-9.44,0-17.08,7.65-17.08,17.08S85.45,45.1,94.89,45.1s17.08-7.65,17.08-17.08 S104.32,10.93,94.89,10.93z M265.57,9.01c-1.88-3.19-4.51-5.68-7.89-7.47c-2.29-1.2-4.77-1.99-7.44-2.39 c-5.25-0.79-9.58-0.19-12.77,1.52c-9.56,5.15-9.26,14.43-9.26,14.43h-5.75l6.21-15h-11.54v55.82h13.19V23.07 c0-3.84,1.15-6.92,3.46-9.22c2.31-2.3,5.33-3.45,9.08-3.45c2.38,0,4.5,0.51,6.38,1.55c1.87,1.03,3.33,2.51,4.38,4.43 c1.04,1.92,1.57,4.16,1.57,6.69v32.85h13.19V19.88C268.37,15.83,267.44,12.2,265.57,9.01L265.57,9.01z M195.65,40.42h5.93 l-6.42,15.5h11.45V18.54c0-3.85-1.01-7.26-3.03-10.25c-2.02-2.99-4.87-5.3-8.54-6.95s-7.82-2.47-12.44-2.47 c-5.77,0-10.92,1.3-15.46,3.91c-4.54,2.61-7.68,6.04-9.41,10.3l10.48,6.05l0.45-0.9c1.15-2.61,2.92-4.69,5.3-6.23 c2.38-1.55,5.12-2.32,8.22-2.32c3.32,0,6.02,0.84,8.11,2.52c2.09,1.68,3.14,3.79,3.14,6.33v2.01l-18.06,2.83 c-6.71,1.03-11.73,3.07-15.09,6.13c-3.35,3.06-5.03,6.95-5.03,11.69c0,3.16,0.83,5.96,2.49,8.39c1.66,2.44,4,4.31,7.03,5.61 s6.56,1.96,10.6,1.96c4.19,0,7.95-0.43,10.59-1.62C195.71,51.12,195.65,40.42,195.65,40.42L195.65,40.42z M168.98,40.68 c0-2.06,0.74-3.76,2.22-5.1c1.48-1.34,3.69-2.25,6.65-2.73l15.57-2.59v2.7c0,2.68-0.67,5.11-2,7.31c-1.34,2.2-3.21,3.95-5.62,5.25 c-2.42,1.31-5.14,1.96-8.16,1.96c-2.52,0-4.6-0.63-6.22-1.91C169.79,44.3,168.98,42.67,168.98,40.68L168.98,40.68z" />
@@ -51,7 +51,7 @@ part_nav: `
 </nav-bar>
 <nav-bar class="ggrid doc-margin-p invert-fix">
     <div class="logo align-center">
-        <a class="nav-menu--hide flex-center btn-interaction" href="/">
+        <a class="nav-menu--hide flex-center btn-interaction" href="/wip">
             <svg id="yolan-xcap" viewBox="0 0 268.37 55.92">
                 <g>
                     <path d="M133.04-22.04h13.19v77.96h-13.19V-22.04z M51.63,0h14.27L33.61,77.96H19.34L51.63,0z M32.95,45.1H18.68L0,0h14.27 L32.95,45.1z M124.03,28.01c0,16.1-13.05,29.14-29.14,29.14S65.74,44.11,65.74,28.01S78.79-1.13,94.89-1.13 S124.03,11.92,124.03,28.01z M94.89,10.93c-9.44,0-17.08,7.65-17.08,17.08S85.45,45.1,94.89,45.1s17.08-7.65,17.08-17.08 S104.32,10.93,94.89,10.93z M265.57,9.01c-1.88-3.19-4.51-5.68-7.89-7.47c-2.29-1.2-4.77-1.99-7.44-2.39 c-5.25-0.79-9.58-0.19-12.77,1.52c-9.56,5.15-9.26,14.43-9.26,14.43h-5.75l6.21-15h-11.54v55.82h13.19V23.07 c0-3.84,1.15-6.92,3.46-9.22c2.31-2.3,5.33-3.45,9.08-3.45c2.38,0,4.5,0.51,6.38,1.55c1.87,1.03,3.33,2.51,4.38,4.43 c1.04,1.92,1.57,4.16,1.57,6.69v32.85h13.19V19.88C268.37,15.83,267.44,12.2,265.57,9.01L265.57,9.01z M195.65,40.42h5.93 l-6.42,15.5h11.45V18.54c0-3.85-1.01-7.26-3.03-10.25c-2.02-2.99-4.87-5.3-8.54-6.95s-7.82-2.47-12.44-2.47 c-5.77,0-10.92,1.3-15.46,3.91c-4.54,2.61-7.68,6.04-9.41,10.3l10.48,6.05l0.45-0.9c1.15-2.61,2.92-4.69,5.3-6.23 c2.38-1.55,5.12-2.32,8.22-2.32c3.32,0,6.02,0.84,8.11,2.52c2.09,1.68,3.14,3.79,3.14,6.33v2.01l-18.06,2.83 c-6.71,1.03-11.73,3.07-15.09,6.13c-3.35,3.06-5.03,6.95-5.03,11.69c0,3.16,0.83,5.96,2.49,8.39c1.66,2.44,4,4.31,7.03,5.61 s6.56,1.96,10.6,1.96c4.19,0,7.95-0.43,10.59-1.62C195.71,51.12,195.65,40.42,195.65,40.42L195.65,40.42z M168.98,40.68 c0-2.06,0.74-3.76,2.22-5.1c1.48-1.34,3.69-2.25,6.65-2.73l15.57-2.59v2.7c0,2.68-0.67,5.11-2,7.31c-1.34,2.2-3.21,3.95-5.62,5.25 c-2.42,1.31-5.14,1.96-8.16,1.96c-2.52,0-4.6-0.63-6.22-1.91C169.79,44.3,168.98,42.67,168.98,40.68L168.98,40.68z" />
@@ -107,15 +107,15 @@ part_footer: `
 
                     <div class="links" style="grid-column: 1 / 4;">
                         <span translate-id="footer-sitemap" translate-from="_general"></span>
-                        <a class="ico-txt btn-interaction" href="/">
+                        <a class="ico-txt btn-interaction" href="/wip">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
                             <span translate-id="nav-page-home" translate-from="_general"></span>
                         </a>
-                        <a class="ico-txt btn-interaction" href="/portfolio">
+                        <a class="ico-txt btn-interaction" href="/wip/portfolio">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
                             <span translate-id="nav-page-portfolio" translate-from="_general"></span>
                         </a>
-                        <a class="ico-txt btn-interaction" href="/about">
+                        <a class="ico-txt btn-interaction" href="/wip/about">
                             <svg class="icon-arrow" viewBox="0 0 24 24" style="clip-path: polygon(0 0, 25% -25%, 100% 50%, 25% 125%, 0 100%);"><line x1="24" y1="12" x2="0" y2="12" /><polyline points="14.076 2.076 24 12 14.076 21.924" /></svg>
                             <span translate-id="nav-page-about" translate-from="_general"></span>
                         </a>
